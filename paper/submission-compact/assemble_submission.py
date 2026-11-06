@@ -78,7 +78,9 @@ def expand_inputs(value):
 
 main = ""
 main += save_section("main-introduction", original(127, 185))
-main += save_section("main-related", original(186, 219) + original(296, 394) + bridge("related"))
+main += save_section("main-related", original(186, 219) + bridge("allocation-context")
+                     + original(296, 338) + bridge("adaptation-context")
+                     + original(339, 394) + bridge("related"))
 main += save_section("main-system", bridge("system") + original(501, 576)
                      + "\\afterpage{\n" + original(405, 413) + "}\n")
 main += save_section("main-model", original(601, 787) + original(823, 910) + bridge("model"))
@@ -98,7 +100,8 @@ main += save_section("main-holdout", bridge("holdout-heading")
                      + take("locked-evidence-section.tex", 244, 279)
                      + take("locked-evidence-section.tex", 295, 307)
                      + bridge("ablation") + take("locked-evidence-section.tex", 521, 534))
-main += save_section("main-discussion", original(1869, 1905) + original(1943, 1949)
+main += save_section("main-discussion", original(1869, 1890) + bridge("evaluation-context")
+                     + original(1891, 1905) + original(1943, 1949)
                      + original(1950, 1969) + bridge("conclusion"))
 
 # Detailed passages remain intact, with short repeated definitions where a

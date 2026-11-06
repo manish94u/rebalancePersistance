@@ -33,8 +33,15 @@
     {
       "source": "Rebalancing-Connection-Reference.tex",
       "first": 296,
+      "last": 338,
+      "sha256": "faff1e77a61a932925f3b5e8d51b2f8d66ea944e593c54d8cb92fb57dd696d70",
+      "destination": "sections/main-related.tex"
+    },
+    {
+      "source": "Rebalancing-Connection-Reference.tex",
+      "first": 339,
       "last": 394,
-      "sha256": "896b9e1ad1dabade38bb309960a991781d36c2b7441ed64da73ab25fb60b7fe4",
+      "sha256": "fc0330c54933640b824a6e62460d7543769ff0d5196115f469ef8e3749e2a486",
       "destination": "sections/main-related.tex"
     },
     {
@@ -173,8 +180,15 @@
     {
       "source": "Rebalancing-Connection-Reference.tex",
       "first": 1869,
+      "last": 1890,
+      "sha256": "46b7174f67aa41ecdb45c17116754227e3acf821ab07e09768e9a3c3dfe088b8",
+      "destination": "sections/main-discussion.tex"
+    },
+    {
+      "source": "Rebalancing-Connection-Reference.tex",
+      "first": 1891,
       "last": 1905,
-      "sha256": "3f0bc37657b837d4588587ede6730839d0e525fd1137f8d65e9aeb902c8e00c0",
+      "sha256": "f05ae0ac00d68deff4085e65b090005132f43bde316ea83146c104027684e88b",
       "destination": "sections/main-discussion.tex"
     },
     {

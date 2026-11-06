@@ -1,5 +1,73 @@
-% Only navigation, section summaries, and the compact control-loop summary
-% are newly written. Extracted research text remains in the parent manuscript.
+% New navigation, summaries, citation context, and the compact control loop
+% are isolated here. Extracted research text remains in the parent manuscript.
+
+% BEGIN allocation-context
+\subsection{Resource Allocation and Scheduling}
+
+Resource allocation offers relevant control designs, but acts on different
+objects. Chen et al. combine predicted Q-values with feedback control to
+allocate cloud-service resources \cite{Chen2022RLFeedback}. Their
+workload-window approach accounts for current and future demand
+\cite{Chen2023WorkloadWindows}. Actor--critic allocation addresses dynamic
+resource assignment in datacenters \cite{Chen2022ActorCritic}. Caviglione
+et al. instead use DRL to choose among VM-placement heuristics with several
+objectives \cite{Caviglione2021VMPlacement}. This is relevant to separating
+action selection from execution. Here, the executed action changes a
+subscription binding or a persistent connection, rather than VM placement.
+
+Task schedulers also combine resource pressure with service objectives.
+Ding et al. separate cloud-level task dispatch from per-server Q-learning
+scheduling \cite{Ding2020QLearningCloud}. Chen et al. coordinate heterogeneous
+workflows subject to task-continuity constraints
+\cite{Chen2023CollaborativeScheduling}. Li et al. use DRL for energy-aware
+Spark executor allocation under execution-time constraints
+\cite{Li2023SparkDRL}. Cheng et al. study preemptive scheduling to reduce
+cloud-job cost \cite{Cheng2023PreemptiveCloud}, while Liu et al. include
+inter-region bandwidth and transfer cost in data-intensive task placement
+\cite{Liu2026GeoDRL}. The review by Sanjalawe et al. places these scheduling
+objectives within the wider AI-based cloud literature
+\cite{Sanjalawe2025AIJobScheduling}. Our comparison concerns a different
+execution requirement: preserving the evaluated transport endpoint while
+transferring delivery ownership between existing client sessions.
+
+Edge offloading provides related examples of constrained action selection.
+Hortelano et al. classify RL approaches by their architectures, objectives,
+and changing operating conditions \cite{Hortelano2023RLOffloading}. Huang
+et al. learn binary offloading choices for wireless-powered devices
+\cite{Huang2020Offloading}. Jayanetti et al. separate edge/cloud-tier selection
+from node selection for precedence-constrained tasks
+\cite{Jayanetti2022EdgeCloudScheduling}. These studies help distinguish the
+decision space from the physical operation it controls. In this paper,
+bounded templates select subscription redistribution or retained-probe
+promotion, and receipt checks govern the resulting handoff.
+
+% END allocation-context
+
+% BEGIN adaptation-context
+Monitoring and policy adaptation also need separate treatment. DEMon uses
+decentralized monitoring with adaptive parameters to balance information
+quality and resource use \cite{Ilager2026DEMon}. Our observation boundary is
+narrower: each client sees its active endpoints and one retained probe.
+Gheibi and Weyns study drift in the quality of available adaptation options
+\cite{Gheibi2024AdaptationDrift}. This supports distinguishing a stored policy
+from the conditions under which it was evaluated. Casimiro et al. use
+probabilistic model checking to select adaptations of ML-based systems
+\cite{Casimiro2024ModelChecking}. Our execution guards check concrete handoff
+conditions; they are not a model-checking guarantee for the learned policy.
+
+% END adaptation-context
+
+% BEGIN evaluation-context
+RL evaluation also separates adaptation from regression. Biagiola and Tonella
+test how RL systems adapt to changed environments while retaining prior
+capabilities \cite{Biagiola2022Plasticity}. Patterson et al. discuss performance
+variation, baseline construction, hyperparameter selection, and experimenter
+bias in empirical RL \cite{Patterson2024EmpiricalDesign}. These concerns motivate
+reporting the training, frozen-policy comparison, and live handoff evidence
+separately. A successful handoff and a higher comparative reward answer
+different evaluation questions.
+
+% END evaluation-context
 
 % BEGIN related
 The broader cloud-scheduling and edge-computing context is retained in

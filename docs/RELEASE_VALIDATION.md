@@ -6,6 +6,8 @@ The later [venue-neutral edition](VENUE_NEUTRAL_REVISION.md) changes publication
 metadata only and adds three regression checks for document preambles,
 preserved data fields, and synchronized reviewer archives. The original export
 validation below remains a record of that first package.
+The subsequent [reference restoration](REFERENCE_RESTORATION.md) brings the
+main paper to 43 cited works and 27 pages, without changing experimental data.
 
 This records verification of the repository export, not a new scientific
 experiment or a rerun of the historical cloud trials.

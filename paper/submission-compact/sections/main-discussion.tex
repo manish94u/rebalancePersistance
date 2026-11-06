@@ -20,6 +20,15 @@ training completion from action coverage. The validation protocol uses
 action-coverage, fault-safety, churn, and performance gates to assess each
 frozen policy.
 
+RL evaluation also separates adaptation from regression. Biagiola and Tonella
+test how RL systems adapt to changed environments while retaining prior
+capabilities \cite{Biagiola2022Plasticity}. Patterson et al. discuss performance
+variation, baseline construction, hyperparameter selection, and experimenter
+bias in empirical RL \cite{Patterson2024EmpiricalDesign}. These concerns motivate
+reporting the training, frozen-policy comparison, and live handoff evidence
+separately. A successful handoff and a higher comparative reward answer
+different evaluation questions.
+
 \section{Discussion}
 
 The main systems finding is that subscriber capacity and client access to that

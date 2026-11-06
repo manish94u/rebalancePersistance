@@ -3,6 +3,7 @@
 import importlib.util
 import json
 from pathlib import Path
+import re
 import tempfile
 import unittest
 
@@ -13,6 +14,20 @@ spec.loader.exec_module(checker)
 
 
 class PublicationPackageTests(unittest.TestCase):
+    def test_main_paper_has_43_explicitly_cited_references(self):
+        compact = ROOT / "paper/submission-compact"
+        text = (compact / "Main_Manuscript.tex").read_text()
+        text += "\n".join(path.read_text() for path in
+                          sorted((compact / "sections").glob("main-*.tex")))
+        keys = {key.strip() for group in re.findall(r"\\cite\w*\{([^}]+)\}", text)
+                for key in group.split(",")}
+        self.assertEqual(len(keys), 43)
+        self.assertNotIn(r"\nocite", text)
+        entries = re.findall(r"@\w+\s*\{\s*([^,\s]+)\s*,",
+                             (compact / "example.bib").read_text())
+        for key in keys:
+            self.assertEqual(entries.count(key), 1, key)
+
     def test_imported_sources_match_documented_digests(self):
         self.assertGreater(checker.verify_imports(), 100)
 

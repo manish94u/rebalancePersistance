@@ -2,12 +2,14 @@
 
 Initially prepared on 4 November 2026. This directory is separate from the
 full reference manuscript. The repository edition uses venue-neutral metadata
-in both documents and the reference copy; the original research workspace,
-scientific text, figures, measurements, and bibliography remain unchanged.
+in both documents and the reference copy. The original research workspace,
+figures, measurements, and bibliography database remain unchanged. On
+6 November 2026, short citation-context passages restored 18 existing works to
+the main paper, bringing its explicitly cited reference count to 43.
 
 ## Deliverables
 
-- `Main_Manuscript.pdf`: 25 pages, including references.
+- `Main_Manuscript.pdf`: 27 pages, including 43 references.
 - `Online_Appendix.pdf`: 53 pages, including its contents and references.
 - The corresponding `.tex` files and `sections/` directory are editable.
 - `reviewer-evidence.zip` contains the redacted reviewer artifact with generic
@@ -23,8 +25,10 @@ altered to meet the length target.
 
 This is primarily a relocation, not a rewrite. Original passages are extracted
 by `assemble_submission.py`. The short navigation sentences, TTL and ablation
-summaries, and compact control-loop algorithm are isolated in
+summaries, added related-work/evaluation context, and compact control-loop algorithm are isolated in
 `editorial-bridges.tex`. Original detailed algorithms remain in the supplement.
+The [reference-restoration record](../../docs/REFERENCE_RESTORATION.md) maps each
+added citation to its role. Existing research passages and results are preserved.
 
 The main paper retains the shared greedy/DQL framing, retained-probe architecture,
 receipt-gated protocol, core mathematical definitions, 20,000-subscription
@@ -43,7 +47,7 @@ This accounts for the combined length exceeding the reference manuscript.
 | Reference material | Main paper | Online supplement |
 | --- | --- | --- |
 | Introduction and contributions | Retained | No replacement text |
-| Related work | Persistent messaging, stream processing, autonomic control, comparison table | E: broader cloud and edge literature |
+| Related work | Persistent messaging, stream processing, concise resource-allocation context, autonomic control, comparison table | E: extended cloud and edge literature |
 | System model | Core architecture and complete handoff protocol | F: original component descriptions and overview figure |
 | Mathematical formulation | Queue/backlog definitions, observation boundary, imbalance, pressure, reward | A: reference scales, global objective, complete proofs; B: notation |
 | Runtime algorithms | Policy roles, Q-learning equations, configuration, compact control loop | C: complete sizing, rebalancing, DQL algorithms, checkpoints and diagrams |
@@ -112,6 +116,7 @@ compiler without replacing the open reference document.
 - All 48 original equation/align blocks and four proposition/proof blocks kept.
 - All 22 original tables, 24 figures and three detailed algorithms kept.
 - All 51 originally cited reference keys retained with their source passages.
+- Exactly 43 distinct works explicitly cited in the main paper; no `\nocite` padding.
 - No unmatched nontrivial original prose lines.
 
 Only reference wrappers and whitespace are normalized for the protected-block

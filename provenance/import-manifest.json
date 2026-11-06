@@ -383,9 +383,9 @@
     {
       "path": "paper/submission-compact/Main_Manuscript.pdf",
       "source_sha256": "484a053ecc6cee54bf157033062c77582cfc7aa327e6c7ba1430c595b7fc07f7",
-      "previous_packaged_sha256": "484a053ecc6cee54bf157033062c77582cfc7aa327e6c7ba1430c595b7fc07f7",
-      "packaged_sha256": "4af2bc04b8e5f0b411d3b2128fc259808d8145109f79822aea47849fc4a36cad",
-      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
+      "previous_packaged_sha256": "4af2bc04b8e5f0b411d3b2128fc259808d8145109f79822aea47849fc4a36cad",
+      "packaged_sha256": "76a09a3278651cc055706119738710b0d5208e6566c639316033649a29c13ea0",
+      "change_reason": "Restore 18 existing references to relevant main-paper context for 43 cited works; refresh the two PDFs, extraction records, and documentation. Original results, equations, figures, evidence, and reference source unchanged."
     },
     {
       "path": "paper/submission-compact/Main_Manuscript.tex",
@@ -397,9 +397,9 @@
     {
       "path": "paper/submission-compact/Online_Appendix.pdf",
       "source_sha256": "d145539236911824c5f7645f40dce0ac9ce2941f3a72deba10fe031c83fd5b73",
-      "previous_packaged_sha256": "d145539236911824c5f7645f40dce0ac9ce2941f3a72deba10fe031c83fd5b73",
-      "packaged_sha256": "63a3ad7fe9a2f18e0385579775c5c4a3ac4bdd913ec8b5ea25fc3753c8b0a8b9",
-      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
+      "previous_packaged_sha256": "63a3ad7fe9a2f18e0385579775c5c4a3ac4bdd913ec8b5ea25fc3753c8b0a8b9",
+      "packaged_sha256": "f0619eac198eeced6c7f6ae214ad70026e025fca20378b069cbabc659fa4345a",
+      "change_reason": "Restore 18 existing references to relevant main-paper context for 43 cited works; refresh the two PDFs, extraction records, and documentation. Original results, equations, figures, evidence, and reference source unchanged."
     },
     {
       "path": "paper/submission-compact/Online_Appendix.tex",
@@ -415,9 +415,9 @@
     {
       "path": "paper/submission-compact/README.md",
       "source_sha256": "365cdaafd724cc7bd56ddebd79e7c426d6fea83a13e48c0a0afe3496622a1d9d",
-      "previous_packaged_sha256": "365cdaafd724cc7bd56ddebd79e7c426d6fea83a13e48c0a0afe3496622a1d9d",
-      "packaged_sha256": "3614f742462c319a0559eb70602298ab0f7136017312dc398ac5e4f924d8c782",
-      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
+      "previous_packaged_sha256": "3614f742462c319a0559eb70602298ab0f7136017312dc398ac5e4f924d8c782",
+      "packaged_sha256": "1625381ae684da45859a168201b005b4ac586e35fed885e929a571d71992b3b9",
+      "change_reason": "Restore 18 existing references to relevant main-paper context for 43 cited works; refresh the two PDFs, extraction records, and documentation. Original results, equations, figures, evidence, and reference source unchanged."
     },
     {
       "path": "paper/submission-compact/System-Architecture.jpg",
@@ -426,9 +426,9 @@
     {
       "path": "paper/submission-compact/assemble_submission.py",
       "source_sha256": "2132b7544834e564bceb206f3efe4cea6fa021ffb25453a666d011efa3bed9e7",
-      "previous_packaged_sha256": "2132b7544834e564bceb206f3efe4cea6fa021ffb25453a666d011efa3bed9e7",
-      "packaged_sha256": "361993aa8279298588cceb4f88f37db423fee833b16f309c55f7015607ae4f28",
-      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
+      "previous_packaged_sha256": "361993aa8279298588cceb4f88f37db423fee833b16f309c55f7015607ae4f28",
+      "packaged_sha256": "6715873fa45160cf0a06cf8372ebf779b1ac47c95b310b5b80ba1e6bc9c49b2a",
+      "change_reason": "Restore 18 existing references to relevant main-paper context for 43 cited works; refresh the two PDFs, extraction records, and documentation. Original results, equations, figures, evidence, and reference source unchanged."
     },
     {
       "path": "paper/submission-compact/build_submission.py",
@@ -438,7 +438,10 @@
     },
     {
       "path": "paper/submission-compact/editorial-bridges.tex",
-      "source_sha256": "8cfbb0b36cb9e46560e6bd95744a70f267311ee1de0233cb23735af9ea1f3ed7"
+      "source_sha256": "8cfbb0b36cb9e46560e6bd95744a70f267311ee1de0233cb23735af9ea1f3ed7",
+      "previous_packaged_sha256": "8cfbb0b36cb9e46560e6bd95744a70f267311ee1de0233cb23735af9ea1f3ed7",
+      "packaged_sha256": "ceb8bc7fe2f7f5eb629a995b6566dfb61d816fe8b5f07dff3e03f51bd07bbbeb",
+      "change_reason": "Restore 18 existing references to relevant main-paper context for 43 cited works; refresh the two PDFs, extraction records, and documentation. Original results, equations, figures, evidence, and reference source unchanged."
     },
     {
       "path": "paper/submission-compact/evidence/persistent-scaleout-recovery-complete/persistent_scaleout_backlog_recovery.pdf",
@@ -535,9 +538,9 @@
     {
       "path": "paper/submission-compact/relocation-manifest.json",
       "source_sha256": "9bdbd21311dc6c6b6ecc74b0d9bb3f619ae036d034f1787e24e58464f40c6fe2",
-      "previous_packaged_sha256": "9bdbd21311dc6c6b6ecc74b0d9bb3f619ae036d034f1787e24e58464f40c6fe2",
-      "packaged_sha256": "8b1bd0a3b5140cbce21791ea4b41f1cc1a1b5c7f733fe0cdae910084107f3da3",
-      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
+      "previous_packaged_sha256": "8b1bd0a3b5140cbce21791ea4b41f1cc1a1b5c7f733fe0cdae910084107f3da3",
+      "packaged_sha256": "e8cab37e70099abc4b7d8803d287cb4fa749f46f54d6d5e66285dd34618fbf5c",
+      "change_reason": "Restore 18 existing references to relevant main-paper context for 43 cited works; refresh the two PDFs, extraction records, and documentation. Original results, equations, figures, evidence, and reference source unchanged."
     },
     {
       "path": "paper/submission-compact/reviewer-evidence.zip",
@@ -552,7 +555,10 @@
     },
     {
       "path": "paper/submission-compact/sections/main-discussion.tex",
-      "source_sha256": "246232f05977187462eca77ee5f22c51fd89c982c4c75e25e7f1c71c78773536"
+      "source_sha256": "246232f05977187462eca77ee5f22c51fd89c982c4c75e25e7f1c71c78773536",
+      "previous_packaged_sha256": "246232f05977187462eca77ee5f22c51fd89c982c4c75e25e7f1c71c78773536",
+      "packaged_sha256": "16adabffc9348c5e8e40b01829a504d53cc0dc18838ed809769097060fd6100e",
+      "change_reason": "Restore 18 existing references to relevant main-paper context for 43 cited works; refresh the two PDFs, extraction records, and documentation. Original results, equations, figures, evidence, and reference source unchanged."
     },
     {
       "path": "paper/submission-compact/sections/main-holdout.tex",
@@ -572,7 +578,10 @@
     },
     {
       "path": "paper/submission-compact/sections/main-related.tex",
-      "source_sha256": "24f28dddf265ad76950637bb841f98c8f44696095947e9cbc0b7ba10ec9c791f"
+      "source_sha256": "24f28dddf265ad76950637bb841f98c8f44696095947e9cbc0b7ba10ec9c791f",
+      "previous_packaged_sha256": "24f28dddf265ad76950637bb841f98c8f44696095947e9cbc0b7ba10ec9c791f",
+      "packaged_sha256": "95147345f39cf32a25ba3d7ffc8267f5dc34fbea0193fbe9ba3d2bfc41eb4ff0",
+      "change_reason": "Restore 18 existing references to relevant main-paper context for 43 cited works; refresh the two PDFs, extraction records, and documentation. Original results, equations, figures, evidence, and reference source unchanged."
     },
     {
       "path": "paper/submission-compact/sections/main-scaleout.tex",

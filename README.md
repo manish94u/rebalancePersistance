@@ -13,7 +13,7 @@ claim that DQL is always better than a well-informed greedy policy.
 
 | Document | PDF | Editable source |
 | --- | --- | --- |
-| Main paper, 25 pages including references | [Main_Manuscript.pdf](paper/submission-compact/Main_Manuscript.pdf) | [Main_Manuscript.tex](paper/submission-compact/Main_Manuscript.tex) |
+| Main paper, 27 pages including 43 references | [Main_Manuscript.pdf](paper/submission-compact/Main_Manuscript.pdf) | [Main_Manuscript.tex](paper/submission-compact/Main_Manuscript.tex) |
 | Online supplementary material, 53 pages | [Online_Appendix.pdf](paper/submission-compact/Online_Appendix.pdf) | [Online_Appendix.tex](paper/submission-compact/Online_Appendix.tex) |
 | Full reference manuscript, 72 pages | [Reference PDF](paper/Rebalancing-Connection-Reference.pdf) | [Reference source](paper/Rebalancing-Connection-Reference.tex) |
 
