@@ -14,6 +14,18 @@ spec.loader.exec_module(checker)
 
 
 class PublicationPackageTests(unittest.TestCase):
+    def test_cross_document_reference_suffixes_are_not_repeated(self):
+        sections = ROOT / "paper/submission-compact/sections"
+        for path in sorted(sections.glob("*.tex")):
+            text = path.read_text()
+            for command, suffix in (("suppref", "of the Online Supplementary Material"),
+                                    ("mainref", "of the main paper")):
+                # Expand only the document suffix, then normalize TeX line wrapping.
+                text = re.sub(r"\\" + command + r"\{[^}]+\}", "REF " + suffix, text)
+                normalized = " ".join(text.split())
+                with self.subTest(section=path.name, command=command):
+                    self.assertFalse(suffix + " " + suffix in normalized, path.name)
+
     def test_manuscript_links_the_public_research_repository(self):
         compact = ROOT / "paper/submission-compact"
         link = r"\url{https://github.com/manish94u/rebalancePersistance}"

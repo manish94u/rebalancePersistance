@@ -157,7 +157,8 @@ for group, values in groups.items():
             ref = "\\" + command + "{" + key + "}"
             return "(" + ref + ")" if match[1] == "eqref" else ref
         value = re.sub(r"\\(ref|eqref)\{([^}]+)\}", reference, value)
-        value = re.sub(r"(\\suppref\{[^}]+\})\s+of the Online\s+Supplementary Material", r"\1", value)
+        # The macro already names the document; prose may wrap between any words.
+        value = re.sub(r"(\\suppref\{[^}]+\})\s+of\s+the\s+Online\s+Supplementary\s+Material", r"\1", value)
         # Float barriers are not evidence; keep them only at appendix boundaries.
         value = value.replace("\\FloatBarrier", "")
         documents[name] = value
