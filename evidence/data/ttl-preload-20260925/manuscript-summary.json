@@ -1,5 +1,5 @@
 {
-  "schema": "taas-ttl-preload-manuscript/v1",
+  "schema": "connection-rebalancing-ttl-preload/v1",
   "source_manifest_sha256": "9cd19e678794922e9069eb1869b015d17bb900ccc6db528e765f660e0a5d18a8",
   "source_analysis_sha256": "b1aec4f262f06d957cb7f3bb43b3333e67ec18588e9c715171bbf05f64009433",
   "source_subscription_accounting_sha256": "937de498f6e8fca18a40cce3d91bc3a6eb7b1d1c960669793fe9a9b39ffd97cf",

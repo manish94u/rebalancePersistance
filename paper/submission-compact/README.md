@@ -1,19 +1,21 @@
 # Compact Submission Copy
 
-Prepared on 4 November 2026. This directory is separate from the reference
-manuscript. No parent source, figure, measurement, bibliography, or PDF was
-modified.
+Initially prepared on 4 November 2026. This directory is separate from the
+full reference manuscript. The repository edition uses venue-neutral metadata
+in both documents and the reference copy; the original research workspace,
+scientific text, figures, measurements, and bibliography remain unchanged.
 
 ## Deliverables
 
 - `Main_Manuscript.pdf`: 25 pages, including references.
 - `Online_Appendix.pdf`: 53 pages, including its contents and references.
 - The corresponding `.tex` files and `sections/` directory are editable.
-- `reviewer-evidence.zip` is an unchanged copy of the existing redacted
-  reviewer artifact, not a new experimental run or a complete deployment rerun.
+- `reviewer-evidence.zip` contains the redacted reviewer artifact with generic
+  publication metadata, not a new experimental run or a complete deployment rerun.
 
 The reference manuscript remains 72 pages in the parent directory. Both new
-documents retain `acmart` manuscript format. Body font size, margins, line
+documents retain `acmart` manuscript layout in venue-neutral `nonacm` mode.
+Body font size, margins, line
 spacing, plotted values, and original figure assets have not been reduced or
 altered to meet the length target.
 

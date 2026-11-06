@@ -6,7 +6,9 @@
 that each imported file still matches its source digest or its explicitly
 recorded packaging-fix digest. This protects papers,
 figures, recorded data, and simulator source from accidental edits during
-packaging. Packaging fixes close the legacy tiered setup table with `table`
+packaging. Documented revisions also include venue-neutral front matter and
+publication metadata, with separate payload checks protecting all other fields.
+Packaging fixes close the legacy tiered setup table with `table`
 to match its opening environment, and force the four document build passes
 so external references resolve on a clean checkout. Neither changes numerical code.
 The checker also invokes the evidence manifest verifier. Rebuilding a PDF

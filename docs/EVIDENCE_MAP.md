@@ -2,7 +2,8 @@
 
 All paths below are relative to `evidence/`. The archive is immutable and its
 `MANIFEST.json` covers 48 files. `PROVENANCE.json` records original versus
-packaged hashes and metadata redactions. Checksums establish consistency, not
+packaged hashes, metadata redactions, and venue-neutral metadata revisions.
+Checksums establish consistency, not
 the truth of a scientific claim.
 
 | Study | Data and protocol | Unit / comparison | Interpretation |

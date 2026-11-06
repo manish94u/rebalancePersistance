@@ -1,5 +1,5 @@
 {
-  "schema": "taas-live-dql-scaleout/v1",
+  "schema": "connection-rebalancing-live-scaleout/v1",
   "provenance": {
     "files": 256,
     "bytes": 19844645,

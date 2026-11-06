@@ -4,7 +4,6 @@
   "preregistered_at_utc": "2026-09-13T13:07:58Z",
   "status": "locked-before-development",
   "study_kind": "development-only-factorial",
-  "venue_target": "ACM Transactions on Autonomous and Adaptive Systems",
   "parent_action_preflight": "oaes-dql-v6-scale-up-cap-restoration",
   "parent_action_preflight_protocol_sha256": "29a2a100e8d6078ef9883b3299b823bff668911197941049fa3e93120f9ce15c",
   "parent_action_preflight_evidence_index_sha256": "90fb7f24a0b33c1356d9bda151893a8a3423ec51a88059b3fa1153d1be5f21a6",

@@ -14,7 +14,7 @@ import shutil
 
 ROOT = Path(__file__).resolve().parent
 SOURCE = ROOT.parent
-ORIGINAL = "Rebalancing-Connection-TAAS.tex"
+ORIGINAL = "Rebalancing-Connection-Reference.tex"
 records = []
 sources = {}
 documents = {}
@@ -195,7 +195,7 @@ for name in sorted(set(assets)):
     shutil.copy2(source, dest)
     asset_hashes[name] = digest(source)
 
-sources["Rebalancing-Connection-TAAS.pdf"] = digest(SOURCE / "Rebalancing-Connection-TAAS.pdf")
+sources["Rebalancing-Connection-Reference.pdf"] = digest(SOURCE / "Rebalancing-Connection-Reference.pdf")
 manifest = {"source_hashes": sources, "passages": records, "copied_assets": asset_hashes,
             "main_labels": sorted(labels["main"]), "supp_labels": sorted(labels["supp"]),
             "external_references": {k: sorted(v) for k, v in external.items()}}

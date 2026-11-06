@@ -79,7 +79,7 @@ for name in manifest["source_hashes"]:
     if not name.endswith(".tex"):
         continue
     lines = (SOURCE / name).read_text().splitlines()
-    if name == "Rebalancing-Connection-TAAS.tex":
+    if name == "Rebalancing-Connection-Reference.tex":
         lines = lines[126:2000]
     for line in lines:
         clean = line.strip()

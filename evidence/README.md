@@ -55,9 +55,9 @@ outside this inference utility.
 
 ## Access and limits
 
-This ZIP is prepared for attachment as reviewer supplementary material. It has
-not been uploaded or published by the agent. The manuscript source and this
-archive must be submitted together for reviewers to receive the stated access.
+This package is distributed with the research repository and can also be attached
+as reviewer supplementary material. Supply the manuscript and evidence archive
+together so readers receive the stated access.
 
 The package permits offline reanalysis and frozen-network inference. It is not
 a complete independent rerun of the proprietary service or the simulator's
@@ -71,6 +71,10 @@ absolute local paths are replaced by a basename-only restricted-reference
 marker; `PROVENANCE.json` records source and packaged hashes and whether this
 metadata transformation occurred. The original records remain unchanged in the
 author archive. A checksum proves file consistency, not experimental validity.
+
+The repository edition uses generic schema names and omits publication-target
+metadata. These metadata-only changes are recorded in `PROVENANCE.json`.
+All other data fields, measured values, and frozen model weights are unchanged.
 
 Receipt reconciliation measures the client-observed STOMP ledger. It is not
 an exactly-once CloudEvent identity audit or proof of backend queue deletion.

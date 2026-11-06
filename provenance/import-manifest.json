@@ -16,15 +16,24 @@
     },
     {
       "path": "evidence/MANIFEST.json",
-      "source_sha256": "3fabcb7e27621bd410d16f03d4ecccdb0c0dad32c8aae6dcc44b02177cd11736"
+      "source_sha256": "3fabcb7e27621bd410d16f03d4ecccdb0c0dad32c8aae6dcc44b02177cd11736",
+      "previous_packaged_sha256": "3fabcb7e27621bd410d16f03d4ecccdb0c0dad32c8aae6dcc44b02177cd11736",
+      "packaged_sha256": "5018353e92f3725d6c3d06c5ad862b809167645ed0ed5d51a8874c88d5d62df3",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "evidence/PROVENANCE.json",
-      "source_sha256": "804e5d5be5941bf1af94938e5aec785ee33bb46b6427bd98d7a0fff0c27171b8"
+      "source_sha256": "804e5d5be5941bf1af94938e5aec785ee33bb46b6427bd98d7a0fff0c27171b8",
+      "previous_packaged_sha256": "804e5d5be5941bf1af94938e5aec785ee33bb46b6427bd98d7a0fff0c27171b8",
+      "packaged_sha256": "fed8530a36cb0b8831831ce262f3a40698d3d1c8cb4741b6bc14ee0159072d7a",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "evidence/README.md",
-      "source_sha256": "92eb0422371eb0bced4d92a4ea53824794f55d980826fc52d6e4af61d6a48585"
+      "source_sha256": "92eb0422371eb0bced4d92a4ea53824794f55d980826fc52d6e4af61d6a48585",
+      "previous_packaged_sha256": "92eb0422371eb0bced4d92a4ea53824794f55d980826fc52d6e4af61d6a48585",
+      "packaged_sha256": "06941f689deda46b793865e2a59f6a3edf389275f75ba7090635d41a7530af83",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "evidence/data/adhoc-migration-sensitivity/combined-episode-metrics.csv",
@@ -68,7 +77,10 @@
     },
     {
       "path": "evidence/data/live-dql-20261026/manuscript-summary.json",
-      "source_sha256": "724d5cbd3937af8f516ef8e8f2831558e2c4bbca20b4dbd6a80c636ac28ed4b4"
+      "source_sha256": "724d5cbd3937af8f516ef8e8f2831558e2c4bbca20b4dbd6a80c636ac28ed4b4",
+      "previous_packaged_sha256": "724d5cbd3937af8f516ef8e8f2831558e2c4bbca20b4dbd6a80c636ac28ed4b4",
+      "packaged_sha256": "619ef1305b976ac51cadc1e5783d7faacb3592764e4e8628c5888affc1aab7bf",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "evidence/data/persistent-scaleout-recovery-complete/episode-metrics.csv",
@@ -100,7 +112,10 @@
     },
     {
       "path": "evidence/data/ttl-preload-20260925/manuscript-summary.json",
-      "source_sha256": "b7cfb6d7f2bbb875f828723e2e4a00c39295b9399e01f4913142be7ee893568a"
+      "source_sha256": "b7cfb6d7f2bbb875f828723e2e4a00c39295b9399e01f4913142be7ee893568a",
+      "previous_packaged_sha256": "b7cfb6d7f2bbb875f828723e2e4a00c39295b9399e01f4913142be7ee893568a",
+      "packaged_sha256": "37c0a5bdad8d73b7f9694a1d5f70d80d45e8ab08de88be05697fed45f49e5474",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "evidence/data/v3/analysis-manifest.json",
@@ -168,7 +183,10 @@
     },
     {
       "path": "evidence/data/v5/study-protocol.json",
-      "source_sha256": "e0a8a3f023423c2cffef52cf620b98af560fde9ede48ecfbb4dafbfed04b9342"
+      "source_sha256": "e0a8a3f023423c2cffef52cf620b98af560fde9ede48ecfbb4dafbfed04b9342",
+      "previous_packaged_sha256": "e0a8a3f023423c2cffef52cf620b98af560fde9ede48ecfbb4dafbfed04b9342",
+      "packaged_sha256": "8f3d96e3b94df4f7668decc178851153a0b7eaf4f6d86f6533f6741b27754b9d",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "evidence/data/v5/validation-summary.json",
@@ -176,7 +194,10 @@
     },
     {
       "path": "evidence/data/v6/factorial-protocol.json",
-      "source_sha256": "fc5d156f5d6916491e5887b7126478ea8e4b3ff81044fcb8331cf3979f19deda"
+      "source_sha256": "fc5d156f5d6916491e5887b7126478ea8e4b3ff81044fcb8331cf3979f19deda",
+      "previous_packaged_sha256": "fc5d156f5d6916491e5887b7126478ea8e4b3ff81044fcb8331cf3979f19deda",
+      "packaged_sha256": "ed482b7a8dd7938462965d9d1527bfb2077e847ae7dbb817e17f6731ee13e2d0",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "evidence/data/v6/factorial-summary.csv",
@@ -211,12 +232,18 @@
       "source_sha256": "8acfa5930c387a3634bcfac95d380119b9ee4e84dc461e063b170207736f2b15"
     },
     {
-      "path": "paper/Rebalancing-Connection-TAAS.pdf",
-      "source_sha256": "a782b1ba2098b11da4fa63ba48e6531b2b61d533cb5b7f3f92a09bd18eea1e58"
+      "path": "paper/Rebalancing-Connection-Reference.pdf",
+      "source_sha256": "a782b1ba2098b11da4fa63ba48e6531b2b61d533cb5b7f3f92a09bd18eea1e58",
+      "previous_packaged_sha256": "a782b1ba2098b11da4fa63ba48e6531b2b61d533cb5b7f3f92a09bd18eea1e58",
+      "packaged_sha256": "2a32733a3b98955a96a7b20765869ae582085e189fcdca3b5be2e89adf66b505",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
-      "path": "paper/Rebalancing-Connection-TAAS.tex",
-      "source_sha256": "4a35a41b9bd85fed97df04c1d79a025d9a4788abbfa0aa7bc7ab6f6bc9eb6fb9"
+      "path": "paper/Rebalancing-Connection-Reference.tex",
+      "source_sha256": "4a35a41b9bd85fed97df04c1d79a025d9a4788abbfa0aa7bc7ab6f6bc9eb6fb9",
+      "previous_packaged_sha256": "4a35a41b9bd85fed97df04c1d79a025d9a4788abbfa0aa7bc7ab6f6bc9eb6fb9",
+      "packaged_sha256": "ee05b7dced1f47af742623cb30e605eb3390b696fc6535cf5617cfb98783554d",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "paper/System-Architecture.jpg",
@@ -344,7 +371,10 @@
     },
     {
       "path": "paper/reviewer-evidence.zip",
-      "source_sha256": "6707b28f9702b1e097e038489e2899a4d0a7ab4ca8854b235bc3fe2ad10457cd"
+      "source_sha256": "6707b28f9702b1e097e038489e2899a4d0a7ab4ca8854b235bc3fe2ad10457cd",
+      "previous_packaged_sha256": "6707b28f9702b1e097e038489e2899a4d0a7ab4ca8854b235bc3fe2ad10457cd",
+      "packaged_sha256": "4caf716a16d3443b83518b72dccb32689ab721af9e5458d296908210b492148e",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "paper/scaleout-recovery-section.tex",
@@ -352,19 +382,31 @@
     },
     {
       "path": "paper/submission-compact/Main_Manuscript.pdf",
-      "source_sha256": "484a053ecc6cee54bf157033062c77582cfc7aa327e6c7ba1430c595b7fc07f7"
+      "source_sha256": "484a053ecc6cee54bf157033062c77582cfc7aa327e6c7ba1430c595b7fc07f7",
+      "previous_packaged_sha256": "484a053ecc6cee54bf157033062c77582cfc7aa327e6c7ba1430c595b7fc07f7",
+      "packaged_sha256": "4af2bc04b8e5f0b411d3b2128fc259808d8145109f79822aea47849fc4a36cad",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "paper/submission-compact/Main_Manuscript.tex",
-      "source_sha256": "fb39205d5a5b43eab6f8f5bba70a82f55119d149b6f65b63226a0df4c96371de"
+      "source_sha256": "fb39205d5a5b43eab6f8f5bba70a82f55119d149b6f65b63226a0df4c96371de",
+      "previous_packaged_sha256": "fb39205d5a5b43eab6f8f5bba70a82f55119d149b6f65b63226a0df4c96371de",
+      "packaged_sha256": "807c50ed3ce1485b8bc6e0169a4d1640427e71a655ec6c7d990cfe3001dda959",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "paper/submission-compact/Online_Appendix.pdf",
-      "source_sha256": "d145539236911824c5f7645f40dce0ac9ce2941f3a72deba10fe031c83fd5b73"
+      "source_sha256": "d145539236911824c5f7645f40dce0ac9ce2941f3a72deba10fe031c83fd5b73",
+      "previous_packaged_sha256": "d145539236911824c5f7645f40dce0ac9ce2941f3a72deba10fe031c83fd5b73",
+      "packaged_sha256": "63a3ad7fe9a2f18e0385579775c5c4a3ac4bdd913ec8b5ea25fc3753c8b0a8b9",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "paper/submission-compact/Online_Appendix.tex",
-      "source_sha256": "c39813081380e5614b5ff2f8afc3819774e5f92806fab03ef5fca1c2ed8e4d66"
+      "source_sha256": "c39813081380e5614b5ff2f8afc3819774e5f92806fab03ef5fca1c2ed8e4d66",
+      "previous_packaged_sha256": "c39813081380e5614b5ff2f8afc3819774e5f92806fab03ef5fca1c2ed8e4d66",
+      "packaged_sha256": "f9e63fe058acffbcb62af8b5deedbbe84422df905fbd9bff9f9fee3ac88fd161",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "paper/submission-compact/QA_20261104.md",
@@ -372,7 +414,10 @@
     },
     {
       "path": "paper/submission-compact/README.md",
-      "source_sha256": "365cdaafd724cc7bd56ddebd79e7c426d6fea83a13e48c0a0afe3496622a1d9d"
+      "source_sha256": "365cdaafd724cc7bd56ddebd79e7c426d6fea83a13e48c0a0afe3496622a1d9d",
+      "previous_packaged_sha256": "365cdaafd724cc7bd56ddebd79e7c426d6fea83a13e48c0a0afe3496622a1d9d",
+      "packaged_sha256": "3614f742462c319a0559eb70602298ab0f7136017312dc398ac5e4f924d8c782",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "paper/submission-compact/System-Architecture.jpg",
@@ -380,7 +425,10 @@
     },
     {
       "path": "paper/submission-compact/assemble_submission.py",
-      "source_sha256": "2132b7544834e564bceb206f3efe4cea6fa021ffb25453a666d011efa3bed9e7"
+      "source_sha256": "2132b7544834e564bceb206f3efe4cea6fa021ffb25453a666d011efa3bed9e7",
+      "previous_packaged_sha256": "2132b7544834e564bceb206f3efe4cea6fa021ffb25453a666d011efa3bed9e7",
+      "packaged_sha256": "361993aa8279298588cceb4f88f37db423fee833b16f309c55f7015607ae4f28",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "paper/submission-compact/build_submission.py",
@@ -486,11 +534,17 @@
     },
     {
       "path": "paper/submission-compact/relocation-manifest.json",
-      "source_sha256": "9bdbd21311dc6c6b6ecc74b0d9bb3f619ae036d034f1787e24e58464f40c6fe2"
+      "source_sha256": "9bdbd21311dc6c6b6ecc74b0d9bb3f619ae036d034f1787e24e58464f40c6fe2",
+      "previous_packaged_sha256": "9bdbd21311dc6c6b6ecc74b0d9bb3f619ae036d034f1787e24e58464f40c6fe2",
+      "packaged_sha256": "8b1bd0a3b5140cbce21791ea4b41f1cc1a1b5c7f733fe0cdae910084107f3da3",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "paper/submission-compact/reviewer-evidence.zip",
-      "source_sha256": "6707b28f9702b1e097e038489e2899a4d0a7ab4ca8854b235bc3fe2ad10457cd"
+      "source_sha256": "6707b28f9702b1e097e038489e2899a4d0a7ab4ca8854b235bc3fe2ad10457cd",
+      "previous_packaged_sha256": "6707b28f9702b1e097e038489e2899a4d0a7ab4ca8854b235bc3fe2ad10457cd",
+      "packaged_sha256": "4caf716a16d3443b83518b72dccb32689ab721af9e5458d296908210b492148e",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "paper/submission-compact/sections/main-cloud.tex",
@@ -594,7 +648,10 @@
     },
     {
       "path": "paper/submission-compact/verify_relocation.py",
-      "source_sha256": "7ad4a54d098f4901a5e94adcdfaeee6768b99b9ad125ed7eadd70bd61be9e59c"
+      "source_sha256": "7ad4a54d098f4901a5e94adcdfaeee6768b99b9ad125ed7eadd70bd61be9e59c",
+      "previous_packaged_sha256": "7ad4a54d098f4901a5e94adcdfaeee6768b99b9ad125ed7eadd70bd61be9e59c",
+      "packaged_sha256": "47337d6af1aad01c95cadb3048598b6dc1504e3d65d4dbae9e7eece494be86e4",
+      "change_reason": "Venue-neutral filenames, publication metadata, or associated build/provenance records; scientific content preserved."
     },
     {
       "path": "paper/ttl-preload-results-section.tex",

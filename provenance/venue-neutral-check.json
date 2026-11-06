@@ -1,0 +1,33 @@
+{
+  "description": "Only declared publication metadata fields changed; every other field is preserved.",
+  "files": [
+    {
+      "file": "data/live-dql-20261026/manuscript-summary.json",
+      "excluded_metadata_keys": [
+        "schema"
+      ],
+      "preserved_payload_sha256": "1601d81bec5f8b9e9c82b25fbf572b080b687332c5fd66cae903317919e6cf14"
+    },
+    {
+      "file": "data/ttl-preload-20260925/manuscript-summary.json",
+      "excluded_metadata_keys": [
+        "schema"
+      ],
+      "preserved_payload_sha256": "15faf61e9cb6b7907ab3ae30baafab3720039e9208f0a5c2404d3ff48fb3823c"
+    },
+    {
+      "file": "data/v5/study-protocol.json",
+      "excluded_metadata_keys": [
+        "venue_target"
+      ],
+      "preserved_payload_sha256": "d67ee6af3647e65ddd64bfa17af42645edfeb621f49e4ad2a436d18c3e56e577"
+    },
+    {
+      "file": "data/v6/factorial-protocol.json",
+      "excluded_metadata_keys": [
+        "venue_target"
+      ],
+      "preserved_payload_sha256": "9d78376027bcecdc3bab35601b204a300825f0575f93030367270718a4ffa4a5"
+    }
+  ]
+}

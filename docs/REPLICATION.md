@@ -5,6 +5,8 @@
 Run commands from the repository root unless a command explicitly changes
 directory. Use Python 3.9 or later and a virtual environment named `.vnv`.
 The checked-in evidence and frozen weights must not be overwritten by new runs.
+Publication metadata is venue-neutral. Original and packaged hashes document
+the metadata-only changes; numerical measurements are unchanged.
 
 ```bash
 python3 -m venv .vnv
@@ -30,7 +32,8 @@ python evidence/reanalyse.py
 python -m unittest discover -s evidence -p 'test_*.py' -v
 ```
 
-`check_repository.py` compares the imported files with their source hashes and
+`check_repository.py` compares the imported files with their source or explicitly
+documented repository-revision hashes and
 checks that the frozen network has not changed. `reanalyse.py` verifies the
 exact evidence file set, rejects missing/duplicate pairs, and reports JSON.
 The evidence directory currently contains 48 manifest-covered files plus the

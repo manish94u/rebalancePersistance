@@ -15,13 +15,13 @@ claim that DQL is always better than a well-informed greedy policy.
 | --- | --- | --- |
 | Main paper, 25 pages including references | [Main_Manuscript.pdf](paper/submission-compact/Main_Manuscript.pdf) | [Main_Manuscript.tex](paper/submission-compact/Main_Manuscript.tex) |
 | Online supplementary material, 53 pages | [Online_Appendix.pdf](paper/submission-compact/Online_Appendix.pdf) | [Online_Appendix.tex](paper/submission-compact/Online_Appendix.tex) |
-| Preserved full reference manuscript, 72 pages | [Reference PDF](paper/Rebalancing-Connection-TAAS.pdf) | [Reference source](paper/Rebalancing-Connection-TAAS.tex) |
+| Full reference manuscript, 72 pages | [Reference PDF](paper/Rebalancing-Connection-Reference.pdf) | [Reference source](paper/Rebalancing-Connection-Reference.tex) |
 
 The compact submission relocates secondary material; it does not change the
 recorded results. Its [relocation map](paper/submission-compact/README.md)
 and [preservation manifest](paper/submission-compact/relocation-manifest.json)
-document that split. These are research submission artifacts, not a claim of
-acceptance by ACM TAAS.
+document that split. The package is venue-neutral and does not imply acceptance
+by any journal.
 
 ## Start Here
 
@@ -106,9 +106,10 @@ client/server source archives, authentication material, subscription OCIDs,
 internal endpoints, raw event payloads, and raw cluster logs. No new experiments
 were performed as part of exporting the repository.
 
-The historical README inside `evidence/` describes the original reviewer ZIP
-before this repository upload. It is retained byte-for-byte for provenance;
-this repository README describes the current distribution.
+Evidence measurements and model weights are preserved. Publication-target
+metadata and schema names have been made generic; those non-numerical changes
+are recorded in the provenance manifests. Journal titles in cited references
+remain accurate. The original research workspace is unchanged.
 
 See [contribution rules](CONTRIBUTING.md), [third-party notices](THIRD_PARTY_NOTICES.md),
 the [release validation record](docs/RELEASE_VALIDATION.md), and

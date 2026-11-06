@@ -1,6 +1,6 @@
 {
   "source_hashes": {
-    "Rebalancing-Connection-TAAS.tex": "4a35a41b9bd85fed97df04c1d79a025d9a4788abbfa0aa7bc7ab6f6bc9eb6fb9",
+    "Rebalancing-Connection-Reference.tex": "ee05b7dced1f47af742623cb30e605eb3390b696fc6535cf5617cfb98783554d",
     "mumbai-experimental-section.tex": "e0f801f10690f310050fe3c2bba1a5207f0734ccaa1b1e694eb4eaf09255cc47",
     "live-dql-scaleout-section.tex": "d2ce0ff21aa14319825a978468b65447a814a88edd039f4e11fbd3d7f738ce0f",
     "locked-evidence-section.tex": "61a352c2497d46e913223dbca5bbbc647143dfea8611b9c90f11bea970345455",
@@ -13,88 +13,88 @@
     "action-diagnostics-appendix.tex": "8475558b9a571694fc9d48e5d21f012b3843a1586f6f33fe6050619a7dbb4a6f",
     "evidence/persistent-scaleout-recovery-complete/persistent_scaleout_recovery_table.tex": "fa1b8dcfb5d9509180fbdc3cbadff00bb24a6878ed5b65cbc580299e86ff4de6",
     "evidence/adhoc-migration-sensitivity/comparison-table.tex": "8b867adfde4f0360f7ab26230650ca097fd2ed43b574fea59ef73358476c736e",
-    "Rebalancing-Connection-TAAS.pdf": "a782b1ba2098b11da4fa63ba48e6531b2b61d533cb5b7f3f92a09bd18eea1e58"
+    "Rebalancing-Connection-Reference.pdf": "2a32733a3b98955a96a7b20765869ae582085e189fcdca3b5be2e89adf66b505"
   },
   "passages": [
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 127,
       "last": 185,
       "sha256": "69ba445c491a406cf9144a5e7cd46c28d81906256de7995d826769bee5b4f895",
       "destination": "sections/main-introduction.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 186,
       "last": 219,
       "sha256": "ddc9e7d5f602e57b09668923ac70c9acc9f2b9e57482de850f509075001ac2e1",
       "destination": "sections/main-related.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 296,
       "last": 394,
       "sha256": "896b9e1ad1dabade38bb309960a991781d36c2b7441ed64da73ab25fb60b7fe4",
       "destination": "sections/main-related.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 501,
       "last": 576,
       "sha256": "e6e886f0f7f3c2d5a9556ef63174b26c311072e7245cd1d29fb6b31650643bf6",
       "destination": "sections/main-system.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 405,
       "last": 413,
       "sha256": "043cb0746bad3ad4d0dce15f3af59dc4e69d8046f8089c49b47d8331b2923578",
       "destination": "sections/main-system.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 601,
       "last": 787,
       "sha256": "77310fc6ec922bc238a1bd58827ec923d1e4547e59391b0a2bcf286b389f3912",
       "destination": "sections/main-model.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 823,
       "last": 910,
       "sha256": "293e2ee97e0d1fc42dbd6d3d48e7ac8f7fe215423038fcd8c2ab7748fb224880",
       "destination": "sections/main-model.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 1147,
       "last": 1205,
       "sha256": "e95762382822483e2b26a6bd44981a32fca974112f095cd3fe436245339c3b1e",
       "destination": "sections/main-policy.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 911,
       "last": 956,
       "sha256": "cce240c5285aed3ac33d8a3ff834c3101f09f88903d6f35e70e416b21b8e29ef",
       "destination": "sections/main-policy.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 974,
       "last": 1016,
       "sha256": "7a27f9c44f84cf9ebfc0f57dc4ff34982eb19eda3a3df4d1cd4d1e32217303c1",
       "destination": "sections/main-policy.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 1684,
       "last": 1709,
       "sha256": "0465a9927a1f61cef3a16b1d4c6e1e86d6f778ba96beaca34a0f3e46a5055372",
       "destination": "sections/main-policy.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 1726,
       "last": 1756,
       "sha256": "df9c33febbef68a9a09351e72e34a7a713010c9d6989de6224a3ac45e04df33b",
@@ -171,35 +171,35 @@
       "destination": "sections/main-holdout.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 1869,
       "last": 1905,
       "sha256": "3f0bc37657b837d4588587ede6730839d0e525fd1137f8d65e9aeb902c8e00c0",
       "destination": "sections/main-discussion.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 1943,
       "last": 1949,
       "sha256": "31ad65c2acf1f83515e1b9a4dfa20b23ceb38d82b00380e8bce16c8131610cc5",
       "destination": "sections/main-discussion.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 1950,
       "last": 1969,
       "sha256": "d5ec5cbb241255221c2aa90542ac5e4c1be5e70e3a4381fa1a2d625b1d158d59",
       "destination": "sections/main-discussion.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 788,
       "last": 829,
       "sha256": "bc0e60f15a7d2ab4523d0486cb8250b7de517a06290cf44feda49daac90c0331",
       "destination": "sections/supp-mathematics.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 1044,
       "last": 1146,
       "sha256": "4a9a498895d974d6a230d28cdce6c56049ee728341f3013f92781f2531a48543",
@@ -213,21 +213,21 @@
       "destination": "sections/supp-notation.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 958,
       "last": 972,
       "sha256": "a0119297b1ab9fb33faf3a8b2ab515563e70b19b5c106400136acd7cc10cfd21",
       "destination": "sections/supp-runtime.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 1017,
       "last": 1043,
       "sha256": "d37f978f90a329e7494c96ea038d1da124c0ed774e07cbe4431e041dd565abbb",
       "destination": "sections/supp-runtime.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 1207,
       "last": 1864,
       "sha256": "64179778ce77a61aa80f8188485787f9e29af067a01daaf399b084e784586cc1",
@@ -241,28 +241,28 @@
       "destination": "sections/supp-features.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 220,
       "last": 295,
       "sha256": "9f3aa79d0f693adb0fdf6dc5b3129d84fe9f293a8540efd5d4c55787d288dcea",
       "destination": "sections/supp-literature.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 395,
       "last": 404,
       "sha256": "c61f3a9ac467e1883ec3b382e3cef48a1bf32f425f96629566b6b93ffa3da418",
       "destination": "sections/supp-system.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 414,
       "last": 500,
       "sha256": "bee56cf98d217bdb34b88bb5eb165f00b6264815df6d03674562caa02976359f",
       "destination": "sections/supp-system.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 577,
       "last": 600,
       "sha256": "962759ee182c56bd62bc64ff14efb64d1ee30752f4af150231335493d4c9bf02",
@@ -318,14 +318,14 @@
       "destination": "sections/supp-diagnostics.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 1893,
       "last": 1949,
       "sha256": "808c52e1b222502528f27b2cab7aefb0150a7506a10ef4501a3a12119c5b1d01",
       "destination": "sections/supp-discussion.tex"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 1950,
       "last": 1999,
       "sha256": "8a9e252ea86b7de43a55e7b7137c9fe4d1dcaaa1ba4c88ff8d8c86d0d69b22d2",
@@ -344,19 +344,19 @@
       "sha256": "8b867adfde4f0360f7ab26230650ca097fd2ed43b574fea59ef73358476c736e"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 1,
       "last": 30,
-      "sha256": "b7ece1684c51de5fca7d2e7e6eeb16660929c01e345783eebac66b06d6bd76e5"
+      "sha256": "d25089924a3a15b006f30f49580c723380614e5547235406e0f189a7fc44b2eb"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 31,
       "last": 126,
       "sha256": "ddac6f2ea178faff38b4b06ab27f1fa733a824970f71ec705e6e0af9cd50aa28"
     },
     {
-      "source": "Rebalancing-Connection-TAAS.tex",
+      "source": "Rebalancing-Connection-Reference.tex",
       "first": 31,
       "last": 52,
       "sha256": "8843ad3465f1e053b1b6bf5793e80290eb49e1ea72eaf9933cceadb6a341a62c"
@@ -385,7 +385,7 @@
     "figures/v3-reward-boxplots.pdf": "97da5ab613aef1f765697084addbb55e45c31c943fda733cc984d38f481a7b2b",
     "figures/v3-training-diagnostics.pdf": "f7280e077565f33b239fb371b32f37a956a35d14a65e25c08019b9827a409311",
     "figures/v4-action-coverage.pdf": "835fb3ecb3324ffdf507c07164acb61f5fbbf7894f764f438a861926a6064769",
-    "reviewer-evidence.zip": "6707b28f9702b1e097e038489e2899a4d0a7ab4ca8854b235bc3fe2ad10457cd",
+    "reviewer-evidence.zip": "4caf716a16d3443b83518b72dccb32689ab721af9e5458d296908210b492148e",
     "vendor/ACM-Reference-Format.bst": "4342d27456645567ef1a027f6474e894715bc31d468f040142fa54540440ad04",
     "vendor/acmart.cls": "784c4f2fb07a70d8a797ee9d1c63f441c10fbd2f915c9c615d28cda35c0b742a"
   },
