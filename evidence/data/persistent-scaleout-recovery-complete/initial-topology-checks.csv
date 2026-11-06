@@ -1,0 +1,12 @@
+check,observed,expected,passed
+subscription_count,20000,20000,1
+connection_count,10,10,1
+available_pod_count,4,4,1
+initial_active_pod_count,1,1,1
+all_connection_pods,"[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]","[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",1
+total_backlog,775000000.0,775000000.0,1
+connection_subscription_counts,"[2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000]","[2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000]",1
+connection_backlogs,"[77500000.0, 77500000.0, 77500000.0, 77500000.0, 77500000.0, 77500000.0, 77500000.0, 77500000.0, 77500000.0, 77500000.0]","[77500000.0, 77500000.0, 77500000.0, 77500000.0, 77500000.0, 77500000.0, 77500000.0, 77500000.0, 77500000.0, 77500000.0]",1
+connection_count_variance,0.0,0.0,1
+connection_backlog_variance,0.0,0.0,1
+idle_probe_allowed_actions,"[""stay"", ""migrate""]","[""stay"", ""migrate""]",1

@@ -1,0 +1,853 @@
+{
+  "aggregate": {
+    "FrozenDQL": {
+      "action_noop_count": {
+        "mean": 0.0,
+        "normal_approximation_ci95": [
+          0.0,
+          0.0
+        ],
+        "sample_standard_deviation": 0.0
+      },
+      "connection_churn": {
+        "mean": 0.0,
+        "normal_approximation_ci95": [
+          0.0,
+          0.0
+        ],
+        "sample_standard_deviation": 0.0
+      },
+      "episode_count": 40,
+      "mean_backlog_imbalance": {
+        "mean": 0.21941868638760406,
+        "normal_approximation_ci95": [
+          0.10082752450268147,
+          0.33800984827252667
+        ],
+        "sample_standard_deviation": 0.3826716142062271
+      },
+      "mean_backlog_ratio": {
+        "mean": 0.17486034302317113,
+        "normal_approximation_ci95": [
+          0.08551533473073183,
+          0.2642053513156104
+        ],
+        "sample_standard_deviation": 0.2882997181334076
+      },
+      "mean_connection_backlog_variance": {
+        "mean": 22802636385487.383,
+        "normal_approximation_ci95": [
+          10407028498186.594,
+          35198244272788.17
+        ],
+        "sample_standard_deviation": 39998320312467.6
+      },
+      "mean_connection_imbalance": {
+        "mean": 0.15460544280317703,
+        "normal_approximation_ci95": [
+          0.09855849706438927,
+          0.2106523885419648
+        ],
+        "sample_standard_deviation": 0.18085306574534482
+      },
+      "mean_connection_subscription_variance": {
+        "mean": 574.670075,
+        "normal_approximation_ci95": [
+          262.27664286845976,
+          887.0635071315403
+        ],
+        "sample_standard_deviation": 1008.0354812376496
+      },
+      "mean_pod_pressure": {
+        "mean": 0.18781785342676882,
+        "normal_approximation_ci95": [
+          0.16867836187199092,
+          0.20695734498154672
+        ],
+        "sample_standard_deviation": 0.06175957813332195
+      },
+      "mean_reward": {
+        "mean": -0.12908358505610867,
+        "normal_approximation_ci95": [
+          -0.15600129754288966,
+          -0.10216587256932767
+        ],
+        "sample_standard_deviation": 0.08685844985692141
+      },
+      "mean_subscription_imbalance": {
+        "mean": 0.08979219921875,
+        "normal_approximation_ci95": [
+          0.040980725448196836,
+          0.13860367298930315
+        ],
+        "sample_standard_deviation": 0.15750554394338273
+      },
+      "mean_throughput_ratio": {
+        "mean": 0.2839581002984885,
+        "normal_approximation_ci95": [
+          0.2230792056791175,
+          0.3448369949178595
+        ],
+        "sample_standard_deviation": 0.19644486574549178
+      },
+      "migration_count": {
+        "mean": 0.275,
+        "normal_approximation_ci95": [
+          0.11827068901103113,
+          0.43172931098896894
+        ],
+        "sample_standard_deviation": 0.5057363253408151
+      }
+    },
+    "Heuristic": {
+      "action_noop_count": {
+        "mean": 0.0,
+        "normal_approximation_ci95": [
+          0.0,
+          0.0
+        ],
+        "sample_standard_deviation": 0.0
+      },
+      "connection_churn": {
+        "mean": 0.5,
+        "normal_approximation_ci95": [
+          0.3430744092710146,
+          0.6569255907289854
+        ],
+        "sample_standard_deviation": 0.5063696835418333
+      },
+      "episode_count": 40,
+      "mean_backlog_imbalance": {
+        "mean": 0.16380097375715125,
+        "normal_approximation_ci95": [
+          0.08061150558623127,
+          0.24699044192807124
+        ],
+        "sample_standard_deviation": 0.2684369354675395
+      },
+      "mean_backlog_ratio": {
+        "mean": 0.20022446648728415,
+        "normal_approximation_ci95": [
+          0.12419668670406796,
+          0.2762522462705003
+        ],
+        "sample_standard_deviation": 0.24532749955169972
+      },
+      "mean_connection_backlog_variance": {
+        "mean": 15683971675084.973,
+        "normal_approximation_ci95": [
+          7158608964001.714,
+          24209334386168.23
+        ],
+        "sample_standard_deviation": 27509759230705.227
+      },
+      "mean_connection_imbalance": {
+        "mean": 0.2990696509410756,
+        "normal_approximation_ci95": [
+          0.2366052223852688,
+          0.36153407949688243
+        ],
+        "sample_standard_deviation": 0.2015610887522569
+      },
+      "mean_connection_subscription_variance": {
+        "mean": 5768.72806,
+        "normal_approximation_ci95": [
+          4138.195598190259,
+          7399.2605218097415
+        ],
+        "sample_standard_deviation": 5261.424875673772
+      },
+      "mean_pod_pressure": {
+        "mean": 0.2050806479095925,
+        "normal_approximation_ci95": [
+          0.18502168360616922,
+          0.22513961221301576
+        ],
+        "sample_standard_deviation": 0.0647265456151331
+      },
+      "mean_reward": {
+        "mean": -0.16087288987723955,
+        "normal_approximation_ci95": [
+          -0.19204575857667694,
+          -0.12970002117780216
+        ],
+        "sample_standard_deviation": 0.10058904723631937
+      },
+      "mean_subscription_imbalance": {
+        "mean": 0.43433832812500006,
+        "normal_approximation_ci95": [
+          0.3493258785405303,
+          0.5193507777094698
+        ],
+        "sample_standard_deviation": 0.27431935730322377
+      },
+      "mean_throughput_ratio": {
+        "mean": 0.2973456222475437,
+        "normal_approximation_ci95": [
+          0.23062102148194663,
+          0.36407022301314074
+        ],
+        "sample_standard_deviation": 0.21530787182112401
+      },
+      "migration_count": {
+        "mean": 0.275,
+        "normal_approximation_ci95": [
+          0.11827068901103113,
+          0.43172931098896894
+        ],
+        "sample_standard_deviation": 0.5057363253408151
+      }
+    },
+    "Static": {
+      "action_noop_count": {
+        "mean": 0.0,
+        "normal_approximation_ci95": [
+          0.0,
+          0.0
+        ],
+        "sample_standard_deviation": 0.0
+      },
+      "connection_churn": {
+        "mean": 0.0,
+        "normal_approximation_ci95": [
+          0.0,
+          0.0
+        ],
+        "sample_standard_deviation": 0.0
+      },
+      "episode_count": 40,
+      "mean_backlog_imbalance": {
+        "mean": 0.22036320347387894,
+        "normal_approximation_ci95": [
+          0.10125860436085435,
+          0.33946780258690357
+        ],
+        "sample_standard_deviation": 0.38432838061064106
+      },
+      "mean_backlog_ratio": {
+        "mean": 0.17539704575330778,
+        "normal_approximation_ci95": [
+          0.08576060838999951,
+          0.26503348311661606
+        ],
+        "sample_standard_deviation": 0.28924010552150203
+      },
+      "mean_connection_backlog_variance": {
+        "mean": 22993208818391.5,
+        "normal_approximation_ci95": [
+          10494004493660.016,
+          35492413143122.984
+        ],
+        "sample_standard_deviation": 40332606740794.25
+      },
+      "mean_connection_imbalance": {
+        "mean": 0.23225191423693947,
+        "normal_approximation_ci95": [
+          0.15944954915022158,
+          0.30505427932365736
+        ],
+        "sample_standard_deviation": 0.23491968645015343
+      },
+      "mean_connection_subscription_variance": {
+        "mean": 1562.5,
+        "normal_approximation_ci95": [
+          713.115324530118,
+          2411.884675469882
+        ],
+        "sample_standard_deviation": 2740.806310334466
+      },
+      "mean_pod_pressure": {
+        "mean": 0.38803538368077956,
+        "normal_approximation_ci95": [
+          0.2735542600839402,
+          0.502516507277619
+        ],
+        "sample_standard_deviation": 0.369409285368633
+      },
+      "mean_reward": {
+        "mean": -0.18077700031521843,
+        "normal_approximation_ci95": [
+          -0.1979217774486393,
+          -0.16363222318179754
+        ],
+        "sample_standard_deviation": 0.05532300583426791
+      },
+      "mean_subscription_imbalance": {
+        "mean": 0.244140625,
+        "normal_approximation_ci95": [
+          0.11142426945783093,
+          0.3768569805421691
+        ],
+        "sample_standard_deviation": 0.42825098598976036
+      },
+      "mean_throughput_ratio": {
+        "mean": 0.28363728824610557,
+        "normal_approximation_ci95": [
+          0.22289464021043118,
+          0.34437993628178
+        ],
+        "sample_standard_deviation": 0.19600522337008552
+      },
+      "migration_count": {
+        "mean": 0.0,
+        "normal_approximation_ci95": [
+          0.0,
+          0.0
+        ],
+        "sample_standard_deviation": 0.0
+      }
+    }
+  },
+  "frozen_dql_action_coverage": {
+    "by_scenario": {
+      "deployment_client_slowdown": {
+        "migrate": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebG": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebN": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "scale+": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": 0.0
+        },
+        "scale-": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "stay": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 5000,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        }
+      },
+      "deployment_connection_count_skew": {
+        "migrate": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebG": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebN": {
+          "admissible_count": 1250,
+          "admissible_episode_count": 10,
+          "selected_count": 1250,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        },
+        "scale+": {
+          "admissible_count": 1250,
+          "admissible_episode_count": 10,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": 0.0
+        },
+        "scale-": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "stay": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 3750,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        }
+      },
+      "deployment_pod_pressure_skew": {
+        "migrate": {
+          "admissible_count": 11,
+          "admissible_episode_count": 10,
+          "selected_count": 11,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        },
+        "rebG": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebN": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "scale+": {
+          "admissible_count": 4967,
+          "admissible_episode_count": 10,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": 0.0
+        },
+        "scale-": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "stay": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 4989,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        }
+      },
+      "deployment_tiered_backlog": {
+        "migrate": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebG": {
+          "admissible_count": 4940,
+          "admissible_episode_count": 10,
+          "selected_count": 10,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        },
+        "rebN": {
+          "admissible_count": 13,
+          "admissible_episode_count": 10,
+          "selected_count": 10,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        },
+        "scale+": {
+          "admissible_count": 4940,
+          "admissible_episode_count": 10,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": 0.0
+        },
+        "scale-": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "stay": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 4980,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        }
+      }
+    },
+    "intended_scenario_episode_coverage": {
+      "migrate": {
+        "minimum_episode_coverage": 0.8,
+        "pass": true,
+        "scenario": "deployment_pod_pressure_skew",
+        "selected_episode_rate_when_admissible": 1.0
+      },
+      "rebG": {
+        "minimum_episode_coverage": 0.8,
+        "pass": true,
+        "scenario": "deployment_tiered_backlog",
+        "selected_episode_rate_when_admissible": 1.0
+      },
+      "rebN": {
+        "minimum_episode_coverage": 0.8,
+        "pass": true,
+        "scenario": "deployment_connection_count_skew",
+        "selected_episode_rate_when_admissible": 1.0
+      }
+    },
+    "overall": {
+      "migrate": {
+        "admissible_count": 11,
+        "admissible_episode_count": 10,
+        "selected_count": 11,
+        "selected_episode_count": 10,
+        "selected_episode_rate_when_admissible": 1.0,
+        "selection_rate_when_admissible": 1.0
+      },
+      "rebG": {
+        "admissible_count": 4940,
+        "admissible_episode_count": 10,
+        "selected_count": 10,
+        "selected_episode_count": 10,
+        "selected_episode_rate_when_admissible": 1.0,
+        "selection_rate_when_admissible": 0.0020242914979757085
+      },
+      "rebN": {
+        "admissible_count": 1263,
+        "admissible_episode_count": 20,
+        "selected_count": 1260,
+        "selected_episode_count": 20,
+        "selected_episode_rate_when_admissible": 1.0,
+        "selection_rate_when_admissible": 0.997624703087886
+      },
+      "scale+": {
+        "admissible_count": 16157,
+        "admissible_episode_count": 40,
+        "selected_count": 0,
+        "selected_episode_count": 0,
+        "selected_episode_rate_when_admissible": 0.0,
+        "selection_rate_when_admissible": 0.0
+      },
+      "scale-": {
+        "admissible_count": 0,
+        "admissible_episode_count": 0,
+        "selected_count": 0,
+        "selected_episode_count": 0,
+        "selected_episode_rate_when_admissible": null,
+        "selection_rate_when_admissible": null
+      },
+      "stay": {
+        "admissible_count": 20000,
+        "admissible_episode_count": 40,
+        "selected_count": 18719,
+        "selected_episode_count": 40,
+        "selected_episode_rate_when_admissible": 1.0,
+        "selection_rate_when_admissible": 0.93595
+      }
+    },
+    "required_actions_observed": true,
+    "required_actions_reliably_observed": true,
+    "required_rebalancing_actions": [
+      "rebN",
+      "rebG",
+      "migrate"
+    ]
+  },
+  "interpretation": {
+    "backlog_pressure_imbalance_and_cost": "negative differences favor DQL",
+    "difference": "FrozenDQL minus baseline",
+    "reward_and_throughput": "positive differences favor DQL"
+  },
+  "paired_bootstrap": [
+    {
+      "baseline": "Heuristic",
+      "bootstrap_ci95": [
+        0.019151315333193145,
+        0.04543040310570847
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": 0.03178930482113086,
+      "metric": "mean_reward",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Heuristic",
+      "bootstrap_ci95": [
+        -0.053905394112511495,
+        0.0021977243356174738
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": -0.025364123464113025,
+      "metric": "mean_backlog_ratio",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Heuristic",
+      "bootstrap_ci95": [
+        -6942.875770000001,
+        -3523.13196
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": -5194.057985,
+      "metric": "mean_connection_subscription_variance",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Heuristic",
+      "bootstrap_ci95": [
+        3553272344027.6455,
+        11370676075594.477
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": 7118664710402.409,
+      "metric": "mean_connection_backlog_variance",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Heuristic",
+      "bootstrap_ci95": [
+        -0.43170673437499996,
+        -0.25763910156250003
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": -0.34454612890625,
+      "metric": "mean_subscription_imbalance",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Heuristic",
+      "bootstrap_ci95": [
+        0.02239514275995046,
+        0.09342446293440694
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": 0.05561771263045282,
+      "metric": "mean_backlog_imbalance",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Heuristic",
+      "bootstrap_ci95": [
+        -0.190564475375851,
+        -0.10126553167304413
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": -0.1444642081378986,
+      "metric": "mean_connection_imbalance",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Heuristic",
+      "bootstrap_ci95": [
+        -0.02787682754831225,
+        -0.007510053270511111
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": -0.01726279448282365,
+      "metric": "mean_pod_pressure",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Heuristic",
+      "bootstrap_ci95": [
+        -0.021205184286877614,
+        -0.006653520209578556
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": -0.013387521949055153,
+      "metric": "mean_throughput_ratio",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Heuristic",
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": 0.0,
+      "metric": "migration_count",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Heuristic",
+      "bootstrap_ci95": [
+        -0.65,
+        -0.35
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": -0.5,
+      "metric": "connection_churn",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Heuristic",
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": 0.0,
+      "metric": "action_noop_count",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Static",
+      "bootstrap_ci95": [
+        0.032479041854591814,
+        0.07203831239095626
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": 0.05169341525910972,
+      "metric": "mean_reward",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Static",
+      "bootstrap_ci95": [
+        -0.0008586787891900871,
+        -0.00026833519990901444
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": -0.000536702730136665,
+      "metric": "mean_backlog_ratio",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Static",
+      "bootstrap_ci95": [
+        -1580.5279249999999,
+        -493.914075
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": -987.829925,
+      "metric": "mean_connection_subscription_variance",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Static",
+      "bootstrap_ci95": [
+        -304872318183.3395,
+        -95264429173.01016
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": -190572432904.11798,
+      "metric": "mean_connection_backlog_variance",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Static",
+      "bootstrap_ci95": [
+        -0.24695748828125003,
+        -0.07717407421875001
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": -0.15434842578125002,
+      "metric": "mean_subscription_imbalance",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Static",
+      "bootstrap_ci95": [
+        -0.0015104906860004819,
+        -0.00047214166138219714
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": -0.0009445170862748709,
+      "metric": "mean_backlog_imbalance",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Static",
+      "bootstrap_ci95": [
+        -0.1236675365055957,
+        -0.03910644349460266
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": -0.07764647143376244,
+      "metric": "mean_connection_imbalance",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Static",
+      "bootstrap_ci95": [
+        -0.3177495935023259,
+        -0.10036464139449552
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": -0.20021753025401073,
+      "metric": "mean_pod_pressure",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Static",
+      "bootstrap_ci95": [
+        0.00016039678559127412,
+        0.0005132714287277212
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": 0.0003208120523829572,
+      "metric": "mean_throughput_ratio",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Static",
+      "bootstrap_ci95": [
+        0.125,
+        0.425
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": 0.275,
+      "metric": "migration_count",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Static",
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": 0.0,
+      "metric": "connection_churn",
+      "paired_episode_count": 40
+    },
+    {
+      "baseline": "Static",
+      "bootstrap_ci95": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 5000,
+      "difference_definition": "FrozenDQL minus baseline",
+      "mean_difference": 0.0,
+      "metric": "action_noop_count",
+      "paired_episode_count": 40
+    }
+  ]
+}

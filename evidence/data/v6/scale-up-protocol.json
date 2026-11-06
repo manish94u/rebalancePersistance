@@ -1,0 +1,74 @@
+{
+  "schema": "oaes-dql-action-contract-preflight/v1",
+  "study_id": "oaes-dql-v6-scale-up-cap-restoration",
+  "locked_at_utc": "2026-09-13T12:55:00Z",
+  "classification": "private-research",
+  "purpose": "Correct the scale+ action contract before any new learner or holdout study.",
+  "hypothesis": "Opening one persistent connection and restoring the configured per-connection subscription target before the next DQL decision improves both maximum subscription pressure and scalar reward relative to static placement.",
+  "action_contract": {
+    "version": "oaes-dql-actions/v2-cap-restoring-scale-up",
+    "decision": "The DQL agent selects one bounded scale+ option.",
+    "executor": [
+      "Open exactly one active persistent connection within the hard connection cap.",
+      "Repeatedly apply deterministic rebN reassociation while any active connection exceeds the configured rebalancing target and a safe move is available.",
+      "Use target-standby, source-quiesce, observed zero-in-flight, target-active, and source-detach receipts for every live reassociation.",
+      "Return the number of completed reassociations and whether the target was restored; do not hide a partial result as success."
+    ],
+    "hard_limit_distinction": "The rebalancing target may be lower than, but never greater than, the transport's hard subscriptions-per-connection limit.",
+    "maximum_reassociations_per_option": "At most one hard connection capacity, because one newly opened connection cannot safely accept more subscriptions than that limit."
+  },
+  "paired_preflight": {
+    "comparator": "Static",
+    "scripted_policy": "Scripted-scale+",
+    "difference_definition": "Scripted-scale+ minus Static on the same seed",
+    "confidence_interval": {
+      "method": "paired nonparametric bootstrap percentile interval",
+      "confidence_level": 0.95,
+      "resamples": 10000,
+      "seed": 88231
+    },
+    "scenario": {
+      "name": "deployment_scale_up_pressure",
+      "steps": 500,
+      "pod_count": 4,
+      "subscription_count": 250,
+      "initial_connections": 2,
+      "max_connections": 3,
+      "rebalancing_target_subscriptions_per_connection": 100,
+      "initial_connection_subscription_counts": [125, 125],
+      "base_arrival_rate": 20.0,
+      "hot_subscription_fraction": 0.15,
+      "hot_multiplier": 2.2,
+      "client_ack_capacity": 2500.0,
+      "probe_mode": "unavailable"
+    },
+    "development_seeds": [
+      18013,
+      18041,
+      18059,
+      18077,
+      18103,
+      18121,
+      18149,
+      18169,
+      18191,
+      18211
+    ]
+  },
+  "acceptance_gates": {
+    "episode_count": 10,
+    "scale_up_selected_and_applied_per_episode": 1,
+    "executor_noop_count": 0,
+    "target_restored_at_option_completion_in_every_episode": true,
+    "maximum_subscription_difference": "negative in every paired episode",
+    "maximum_subscription_mean_ci95": "upper bound below zero",
+    "reward_difference": "positive in every paired episode",
+    "reward_mean_ci95": "lower bound above zero",
+    "unexpected_scale_down_count": 0,
+    "simulator_and_client_unit_tests": "pass"
+  },
+  "holdout_seed_bank": "none",
+  "holdout_executed": false,
+  "failure_rule": "If any gate fails, do not start V6 learner selection and do not modify reward weights post hoc.",
+  "success_rule": "A pass authorizes a separately locked learner-development protocol; it does not select a DQL method or support a performance claim."
+}

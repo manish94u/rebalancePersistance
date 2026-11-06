@@ -1,0 +1,33 @@
+name: Offline artifact verification
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Verify imported source and evidence hashes
+        run: python tools/check_repository.py
+      - name: Reanalyse immutable records
+        run: python evidence/reanalyse.py
+      - name: Test archived analysis
+        run: python -m unittest discover -s evidence -p 'test_*.py' -v
+      - name: Test simulator and publication package
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Verify preserved mathematics and manuscript text
+        run: python paper/submission-compact/verify_relocation.py
+      - name: Smoke-test the standalone simulator
+        run: python simulator/run_experiments.py --steps 20 --seeds 1

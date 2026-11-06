@@ -1,0 +1,15 @@
+{
+  "auc_difference_ci95_high": -0.11334470161291084,
+  "auc_difference_ci95_low": -0.12120962849463345,
+  "baseline": "KubernetesScaleOutOnly",
+  "decision_rule_passed": 1,
+  "dql_minus_baseline_auc": -0.11750362365592251,
+  "dql_minus_baseline_final_backlog_ratio": -0.2504696774194116,
+  "dql_minus_baseline_throughput_events_per_second": 161761.6666666667,
+  "one_sided_randomization_p": 9.99990000099999e-06,
+  "paired_seed_count": 20,
+  "policy": "FrozenDQL",
+  "relative_auc_reduction_percent": 12.302797667298027,
+  "relative_final_backlog_reduction_percent": 27.518287496460708,
+  "relative_throughput_increase_percent": 278.8994252873563
+}

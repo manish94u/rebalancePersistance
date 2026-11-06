@@ -1,0 +1,97 @@
+{
+  "schema": "taas-ttl-preload-manuscript/v1",
+  "source_manifest_sha256": "9cd19e678794922e9069eb1869b015d17bb900ccc6db528e765f660e0a5d18a8",
+  "source_analysis_sha256": "b1aec4f262f06d957cb7f3bb43b3333e67ec18588e9c715171bbf05f64009433",
+  "source_subscription_accounting_sha256": "937de498f6e8fca18a40cce3d91bc3a6eb7b1d1c960669793fe9a9b39ffd97cf",
+  "verified_archive_files": 386,
+  "verified_archive_bytes": 102540122,
+  "independent_trial_pairs": 1,
+  "arms": {
+    "native_ttl": {
+      "final_accounting": {
+        "deliveries": 30000,
+        "acknowledged_deliveries": 26831,
+        "unresolved_deliveries": 3169
+      },
+      "subscriptions": 5000,
+      "active_connections": 20,
+      "probe_connections": 5,
+      "common_measurement_seconds": 931.347,
+      "mean_ack_rate_eps": 28.80881132381379,
+      "ack_latency_seconds_confirmed_only": {
+        "count": 26831,
+        "median": 69.862,
+        "p95": 251.546
+      },
+      "frozen_weights_unchanged": true,
+      "training_steps": 9985,
+      "receipt_completion_percent": 89.43666666666667
+    },
+    "frozen_dql": {
+      "final_accounting": {
+        "deliveries": 30000,
+        "acknowledged_deliveries": 30000,
+        "unresolved_deliveries": 0
+      },
+      "subscriptions": 5000,
+      "active_connections": 20,
+      "probe_connections": 5,
+      "common_measurement_seconds": 937.743,
+      "mean_ack_rate_eps": 31.991707749351367,
+      "ack_latency_seconds_confirmed_only": {
+        "count": 30000,
+        "median": 69.836,
+        "p95": 249.87419999999997
+      },
+      "frozen_weights_unchanged": true,
+      "training_steps": 9985,
+      "receipt_completion_percent": 100.0
+    }
+  },
+  "dql_telemetry_gate": {
+    "decision_intervals": 450,
+    "active_backlog_valid_intervals": 0,
+    "guard_reasons": {
+      "invalid-backlog-telemetry": 450
+    },
+    "all_pod_and_connection_coverages_at_least_0_8": 10,
+    "oldest_age_seconds_when_coverage_passed": [
+      185.572,
+      184.443,
+      185.666,
+      185.672,
+      185.649,
+      183.127,
+      185.673,
+      185.974,
+      185.832,
+      183.612
+    ],
+    "minimum_component_coverage_range": [
+      0.56,
+      0.808
+    ]
+  },
+  "dql_selected_actions": {
+    "stay": 450
+  },
+  "dql_executed_actions": {},
+  "selective_migration_demonstrated_in_this_pair": false,
+  "same_subscription_cohort": true,
+  "publisher_event_id_reconciliation": false,
+  "native_recovery": {
+    "peak_connections": 3,
+    "peak_fraction": 0.15,
+    "connection_seconds": 10.983,
+    "fraction_seconds": 0.54915,
+    "distinct_affected_connections": 11,
+    "censored_windows": 0
+  },
+  "native_expiry_windows": 12,
+  "figure_sha256": {
+    "figures/ttl-preload-ack-completion.pdf": "e06804540af8c8fe55537314674d0786b81a2c3fa3471008e8678fdc2786ee76",
+    "figures/ttl-preload-ack-completion.png": "5e26cd62d90149370afe7a68ddb8dc91778fb30ac5369b4940e920f0a5e18fa3",
+    "figures/ttl-preload-ack-latency-violin-box.pdf": "5be6e8709b50a2f029f4af9084102175f848fcdcc1d42701a40b9170f80e774f",
+    "figures/ttl-preload-ack-latency-violin-box.png": "4d2fb883a159eeeb7f9e1901c012e262d42af14c00c26dafa7a1ff54590ab355"
+  }
+}

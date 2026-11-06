@@ -1,0 +1,73 @@
+\section{Evaluated Features and Policy Settings}
+\label{app:feature-order}
+
+The frozen network consumes the ordered 21-element vector in
+Table~\ref{tab:feature-order}. For nonnegative $x$ and positive reference $r$,
+the implementation uses $\operatorname{clip}(x/r)=\min(1,x/r)$ and
+$\operatorname{lognorm}(x;r)=\min(1,\log(1+x)/\log(1+r))$.
+These are numerical scaling rules, not drain-time estimates. A pressure
+feature can exceed one through the quadratic reliability term even though
+its count, backlog, and capacity components are clipped.
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Exact input order of the evaluated 21--32--6 network. Indices are
+one-based; ``mean'' and ``maximum'' refer to active client connections.}
+\Description{Feature indices map to backlog, count and backlog imbalance,
+connection cost and throughput, observed Pod pressure, and decision context.}
+\label{tab:feature-order}
+\begin{tabular}{p{0.09\textwidth}p{0.82\textwidth}}
+\toprule
+Indices & Features, in order\\
+\midrule
+1--2 & Log-normalized client backlog; log-normalized positive backlog growth\\
+3--5 & Mean and maximum of $\operatorname{clip}(N_{u,c}/\Theta_N)$; $\widehat V_u^N$\\
+6--9 & Mean and maximum of $\operatorname{lognorm}(G_{u,c};B_{\mathrm{ref}})$; $\widehat V_u^G$; combined imbalance $V_u$\\
+10--11 & $|\mathcal C_u|/C_{\max}$ clipped at one; client throughput divided by the declared throughput reference and clipped at one\\
+12 & Active-Pod pressure, weighted by this client's subscription counts on each observed Pod; unweighted mean if the count is zero\\
+13--15 & Probe pressure; clipped probe subscription count relative to $X_{\mathrm{safe}}$; clipped probe backlog relative to $B_{\mathrm{ref}}$\\
+16--18 & Probe-present indicator; probe endpoint absent from active endpoints; cooldown-ready indicator\\
+19--21 & Maximum active telemetry/backlog age ratio; probe age ratio; previous-action-was-migration indicator\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Pod-wide values are deduplicated when several sockets reach one Pod.
+Client backlog sums each known subscription once. When per-subscription
+values are absent, the builder uses the active-connection backlog aggregates.
+Age ratios are clipped at one. Missing probe data sets its pressure and age
+features to one and its present indicator to zero; the independent validity
+checks prohibit migration. Coverage and freshness checks are execution gates,
+not additional neural inputs.
+
+For the simulator adapter, $B_{\mathrm{ref}}$ is the declared initial tiered
+backlog when it is positive, otherwise $\max(1,\beta|\mathcal K_u|)$.
+The growth reference equals $B_{\mathrm{ref}}$;
+$V^N_{\mathrm{ref}}=(0.2\Theta_N)^2$ and
+$V^G_{\mathrm{ref}}=(0.2B_{\mathrm{ref}})^2$.
+The safe and hard subscription thresholds are $2\Theta_N$ and
+$\max(2\Theta_N+1,\operatorname{round}(2.5\Theta_N))$.
+The throughput reference is three times the configured base client ACK rate.
+These constants are scenario inputs, not fitted from holdout outcomes.
+The service-model pressure used to generate simulator throughput is distinct
+from this observation-builder pressure, as described in
+Section~\mainref{sec:scaleout-recovery}.
+
+The October loaded deployment uses $\Theta_N=250$, $C_{\max}=5$,
+$B_{\mathrm{ref}}=100{,}000$, $V^N_{\mathrm{ref}}=2{,}500$,
+$V^G_{\mathrm{ref}}=400{,}000{,}000$, $X_{\mathrm{safe}}=800$, and
+$X_{\mathrm{hard}}=1{,}000$. Its throughput reference is 1,000 events/s,
+telemetry deadline 180 seconds, minimum backlog coverage 0.8, and decision
+interval 10 seconds. The four active connections fit within the configured
+cap. Both scaling actions are disabled by the deployment profile. Migration
+requires projected pressure improvement above 0.01 and Q-value margin above
+$\delta=0.05$. These live normalization constants differ from the simulator's;
+the live trial evaluates execution, not a matched cross-domain reward gain.
+
+The mixed-workload \emph{Heuristic} checks admitted actions in this order:
+subscription variance above 0.45; backlog variance above 0.45; normalized
+backlog above 0.55 for scale-up; active-minus-probe pressure above 0.18 for
+migration; connection utilization below 0.25 for scale-down; otherwise stay.
+The scale-out \emph{guarded-greedy} selector instead requests migration whenever
+its shared guard admits it. The \emph{Scripted} timing controls use their
+declared random schedules. None receives the DQL network's action values.

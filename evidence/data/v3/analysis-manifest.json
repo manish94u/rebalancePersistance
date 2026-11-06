@@ -1,0 +1,24 @@
+{
+  "analysis_source_sha256": "e2cf98d1718a350b326530c8c586607cb014014939cba374b903bb9ca7451690",
+  "classification": "private-research",
+  "episode_row_count": 120,
+  "generated_at_utc": "2026-09-11T13:28:16Z",
+  "holdout_seed_bank": "v3",
+  "holdout_seed_count": 10,
+  "input_bundle_name": "publication-holdout-v3-20260911T132009Z",
+  "input_evidence_index_sha256": "3989a007bd3449bc84486785fe85d6a2123d9c8f3f5b988c530f27f44d99cc5a",
+  "input_evidence_verification": {
+    "artifact_count": 3,
+    "classification": "private-research",
+    "evidence_index_sha256": "3989a007bd3449bc84486785fe85d6a2123d9c8f3f5b988c530f27f44d99cc5a",
+    "schema": "oaes-dql-training-evidence-index/v1",
+    "total_bytes": 58250,
+    "valid": true
+  },
+  "input_holdout_episodes_sha256": "e7a15d8b3b6fd7d02ee626d55025da5167f167fd63b59d730b996594f9d060d1",
+  "input_manifest_filename": "holdout-manifest.json",
+  "input_manifest_sha256": "2a502753cec304d928d7f0923a40f079794e320cf797f787f90abf45ab230c18",
+  "policy_count": 3,
+  "scenario_count": 4,
+  "schema": "oaes-dql-holdout-analysis/v1"
+}

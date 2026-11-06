@@ -1,0 +1,79 @@
+{
+  "source_manifest_sha256": "b34f400178d093e9008d5599dfcdaebbd944426184d98f5d3b2796dae9bbb1aa",
+  "source_analysis_sha256": "ba4ba2a483239a16d5bd79bb76786826453abbc3ca73bd83f6b3a1eb66e0811e",
+  "verified_archive_files": 314,
+  "verified_archive_bytes": 76830748,
+  "independent_trial_pairs": 1,
+  "dql_performance_comparison": false,
+  "arms": {
+    "native_ttl": {
+      "final_accounting": {
+        "deliveries": 30000,
+        "acknowledged_deliveries": 29631,
+        "unresolved_deliveries": 369
+      },
+      "subscriptions": 5000,
+      "active_connections": 20,
+      "probe_connections": 5,
+      "common_measurement_seconds": 904.062,
+      "mean_ack_rate_eps": 32.77540699642281,
+      "ack_latency_seconds_confirmed_only": {
+        "count": 29631,
+        "median": 19.439,
+        "p95": 238.3915
+      },
+      "native_ttl_matched_windows": 5,
+      "recovery_measurements": [
+        {
+          "reconnect_seconds": 0.024,
+          "full_resubscription_seconds": 0.973,
+          "deliveries_during_resubscription": 0,
+          "native_ttl_matched": true
+        },
+        {
+          "reconnect_seconds": 0.017,
+          "full_resubscription_seconds": 0.504,
+          "deliveries_during_resubscription": 0,
+          "native_ttl_matched": true
+        },
+        {
+          "reconnect_seconds": 0.021,
+          "full_resubscription_seconds": 0.892,
+          "deliveries_during_resubscription": 22,
+          "native_ttl_matched": true
+        },
+        {
+          "reconnect_seconds": 0.017,
+          "full_resubscription_seconds": 0.559,
+          "deliveries_during_resubscription": 0,
+          "native_ttl_matched": true
+        },
+        {
+          "reconnect_seconds": 0.02,
+          "full_resubscription_seconds": 0.586,
+          "deliveries_during_resubscription": 0,
+          "native_ttl_matched": true
+        }
+      ]
+    },
+    "ttl_off": {
+      "final_accounting": {
+        "deliveries": 30000,
+        "acknowledged_deliveries": 30000,
+        "unresolved_deliveries": 0
+      },
+      "subscriptions": 5000,
+      "active_connections": 20,
+      "probe_connections": 5,
+      "common_measurement_seconds": 903.961,
+      "mean_ack_rate_eps": 33.1872724597632,
+      "ack_latency_seconds_confirmed_only": {
+        "count": 30000,
+        "median": 21.407,
+        "p95": 55.825900000000004
+      },
+      "native_ttl_matched_windows": 0,
+      "recovery_measurements": []
+    }
+  }
+}

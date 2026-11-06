@@ -1,0 +1,197 @@
+{
+  "archived_display_changes": [
+    {
+      "archived_sha256": "22576b4af95fed5ae5476b8778d79438c3b339da2756b377e6714a3f6c1e4262",
+      "current_sha256": "9475f0e2fe5f5154502f04ece65fce9478e3baf3bcbbc4e1c2fd1f4dd6d84ca5",
+      "path": "persistent_scaleout_backlog_recovery.pdf",
+      "used_as_input": false
+    },
+    {
+      "archived_sha256": "1ded06f36c6c89a20f98df54089645197bba86bf39b39bcc2889b37b240be336",
+      "current_sha256": "3a6b27d36a3fa5c99f463db3d0c323837dda933c29e7a0a7d665f54adb716c51",
+      "path": "persistent_scaleout_backlog_recovery.png",
+      "used_as_input": false
+    },
+    {
+      "archived_sha256": "d0cb1adeb440dc4ba926438eefcf314f87e8ee630b72123fecd977abfd16eaee",
+      "current_sha256": "ef77cae3a0c50391d850fb2f9c7f09c0db4929818fdd7142fc49f3289241c824",
+      "path": "persistent_scaleout_capacity_activation.pdf",
+      "used_as_input": false
+    },
+    {
+      "archived_sha256": "58e297a12d3255935bdb31e7e0e36cfb571236d499fea9dadbd84a38a549a3b8",
+      "current_sha256": "b0ab92305e26602bfea1465a241746fa6d00691b4b39a4e1047287b00b70ff77",
+      "path": "persistent_scaleout_capacity_activation.png",
+      "used_as_input": false
+    }
+  ],
+  "checkpoint_sha256": "3e68371d848eca85ec0b87c7c7dd831ea3ec953e2c1bd51c0d79871c7ef3e1e1",
+  "evaluator_sha256": "a20ce1ca3bc4dec39a608e2db6a3f6156683a215928422d3192e5ae1af6f06ed",
+  "evidence_type": "exploratory simulator extension of archived paired seeds",
+  "first_attempt_interval": 0,
+  "jitter_rule": "period * Uniform(1-j,1+j), rounded upward to the ten-second clock",
+  "locked_utc": "2026-09-27T17:06:21.388068+00:00",
+  "new_arms": {
+    "AdHocFixed40s": [
+      40.0,
+      0.0
+    ],
+    "AdHocFixed60s": [
+      60.0,
+      0.0
+    ],
+    "AdHocJitter30": [
+      60.0,
+      0.3
+    ],
+    "AdHocJitter40": [
+      60.0,
+      0.4
+    ]
+  },
+  "no_model_or_pressure_input_to_adhoc_selection": true,
+  "original_guarded_comparator_retained": true,
+  "raw_performance_values_never_perturbed": true,
+  "reference_csv_sha256": "4320f3f67b4c4f528f7bbafcbc648ba747ac4a1090a113a3dd8fd50ad5817d54",
+  "reference_protocol": {
+    "checkpoint": {
+      "epsilon": 0.0,
+      "path": "artifacts/development-v3-zero-noop-20260911T130204Z/frozen-policy.json",
+      "sha256": "3e68371d848eca85ec0b87c7c7dd831ea3ec953e2c1bd51c0d79871c7ef3e1e1",
+      "training_updates_during_evaluation": false
+    },
+    "excluded_development_pilot_seeds": [
+      17
+    ],
+    "locked_at_utc": "2026-09-18T07:54:21Z",
+    "mechanism_under_test": {
+      "baseline_path": "add Pods but retain all ten established persistent connections and subscriptions on Pod 0",
+      "dql_path": "sample a subscription-free probe through the load balancer, select only admissible actions, promote a useful probe, migrate the complete subscription set from one source connection, retire the source, and create a replacement probe",
+      "isolation_rule": "subscriptions and backlog start evenly distributed across the ten connections, so connection-count and connection-backlog rebalancing are not initial explanations for the result",
+      "post_scale_topology": "four available subscriber Pods; the ten established connections remain pinned to Pod 0",
+      "pre_scale_topology": "one subscriber Pod with ten established persistent connections"
+    },
+    "paired_seeds": [
+      42043,
+      42061,
+      42071,
+      42073,
+      42083,
+      42089,
+      42101,
+      42131,
+      42139,
+      42157,
+      42169,
+      42179,
+      42181,
+      42187,
+      42193,
+      42197,
+      42209,
+      42221,
+      42223,
+      42227
+    ],
+    "policies": [
+      "FrozenDQL",
+      "KubernetesScaleOutOnly",
+      "ScriptedProbeMigration"
+    ],
+    "primary_comparison": {
+      "baseline": "KubernetesScaleOutOnly",
+      "decision_rule": "The paired bootstrap 95% confidence interval for DQL minus baseline backlog AUC has an upper bound below zero and the one-sided paired sign-randomization p-value is below 0.05.",
+      "direction": "lower",
+      "endpoint": "normalized_backlog_auc",
+      "policy": "FrozenDQL"
+    },
+    "research_question": "After Kubernetes scales the subscriber service from one Pod to four Pods, does guarded DQL probe promotion and persistent-connection migration drain a fixed backlog faster than Kubernetes scale-out alone, when all pre-existing TCP connections remain pinned to the original Pod?",
+    "scenario": {
+      "base_arrival_rate": 0.0,
+      "beta": 100000.0,
+      "bounded_probe_resample_limit": 12,
+      "client_ack_capacity_events_per_second": 250000.0,
+      "cooldown_intervals": 3,
+      "decision_interval_seconds": 10.0,
+      "expected_initial_backlog": 775000000.0,
+      "hot_multiplier": 1.0,
+      "hot_subscription_fraction": 0.0,
+      "initial_assignment_mode": "round_robin",
+      "initial_backlog_tiers": [
+        [
+          0.25,
+          100000.0
+        ],
+        [
+          0.25,
+          50000.0
+        ],
+        [
+          0.25,
+          5000.0
+        ],
+        [
+          0.25,
+          0.0
+        ]
+      ],
+      "initial_connection_pods": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "initial_connections": 10,
+      "max_connections": 10,
+      "name": "persistent_scaleout_recovery_20000",
+      "pod_capacity_events_per_second": 100000.0,
+      "pod_count_after_scaleout": 4,
+      "pod_count_before_scaleout": 1,
+      "steps": 120,
+      "subscription_count": 20000,
+      "theta_n": 2500
+    },
+    "schema": "oaes-dql-persistent-scaleout-recovery/v1",
+    "secondary_endpoints": [
+      "final_backlog_ratio",
+      "cumulative_throughput",
+      "mean_throughput_events_per_second",
+      "time_to_90_percent_remaining_seconds",
+      "time_to_75_percent_remaining_seconds",
+      "mean_maximum_pod_pressure",
+      "overloaded_pod_interval_fraction",
+      "final_active_pod_count",
+      "migration_count"
+    ],
+    "statistical_analysis": {
+      "bootstrap_resamples": 10000,
+      "confidence_level": 0.95,
+      "independent_unit": "paired simulator seed",
+      "overload_pressure_threshold": 0.9,
+      "randomization_resamples": 100000
+    },
+    "status": "locked-before-confirmatory-execution",
+    "title": "Persistent TCP connection scale-out recovery at 20,000 subscriptions",
+    "validity_checks": [
+      "exactly 20,000 subscriptions",
+      "exactly 775,000,000 initial queued events",
+      "ten active persistent connections initially terminate on Pod 0",
+      "four subscriber Pods are available after scale-out",
+      "each connection initially carries 2,000 subscriptions and 77,500,000 queued events",
+      "initial connection-count variance is zero",
+      "initial connection-backlog variance is zero",
+      "a probe on an idle scaled-out Pod makes migration admissible",
+      "the scale-out-only baseline performs no migration",
+      "message-conservation residual is below 1e-9"
+    ]
+  },
+  "schema": "oaes-adhoc-migration-sensitivity/v1",
+  "source_rule": "uniform over occupied connections",
+  "target_rule": "uniform over all Pods, same-Pod outcomes retained as no-ops"
+}

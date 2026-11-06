@@ -1,0 +1,10 @@
+# Preserve original bytes for checksummed research artifacts, including CSV CRLF.
+* text=auto eol=lf
+evidence/** -text -whitespace
+paper/** -text -whitespace
+architecture/** -text -whitespace
+simulator/oaes_rebalancing_sim/** -text -whitespace
+simulator/run*.py -text
+*.pdf binary
+*.jpg binary
+*.zip binary

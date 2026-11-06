@@ -1,0 +1,36 @@
+{
+  "classification": "private-research",
+  "development_bundle_name": "development-v3-zero-noop-20260911T130204Z",
+  "development_evidence_index_sha256": "be44a396e6b1321d47a432032404f10adef255dd8fc19dab19d665bdd8938310",
+  "development_evidence_verification": {
+    "artifact_count": 17,
+    "classification": "private-research",
+    "evidence_index_sha256": "be44a396e6b1321d47a432032404f10adef255dd8fc19dab19d665bdd8938310",
+    "schema": "oaes-dql-training-evidence-index/v1",
+    "total_bytes": 37003042,
+    "valid": true
+  },
+  "development_manifest_sha256": "334725fed2e15fbca422558c80bcf6c5463636bba9e06770cee4091e4a868a42",
+  "episode_row_count": 120,
+  "evaluation_episode_steps": 500,
+  "frozen_checkpoint_sha256": "3e68371d848eca85ec0b87c7c7dd831ea3ec953e2c1bd51c0d79871c7ef3e1e1",
+  "generated_at_utc": "2026-09-11T13:24:55Z",
+  "holdout_seed_bank": "v3",
+  "holdout_seeds": [
+    7103,
+    7109,
+    7121,
+    7127,
+    7129,
+    7151,
+    7159,
+    7177,
+    7187,
+    7193
+  ],
+  "holdout_source_sha256": "5fbdbaae7fcb89979ef9e7e5b91e41f0d1b6d530a1a9b78e60a89a3fb04e3d1d",
+  "schema": "oaes-dql-independent-holdout/v1",
+  "selected_candidate_index": 0,
+  "selected_candidate_seed": 101,
+  "trainer_source_sha256": "f5a97f70867740ab05f1910ec80892c270eb6f95ea06f7f1b79c808299044d95"
+}

@@ -1,0 +1,18 @@
+\begin{table}[!htbp]
+\centering\small
+\caption{Independent ad-hoc migration sensitivity in the scale-out simulator. Means over twenty paired seeds per policy; timing jitter changes the schedule, not measured values.}
+\label{tab:adhoc-migration}
+\begin{tabular}{lrrrr}
+\toprule
+Policy & Events/s & Backlog AUC & Migrations & Final Pods \\
+\midrule
+Frozen DQL & 219,762 & 0.83759 & 7.75 & 4.00 \\
+Guarded-greedy migration & 221,260 & 0.83589 & 7.75 & 4.00 \\
+Ad-hoc: fixed 40 s & 205,295 & 0.84997 & 22.85 & 3.70 \\
+Ad-hoc: fixed 60 s & 197,636 & 0.85906 & 15.40 & 3.90 \\
+Scripted & 195,737 & 0.86064 & 14.70 & 3.85 \\
+Ad-hoc: 60 s, $\pm$40\% & 195,640 & 0.86053 & 14.65 & 3.85 \\
+Scale-out only & 58,000 & 0.95510 & 0.00 & 1.00 \\
+\bottomrule
+\end{tabular}
+\end{table}

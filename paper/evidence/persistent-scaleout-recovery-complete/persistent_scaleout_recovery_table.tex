@@ -1,0 +1,19 @@
+\begin{table}[!t]
+\centering
+\small
+\caption{Persistent-connection recovery after scaling from one to four subscriber Pods. Twenty paired seeds each start with 20,000 subscriptions and 775 million queued events on ten TCP connections pinned to Pod~0. Lower backlog measures are better.}
+\label{tab:persistent_scaleout_recovery}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrrr}
+\toprule
+Policy & Backlog AUC & Final backlog (\%) & Throughput (k/s) & Active Pods & Migrations \\
+\midrule
+\textbf{Frozen DQL} & 0.8376 & 65.97 & 219.8 & 4.00 & 7.75 \\
+Kubernetes scale-out only & 0.9551 & 91.02 & 58.0 & 1.00 & 0.00 \\
+Scripted probe migration & 0.8359 & 65.74 & 221.3 & 4.00 & 7.75 \\
+\midrule
+\multicolumn{6}{l}{DQL vs. scale-out only: 12.30\% lower backlog AUC; 278.9\% higher mean throughput.} \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

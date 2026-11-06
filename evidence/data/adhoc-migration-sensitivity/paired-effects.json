@@ -1,0 +1,92 @@
+[
+  {
+    "baseline": "ScriptedProbeMigration",
+    "n_pairs": 20,
+    "throughput_difference_events_per_second": -1498.3333333333226,
+    "difference_ci95": [
+      -2875.8333333333226,
+      -362.5
+    ],
+    "throughput_gain_percent": -0.6771821989213223,
+    "gain_ci95_percent": [
+      -1.3095074814753382,
+      -0.16317497233527822
+    ],
+    "migration_reduction_percent": 0.0
+  },
+  {
+    "baseline": "AdHocFixed40s",
+    "n_pairs": 20,
+    "throughput_difference_events_per_second": 14466.666666666639,
+    "difference_ci95": [
+      11060.343749999982,
+      17962.604166666657
+    ],
+    "throughput_gain_percent": 7.046770095066424,
+    "gain_ci95_percent": [
+      5.2713113415051005,
+      8.97319480715779
+    ],
+    "migration_reduction_percent": 66.08315098468272
+  },
+  {
+    "baseline": "AdHocFixed60s",
+    "n_pairs": 20,
+    "throughput_difference_events_per_second": 22125.833333333296,
+    "difference_ci95": [
+      17713.010416666617,
+      26620.906249999978
+    ],
+    "throughput_gain_percent": 11.195253897108737,
+    "gain_ci95_percent": [
+      8.704725311533206,
+      13.906277510249266
+    ],
+    "migration_reduction_percent": 49.675324675324674
+  },
+  {
+    "baseline": "AdHocJitter30",
+    "n_pairs": 20,
+    "throughput_difference_events_per_second": 24024.999999999964,
+    "difference_ci95": [
+      18949.927083333292,
+      29299.270833333303
+    ],
+    "throughput_gain_percent": 12.274143832700378,
+    "gain_ci95_percent": [
+      9.383819503293239,
+      15.551178233037424
+    ],
+    "migration_reduction_percent": 47.278911564625844
+  },
+  {
+    "baseline": "AdHocJitter40",
+    "n_pairs": 20,
+    "throughput_difference_events_per_second": 24121.666666666635,
+    "difference_ci95": [
+      18850.312499999953,
+      29704.166666666628
+    ],
+    "throughput_gain_percent": 12.32961902814691,
+    "gain_ci95_percent": [
+      9.311390627287771,
+      15.812045570283251
+    ],
+    "migration_reduction_percent": 47.098976109215016
+  },
+  {
+    "baseline": "KubernetesScaleOutOnly",
+    "n_pairs": 20,
+    "throughput_difference_events_per_second": 161761.6666666667,
+    "difference_ci95": [
+      158354.1666666667,
+      164734.1666666667
+    ],
+    "throughput_gain_percent": 278.8994252873563,
+    "gain_ci95_percent": [
+      273.0244252873562,
+      284.0244252873562
+    ],
+    "migration_reduction_percent": null
+  }
+]

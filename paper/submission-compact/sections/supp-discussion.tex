@@ -1,0 +1,109 @@
+\section{Extended Interpretation}
+The complete interpretation from the reference manuscript is retained below.
+The main systems finding is that subscriber capacity and client access to that
+capacity are separate. Adding Pods supplies service capacity; moving existing
+subscription-bearing connections makes it reachable by persistent clients.
+The guarded-greedy and DQL policies both achieve this in the scale-out model.
+Their nearby throughput results support the shared mechanism rather than
+requiring a claim that learning beats a strong greedy rule in every workload.
+
+Policy choice depends on the operational objective. Greedy control gives a
+direct, inspectable response to measured pressure. DQL can account for delayed
+costs and several competing objectives. A subscription move changes future
+backlog distribution; migration trades immediate handoff cost for later
+capacity. Both selectors operate above the same bounded, checked actions.
+
+QEdgeProxy selects service instances using client QoS feedback
+\cite{Cilic2025}, while Yahya et al. adapt offloading through decentralized
+bandits and server-reward adjustment \cite{Yahya2024}. The present work
+focuses on subscription-aware persistent messaging clients under partial
+observability and treats connection-level rebalancing as a first-class
+control action alongside endpoint selection. This distinction
+matters operationally: endpoint selection chooses the serving Pod, while
+connection-level rebalancing corrects subscription skew within the client.
+
+The holdout results show how learning compares with the heuristic.
+Both policies can perform the same actions, so they can reach the same
+capacity limit in some scenarios.  DQL's measured advantage is concentrated
+in subscription distribution, combined connection imbalance, and avoiding a
+harmful heuristic intervention during client slowdown.  The heuristic retains
+an advantage in throughput and backlog-distribution metrics. These results
+identify the operating objectives favored by each policy. The
+component-level analysis reports these tradeoffs alongside the scalar reward;
+policy selection uses development validation before the holdout is evaluated.
+
+The distinction between a model's quality and the utility of the complete
+system also appears in Casimiro et al.'s probabilistic framework for adapting
+ML components \cite{Casimiro2024ModelChecking}. In our setting, a favorable
+Q-value is therefore interpreted alongside backlog, throughput, and handoff
+outcomes. Gheibi and Weyns introduce a lifelong-learning
+layer to respond to changing adaptation options
+\cite{Gheibi2024AdaptationDrift}. Our experiments evaluate a fixed policy under
+the stated workload and deployment conditions. Lifelong adaptation is outside
+this study's scope.
+
+The loaded Oracle Cloud scale-out trial adds direct evidence for selective
+execution (Section~\mainref{sec:live-dql-scaleout}). Every handoff preserved three
+unselected active sessions, while the full cohort reached 8,000 ACK receipts.
+The measured drain waits also show why opening a replacement socket is only
+one part of migration: client processing and acknowledgement completion can
+dominate the handoff duration. These measurements validate the learned
+decision-to-execution path under the declared load and processing limit.
+
+The action-contract studies provide a further design lesson: a useful
+executor and a policy that reliably selects it are separate requirements.
+The cap-restoring scale-up preflight improved reward and maximum subscription
+count, but the expanded learner study did not pass every coverage gate.
+Appendix~\ref{app:action-diagnostics} retains these results. They explain why
+the live checkpoint uses a compatible, restricted rebalancing profile.
+
+\subsection{Conclusion}
+
+We presented a probe-guided, client-side framework for rebalancing
+persistent subscription connections without requiring cluster-wide client
+visibility.  The mechanism combines per-subscription queues, active-connection
+telemetry, and a load-balancer-assigned probe. Greedy rules or DQL select
+bounded actions, and a shared executor carries out receipt-gated handoff.
+The technical contribution is the link between partial observations,
+endpoint-preserving probe promotion, and selective subscription reassociation.
+
+The primary experiment demonstrates recovery after a one-to-four pod capacity
+increase with 20,000 subscriptions and 775 million queued events. Guarded-greedy
+migration and frozen DQL deliver 221,260 and 219,762 events/s, respectively,
+compared with 58,000 events/s for unchanged placement. Frozen DQL
+uses all four pods, delivers 3.79 times the mean throughput, and leaves 27.52\%
+less backlog after 20 minutes than retaining the ten original connection
+assignments. Its 12.30\% reduction in backlog area satisfies the registered
+paired statistical criterion. The adverse-probe ablation complements this
+result: evaluating the candidate before promotion reduces backlog area by
+4.19\% relative to forcing one harmful migration.
+
+These findings identify the operational benefit of the mechanism: scaled-out
+subscriber capacity becomes useful to existing subscriptions through
+client-directed connection reassociation, while combined subscription and
+backlog pressure determines whether a sampled target is suitable. The
+supporting studies characterize policy tradeoffs and action coverage.
+The mixed-workload holdout favors DQL in composite reward and subscription
+balance, while the heuristic favors throughput and backlog balance. These
+results support two evaluated policy options rather than universal DQL
+superiority or an untested DQL-tuned scripted policy.
+The isolated Oracle Cloud cluster qualification also demonstrates a 60\% reduction in source
+subscriptions through three full-connection migrations, with all 2,000
+subscriptions retained and 73,639 observed deliveries reconciled at closure.
+Its startup measurements explicitly capture activation while deliveries flow.
+A further loaded one-to-four-Pod trial retained all 1,000 subscriptions and
+four active connections through three DQL-selected handoffs. Each action
+preserved the other three sessions. The final client distribution was 500,
+250, 250 and zero across the four available Pods, with 8,000 observed
+deliveries acknowledged and no unresolved client deliveries at closure.
+A separate Oracle Cloud preload pair measured twelve native TTL interruptions
+and 89.44\% ACK-receipt completion, versus no interruptions and 100\% completion
+in the TTL-disabled DQL arm (Section~\ref{sec:ttl-preload-results}). That arm
+remained at guard-held \emph{stay}: a 200-second minimum telemetry sweep exceeded
+the 180-second freshness deadline. The result measures expiry-related receipt
+completion under the telemetry constraint. The comparative throughput and
+backlog-recovery gains are simulator measurements under the stated service
+assumptions. The Oracle Cloud experiments establish live handoff execution,
+subscription retention, and observed delivery behavior. Together, these studies
+describe the mechanism's measured benefits and the operating conditions under
+which they were obtained.

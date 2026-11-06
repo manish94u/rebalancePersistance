@@ -1,0 +1,204 @@
+% Only navigation, section summaries, and the compact control-loop summary
+% are newly written. Extracted research text remains in the parent manuscript.
+
+% BEGIN related
+The broader cloud-scheduling and edge-computing context is retained in
+Section~\ref{app:extended-literature} of the Online Supplementary Material.
+% END related
+
+% BEGIN system
+\section{System Model and Receipt-Gated Handoff}
+Figure~\ref{fig:control_architecture} shows the shared architecture. Event
+producers send messages through ingest services to durable subscription queues.
+Subscriber Pods deliver them to clients over persistent connections. The
+transport load balancer assigns new sockets; the client selects whether to
+promote its retained probe. Additional component descriptions are provided in
+the Online Supplementary Material.
+% END system
+
+% BEGIN model
+Detailed reference-scale calibration, the global evaluation objective, and
+step-by-step proofs of the subscription-density and backlog-variance
+properties are provided in Section~\ref{app:extended-mathematics} of the Online
+Supplementary Material. The full notation reference is in
+Section~\ref{app:notation}.
+% END model
+
+% BEGIN contract
+Here $\Theta_N$ is the configured maximum desired subscription count per
+connection, not the network parameter vector $\theta$.
+The evaluated legacy checkpoint uses a compatible action profile; both
+scaling actions are disabled in the loaded cluster trial. The later
+cap-restoring scale-up contract is distinct. Table~\ref{tab:action-contract-map}
+retains these version boundaries and their evaluation scope.
+% END contract
+
+% BEGIN algorithm
+\subsection{Shared Control Loop}
+Algorithm~\ref{alg:compact-control} summarizes the policy-independent runtime.
+The full sizing and rebalancing executors and the DQL training loop are
+retained in Section~\ref{app:runtime-details} of the Online Supplementary Material.
+
+\begin{algorithm}[!htbp]
+\small
+\caption{Probe-Guided Selection and Guarded Execution}
+\label{alg:compact-control}
+\SetKwInOut{Input}{Input}
+\Input{Active connections, retained probe, declared policy and action profile}
+\While{client is active}{
+ Read active/probe telemetry and client queue/ACK counters\;
+ Construct observation and freshness, capacity, cooldown and handoff masks\;
+ Select an admitted action using the declared greedy or DQL policy\;
+ Recheck guards before applying the selected action\;
+ \eIf{migration is selected and admitted}{
+  Prepare standby bindings on the same probe; await receipts\;
+  Quiesce the source; wait for fresh zero-in-flight telemetry\;
+  Activate target bindings; detach source bindings; retire the source socket\;
+  Retain unselected sessions and replenish the empty probe\;
+ }{
+  Execute the admitted bounded rebalancing/scaling action, or stay\;
+ }
+ Record the applied action, observed reward and guard outcome\;
+ Update learning state only in a declared training run with a valid transition\;
+}
+\end{algorithm}
+% END algorithm
+
+% BEGIN runtime
+The exact network input order, normalization constants, and deterministic
+comparator thresholds are retained in Section~\ref{app:feature-order} of the
+Online Supplementary Material. Checkpoint persistence and full execution
+details are in Section~\ref{app:runtime-details}.
+% END runtime
+
+% BEGIN timing
+The paired handoff/drain distributions and their statistical interpretation
+are retained in Section~\ref{app:cloud-timing} of the Online Supplementary Material.
+% END timing
+
+% BEGIN ttl
+\subsection{TTL Reconnection Comparison}
+An isolated matched-preload pair used 5,000 subscriptions and 30,000 delivery
+attempts per arm. Native TTL produced twelve server-matched interruptions and
+26,831 confirmed ACKs (89.44\%), leaving 3,169 unresolved receipts. The
+TTL-disabled DQL arm confirmed all 30,000 ACKs without interruptions, but its
+telemetry guards held every decision at \emph{stay}. A 200-second minimum
+telemetry sweep exceeded the 180-second freshness deadline. This pair measures
+expiry-related interruption and receipt completion, not a learned-migration
+throughput advantage. Unresolved receipts are not classified as event loss.
+
+Detailed TTL implementation paths, recovery endpoints, the two-burst trial,
+and matched-preload diagnostics are provided in
+Section~\ref{sec:ttl-reconnection} of the Online Supplementary Material.
+The separate 2,000-subscription calibration and startup-under-load trial is
+retained in Section~\ref{sec:mumbai-startup}.
+% END ttl
+
+% BEGIN scaleout
+Capacity-activation timelines, seed-level violin plots, and independent
+ad-hoc timing controls are retained in Section~\ref{app:scaleout-details} of
+the Online Supplementary Material. Those controls do not replace the
+pressure-aware guarded-greedy comparator above.
+% END scaleout
+
+% BEGIN holdout-heading
+\subsection{Independent Multi-Objective Holdout}
+The independent holdout compares the frozen DQL policy with the threshold-based
+Heuristic and Static policies from Table~\ref{tab:policy-roles}. Full study
+designs, training traces, distributions, and action-contract diagnostics are
+retained in Section~\ref{app:holdout-details} of the Online Supplementary Material.
+% END holdout-heading
+
+% BEGIN ablation
+\subsection{Adverse-Probe Ablation}
+The separate 30-seed, 1,200-subscription ablation compares the same frozen DQL
+policy with and without one forced promotion to the highest-pressure probe
+Pod. Guarded DQL reduces normalized backlog AUC from 0.68938 to 0.66046:
+a paired difference of $-0.028918$ (95\% CI $[-0.039444,-0.019073]$), or 4.19\%.
+The guarded heuristic retains the lower AUC of 0.59104. This isolates the
+benefit of guarding promotion, not universal superiority of learned selection.
+The complete five-policy comparison, methods, and separate five-seed
+20,000-subscription confirmation are retained in
+Section~\ref{sec:adverse-probe-ablation} of the Online Supplementary Material.
+% END ablation
+
+% BEGIN conclusion
+The Oracle Cloud experiments establish live handoff execution, subscription
+retention, and observed delivery behavior. The comparative throughput and
+backlog-recovery gains are simulator measurements under the stated service
+assumptions. These results support two evaluated policy options above the same
+probe-guided handoff mechanism.
+% END conclusion
+
+% BEGIN math-heading
+\section{Extended Mathematical Details}
+\label{app:extended-mathematics}
+The core queue, pressure, imbalance, and reward definitions appear in the main
+paper. This section retains their reference-scale calibration, the offline
+objective, and the full proofs.
+\subsection{Variance Reference Scales}
+% END math-heading
+
+% BEGIN runtime-heading
+\section{Detailed Runtime Algorithms and Checkpoint Persistence}
+\label{app:runtime-details}
+The main paper gives the shared control-loop summary. The following material
+retains the action-contract details, checkpoint behavior, sizing rules,
+executors, and full DQL algorithm.
+\subsection{Action Contract}
+% END runtime-heading
+
+% BEGIN literature-heading
+\section{Extended Cloud and Edge Literature}
+\label{app:extended-literature}
+% END literature-heading
+
+% BEGIN cloud-heading
+\section{Additional 20,000-Subscription Handoff Diagnostics}
+\label{app:cloud-timing}
+The deployment setup and aggregate results appear in the main paper. The
+following paired plot retains the within-run timing detail.
+% END cloud-heading
+
+% BEGIN scaleout-heading
+\section{Additional Scale-Out and Timing-Control Results}
+\label{app:scaleout-details}
+The workload, service model, primary comparison, and backlog trajectories
+appear in the main paper. This section retains the capacity-activation plots,
+distributions, and exploratory timing controls for the same experiment.
+% END scaleout-heading
+
+% BEGIN holdout-detail-heading
+\section{Full Supporting Simulator Studies}
+\label{app:holdout-details}
+Study designs and explanatory passages are retained with their original
+results. Selected definitions and results also appear in the main paper so
+that its core comparison can be read independently.
+% END holdout-detail-heading
+
+% BEGIN discussion-heading
+\section{Extended Interpretation}
+The complete interpretation from the reference manuscript is retained below.
+% END discussion-heading
+
+% BEGIN supp-front
+\settopmatter{printacmref=false}
+\maketitle
+\raggedbottom
+This Online Supplementary Material accompanies the main manuscript
+\emph{Probe-Guided Rebalancing of Persistent Subscription Connections with
+Greedy and Deep Q-Learning Control}. It retains the detailed mathematical,
+implementation, and experimental material relocated from the reference
+manuscript. Reported measurements, comparisons, and figures are unchanged.
+References explicitly marked ``of the main paper'' point to the separate
+main manuscript. Figures, tables, equations, and algorithms in this document
+use an S prefix.
+\appendix
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thealgocf}{S\arabic{algocf}}
+\setcounter{tocdepth}{1}
+\tableofcontents
+\clearpage
+% END supp-front

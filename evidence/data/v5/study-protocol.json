@@ -1,0 +1,158 @@
+{
+  "action_contracts": {
+    "migrate": {
+      "metric": "mean_pod_pressure",
+      "preferred_direction": "lower",
+      "scenario": "deployment_pod_pressure_skew"
+    },
+    "rebG": {
+      "metric": "mean_connection_backlog_variance",
+      "preferred_direction": "lower",
+      "scenario": "deployment_tiered_backlog"
+    },
+    "rebN": {
+      "metric": "mean_connection_subscription_variance",
+      "preferred_direction": "lower",
+      "scenario": "deployment_connection_count_skew"
+    },
+    "scale+": {
+      "metric": "mean_max_connection_subscriptions",
+      "preferred_direction": "lower",
+      "scenario": "deployment_scale_up_pressure"
+    },
+    "scale-": {
+      "metric": "mean_connection_cost",
+      "preferred_direction": "lower",
+      "scenario": "deployment_scale_down_idle"
+    }
+  },
+  "candidate_eligibility": {
+    "minimum_action_episode_coverage": 0.8,
+    "require_all_action_contracts": true,
+    "require_all_safety_contracts": true,
+    "require_zero_selected_forbidden_actions": true
+  },
+  "candidate_seeds": [
+    12011,
+    12037,
+    12049,
+    12071,
+    12097
+  ],
+  "candidate_selection": "Among eligible candidates, select the highest mean validation reward over the seven performance scenarios. If no candidate is eligible, retain the highest-reward development candidate only for diagnosis and do not consume v5 holdout seeds.",
+  "claim_boundary": "V5 remains simulator evidence. Receipt-gated handoff safety, durable ACK reconciliation, Kubernetes behavior, and 20,000 live subscriptions require separate Mumbai cluster evidence.",
+  "evaluation_episode_steps": 500,
+  "evidence_boundary": {
+    "development_failure": "If no candidate is eligible, retain the complete run, do not evaluate v5 holdout seeds, and preregister any further method change as v6.",
+    "v4_holdout": "Reserved and not consumed. It will remain unused during v5.",
+    "v5_holdout": "A fresh registered seed bank. It may be consumed exactly once and only by the independent evaluator after every development gate passes."
+  },
+  "holdout_policies": [
+    "FrozenDQL",
+    "Heuristic",
+    "Static"
+  ],
+  "holdout_seed_bank": "v5",
+  "holdout_seeds": [
+    15013,
+    15017,
+    15031,
+    15053,
+    15061,
+    15073,
+    15077,
+    15083,
+    15091,
+    15101,
+    15107,
+    15121,
+    15131,
+    15137,
+    15149,
+    15161,
+    15173,
+    15187,
+    15193,
+    15199
+  ],
+  "method_revision": {
+    "change": "Scale-down is admissible only when an idle active connection exists, the active connection count exceeds ceil(local subscriptions divided by the per-connection subscription limit), and all active-connection backlog is zero.",
+    "instrumentation_only": "The trainer and independent evaluator read candidate, validation, and holdout seeds from this enforced protocol. The central registry still verifies that the holdout bank is unconsumed.",
+    "reason": "Both v4 development runs failed the all-action gate because the frozen policies did not reliably select scale-down. Inspection also showed that the simulator and live controller needed the same capacity-aware idle-connection condition.",
+    "unchanged": [
+      "21-feature observation schema",
+      "six-action order",
+      "network architecture and optimizer",
+      "reward terms and weights",
+      "action-stratified replay",
+      "seven performance scenarios and four safety scenarios",
+      "80 percent action episode-coverage threshold",
+      "primary and secondary endpoints"
+    ]
+  },
+  "parent_development_protocol": "oaes-dql-v4",
+  "parent_protocol_sha256": "69089ba2587d790366a26d1ac629de20bbeed3c176652c6655dc7bba94fdbe02",
+  "performance_scenarios": [
+    "deployment_connection_count_skew",
+    "deployment_tiered_backlog",
+    "deployment_client_slowdown",
+    "deployment_pod_pressure_skew",
+    "deployment_scale_up_pressure",
+    "deployment_scale_down_idle",
+    "deployment_distribution_shift"
+  ],
+  "preregistered_at_utc": "2026-09-12T15:50:13Z",
+  "primary_endpoint": {
+    "analysis_set": "performance",
+    "comparison": "FrozenDQL minus Heuristic",
+    "metric": "mean_reward",
+    "preferred_direction": "higher",
+    "success_rule": "The paired 95 percent bootstrap confidence interval has a lower bound greater than zero. A failed rule is retained and reported, not tuned away."
+  },
+  "safety_scenarios": [
+    "failure_stale_active_telemetry",
+    "failure_unavailable_probe",
+    "failure_stale_probe_telemetry",
+    "failure_probe_miss"
+  ],
+  "schema": "oaes-dql-study-protocol/v1",
+  "secondary_endpoints": [
+    "mean_backlog_ratio",
+    "mean_connection_subscription_variance",
+    "mean_connection_backlog_variance",
+    "mean_subscription_imbalance",
+    "mean_backlog_imbalance",
+    "mean_connection_imbalance",
+    "mean_pod_pressure",
+    "mean_throughput_ratio",
+    "mean_connection_cost",
+    "mean_max_connection_subscriptions"
+  ],
+  "statistical_analysis": {
+    "bootstrap_repetitions": 10000,
+    "confidence_level": 0.95,
+    "effect_size": "paired Cohen dz",
+    "exploratory_scenario_effects": "reported without multiplicity-adjusted claims",
+    "hypothesis_test": "two-sided paired sign-flip randomization test",
+    "paired_unit": "scenario-seed episode",
+    "secondary_multiplicity_control": "Holm family-wise error correction"
+  },
+  "status": "locked-before-development",
+  "study_id": "oaes-dql-v5-scale-down-guard",
+  "training_analysis_set": "performance",
+  "training_episode_steps": 100,
+  "training_transitions_per_candidate": 20000,
+  "validation_seeds": [
+    13001,
+    13003,
+    13007,
+    13009,
+    13033,
+    13037,
+    13043,
+    13049,
+    13063,
+    13093
+  ],
+  "venue_target": "ACM Transactions on Autonomous and Adaptive Systems"
+}

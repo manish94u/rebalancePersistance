@@ -1,0 +1,135 @@
+\section{Background and Related Work}
+
+\subsection{Persistent Messaging and Stream Processing}
+
+We consider persistent subscription transports in which a client keeps a
+long-lived connection to a subscriber service and multiplexes multiple
+subscriptions over that connection. The abstraction covers STOMP-over-TCP,
+custom TCP subscription streams, and WebSocket-based messaging. In each case,
+the load created by one connection is not captured by the connection count
+alone; it also depends on how many subscriptions are multiplexed over the
+connection and how much backlog has accumulated behind those subscriptions.
+
+Modern event-driven platforms and stream-processing engines face related
+elasticity problems. Dynamic stream redirection can improve runtime elasticity
+in distributed stream-processing systems \cite{Liu2020DrStream}. Cardellini
+et al. survey runtime-adaptation strategies and organize them by their control
+objectives and mechanisms \cite{Cardellini2022DSPAdaptation}. Recent adaptive
+join-processing work also shows that workload redistribution can improve
+latency and throughput under changing stream rates \cite{Sun2024AjStream}.
+These studies motivate adaptive runtime control. Their actions change
+operator placement, stream routing, or stateful processing inside the stream
+runtime. They do not address the client-side persistent-transport problem in
+which subscription count and per-subscription backlog must be balanced across a
+client's own long-lived connections.
+
+Fragkoulis et al. distinguish elasticity, reconfiguration, state management,
+and fault tolerance in the evolution of stream-processing systems
+\cite{Fragkoulis2024StreamEvolution}. This distinction matters here because
+the durable queue stays in place: migration changes its subscription's delivery
+owner, not the queue's stored contents. Transactional stream processing also
+separates processing guarantees from ordinary stream execution
+\cite{Zhang2024TransactionalStreams}. Accordingly, a completed connection
+replacement is not, by itself, evidence of end-to-end exactly-once processing.
+
+\subsection{Autonomic and Learning-Based Control}
+
+Gheibi et al. organize machine-learning support for self-adaptation around
+monitor--analyze--plan--execute feedback loops, including policy updates and
+resource management \cite{Gheibi2021MLSelfAdaptation}. Our controller follows
+that established pattern; DQL alone is not the differentiating mechanism.
+The industrial survey by Weyns et al. also examines the practical motivations,
+risks, and difficulties of deploying self-adaptation
+\cite{Weyns2023Industry}. This motivates making the observation boundary and
+the concrete connection-handoff procedure explicit.
+
+Recent DRL literature is also clear about the risks of applying learning
+methods directly to production systems. Partial observability, non-stationary
+workloads, reward design, and safe online adaptation remain difficult
+\cite{DulacArnold2021}. Cloud DRL surveys make the same point for operational
+cloud control \cite{Zhou2024DRLCloudReview}. The closer load-balancing
+comparisons already include decentralized operation. The QEdgeProxy preprint
+describes multi-player bandits and per-client QoS feedback for selecting
+service instances \cite{Cilic2025}. Yahya et al. combine mean-field bandits
+with server-reward adjustment for decentralized task offloading
+\cite{Yahya2024}. BLOC uses overload feedback and dynamic capacity estimation
+without a centralized metadata store \cite{Bhattacharya2024}. Selvakumar
+et al. use predicted waiting times and service-chain communication costs to
+prioritize requests and select instances \cite{Selvakumar2023}. These
+mechanisms provide direct comparisons for decision inputs and adaptive
+selection. Our narrower distinction is conditional reuse of a retained probe
+socket together with a concrete subscription-ownership handoff.
+
+Negi et al. classify soft-computing approaches to VM- and physical-machine-level
+load balancing \cite{Singh2023SoftCloudLB}. In our messaging setting, a bounded
+action-template design limits the corresponding control space: the DQL agent
+chooses among deployable rebalancing actions rather than directly searching
+the full combinatorial subscription-assignment space.
+
+Metzger et al. use feature models to guide exploration through large or
+evolving adaptation spaces \cite{Metzger2024GuidedExploration}. Our bounded
+templates reduce a different search space: the possible subscription moves
+and connection replacements available to one client. Recent RS-DRL work
+instead changes reward shaping during replay to manage uncertainty in
+self-adaptation \cite{Kavianifar2026RSDRL}. We retain a conventional DQL
+learner and specialize the observations, feasible actions, and handoff
+semantics to persistent messaging.
+
+\subsection{Research Gap and Novelty}
+
+The comparison above identifies a specific gap in how actions are chosen and
+carried out. Decentralized load balancing already exists. BLOC, QEdgeProxy, and
+decentralized offloading already address decisions without a central
+full-state controller. Our mechanism combines four requirements. It treats
+pod subscription count and backlog as separate pressure signals. It tracks
+the client's subscription-to-connection assignments. It promotes the same
+authenticated probe socket only after checking that candidate. Finally, it
+uses receipt-gated delivery handoff while durable queues stay in place.
+These requirements
+define the comparison in Table~\ref{tab:comparison_related_work}.
+
+The proposed mechanism connects these concerns through an endpoint-preserving
+probe workflow. The load balancer selects a reachable Pod when the probe is
+opened; the selected policy then evaluates whether to use that already-established connection.
+Promotion is conditional, not an automatic consequence of probing. An
+admissible migration reuses the observed socket and transfers subscription
+delivery ownership under the handoff contract, while the durable queues remain
+stationary. This differs from choosing a Pod by name and opening another
+load-balanced socket, whose endpoint could differ from the one evaluated.
+Local subscription and backlog measurements also support scaling and
+redistribution across existing connections. The contribution is this
+partially observable control and execution mechanism, evaluated with established
+greedy and Q-learning methods. Their comparison is specific to the measured workloads.
+Table~\ref{tab:comparison_related_work} summarizes the
+positioning of the proposed approach relative to representative literature.
+
+\begin{table*}[t]
+	\small
+	\caption{Comparison of Representative Work and the Proposed Framework}
+	\label{tab:comparison_related_work}
+	\centering
+	\setlength{\tabcolsep}{3pt}
+	\renewcommand{\arraystretch}{1.08}
+	\begin{tabular}{>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}}
+		\toprule
+		\textbf{Work} & \textbf{Main focus} & \textbf{Observed information} & \textbf{Controlled object} & \textbf{How this work differs}\\
+		\midrule
+		BLOC \cite{Bhattacharya2024} & Request balancing and overload control & Overload feedback; no central metadata store & Request admission and server selection & Adds retained-socket promotion and subscription ownership transfer\\
+		QEdgeProxy \cite{Cilic2025} & QoS-aware service selection & Client QoS outcomes; decentralized bandits & Service-instance selection & Preserves the probed endpoint during connection replacement\\
+		Adaptive load balancing \cite{Selvakumar2023} & Service-chain latency & Predicted waiting times; inter-service costs & Request priorities and instance selection & Reassociates existing subscription-bearing connections\\
+		Decentralized offloading \cite{Yahya2024} & Task distribution among edge servers & Unknown network information; adjusted server rewards & Offloading population control & Reassociates persistent subscription groups\\
+		Per-device DRL \cite{Nieto2024DRLOffloading} & Energy- and latency-aware offloading & Device, server, channel, and task state & Local, MEC, or cloud task execution & Uses subscription counts and queued-event pressure\\
+		Partial-observation DRL \cite{Hou2023PODRL} & QoE-aware distributed offloading & Partial observations; device QoE preferences & IoT task-offloading decisions & Evaluates a retained probe and transfers subscriptions\\
+		Dr-Stream \cite{Liu2020DrStream} & Stream redirection and operator elasticity & Stream-runtime measurements & Operator instances and stream state & Keeps durable queues stationary during transport handoff\\
+		Aj-Stream \cite{Sun2024AjStream} & Skew-aware stream joining & Predicted key frequencies; instance load & Key grouping and operator scaling & Moves subscription ownership while queues stay in place\\
+		RL autoscaling \cite{AbdelKhaleq2021Autoscaling} & Microservice scaling thresholds & Resource demand and response-time QoS & Available service capacity & Moves existing sticky sockets to available capacity\\
+		Hephaestus\-Forge \cite{Santos2025HephaestusForge} & Multi-cluster microservice placement & Network latency; resource capacity; deployment cost & Pod-replica placement across clusters & Connects existing subscriptions to available Pod capacity\\
+		Feature-model-guided RL \cite{Metzger2024GuidedExploration} & Exploration of adaptation choices & Feature models; configuration changes; rewards & Runtime feature configurations & Uses bounded connection actions with receipt-gated handoff\\
+		RS-DRL \cite{Kavianifar2026RSDRL} & Reward-shaped self-adaptation & Runtime feedback; replayed transitions & Self-adaptive IoT configurations & Specializes actions to guarded transport and subscription handoff\\
+		\bottomrule
+	\end{tabular}
+\end{table*}
+
+
+The broader cloud-scheduling and edge-computing context is retained in
+Section~\suppref{app:extended-literature}.

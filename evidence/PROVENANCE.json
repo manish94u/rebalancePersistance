@@ -1,0 +1,310 @@
+{
+  "files": [
+    {
+      "package_file": "data/v3/analysis-manifest.json",
+      "source_sha256": "b6884655dc7c269c31bf0d85e7117e5ca47d85879f1d6c7399dfb3735aa433f0",
+      "packaged_sha256": "b6884655dc7c269c31bf0d85e7117e5ca47d85879f1d6c7399dfb3735aa433f0",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v3/analysis-summary.json",
+      "source_sha256": "7b71c49b4924e45e4f8599fb7e7b5f5b85740e1bf693703ca4ca70f02e9adb14",
+      "packaged_sha256": "7b71c49b4924e45e4f8599fb7e7b5f5b85740e1bf693703ca4ca70f02e9adb14",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v3/holdout-episodes.csv",
+      "source_sha256": "e7a15d8b3b6fd7d02ee626d55025da5167f167fd63b59d730b996594f9d060d1",
+      "packaged_sha256": "e7a15d8b3b6fd7d02ee626d55025da5167f167fd63b59d730b996594f9d060d1",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v3/holdout-manifest.json",
+      "source_sha256": "2a502753cec304d928d7f0923a40f079794e320cf797f787f90abf45ab230c18",
+      "packaged_sha256": "2a502753cec304d928d7f0923a40f079794e320cf797f787f90abf45ab230c18",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v3/holdout-summary.json",
+      "source_sha256": "993ef1caa9993f192b04c260447faec38e0bf6aa66337779b9e7acfaa9efe940",
+      "packaged_sha256": "993ef1caa9993f192b04c260447faec38e0bf6aa66337779b9e7acfaa9efe940",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v3/overall-paired-tests.csv",
+      "source_sha256": "6d48c286b54605fcff485aa4edc2e1d301cb62f542057104fa2d044f22fc098c",
+      "packaged_sha256": "6d48c286b54605fcff485aa4edc2e1d301cb62f542057104fa2d044f22fc098c",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v3/policy-scenario-summary.csv",
+      "source_sha256": "729d02ceb4ef8457d9fa059dca0e157efc1dc74bcc2ab6b2faff5a129e561e5a",
+      "packaged_sha256": "729d02ceb4ef8457d9fa059dca0e157efc1dc74bcc2ab6b2faff5a129e561e5a",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v3/scenario-paired-effects.csv",
+      "source_sha256": "104e07034d019d8823c11c0a78266108790060b38b20bfeede701d13881b6f26",
+      "packaged_sha256": "104e07034d019d8823c11c0a78266108790060b38b20bfeede701d13881b6f26",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v3/training-curve.csv",
+      "source_sha256": "23784bf9d2631768419424d6f835302168e403980cfaf339e2bc6f92e5042495",
+      "packaged_sha256": "23784bf9d2631768419424d6f835302168e403980cfaf339e2bc6f92e5042495",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v3/training-manifest.json",
+      "source_sha256": "334725fed2e15fbca422558c80bcf6c5463636bba9e06770cee4091e4a868a42",
+      "packaged_sha256": "334725fed2e15fbca422558c80bcf6c5463636bba9e06770cee4091e4a868a42",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v3/validation-summary.json",
+      "source_sha256": "7368125e01aaa796f4e099655e948af4754d7c00da42217e27b42e5dcf0d0da8",
+      "packaged_sha256": "7368125e01aaa796f4e099655e948af4754d7c00da42217e27b42e5dcf0d0da8",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v4/stratified-training-manifest.json",
+      "source_sha256": "3943ed2e6f2222b89d62e3e8198ae9526e23031fea3c66987c2686b3caf43b83",
+      "packaged_sha256": "3943ed2e6f2222b89d62e3e8198ae9526e23031fea3c66987c2686b3caf43b83",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v4/stratified-validation-summary.json",
+      "source_sha256": "48dd2eb1b2e271eed29b2dbf3ad2d89131e3d69e3bc9f8eee656c34d60f592e9",
+      "packaged_sha256": "48dd2eb1b2e271eed29b2dbf3ad2d89131e3d69e3bc9f8eee656c34d60f592e9",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v4/uniform-training-manifest.json",
+      "source_sha256": "fde2a248ff684a3f64ccd7bcb6c5e5b4986c4bb5e9528301bab9eb6c26c45b1f",
+      "packaged_sha256": "fde2a248ff684a3f64ccd7bcb6c5e5b4986c4bb5e9528301bab9eb6c26c45b1f",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v4/uniform-validation-summary.json",
+      "source_sha256": "f24bb5a2883add87b51f27e0578f1963721f6f52b3e6bc7737d4336469c81d0d",
+      "packaged_sha256": "f24bb5a2883add87b51f27e0578f1963721f6f52b3e6bc7737d4336469c81d0d",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v5/candidate-summary.csv",
+      "source_sha256": "9d01022b9af0455c13e06758882a1d23a2100eb5f484964e80bd3c17d160860d",
+      "packaged_sha256": "9d01022b9af0455c13e06758882a1d23a2100eb5f484964e80bd3c17d160860d",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v5/study-protocol.json",
+      "source_sha256": "e0a8a3f023423c2cffef52cf620b98af560fde9ede48ecfbb4dafbfed04b9342",
+      "packaged_sha256": "e0a8a3f023423c2cffef52cf620b98af560fde9ede48ecfbb4dafbfed04b9342",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v5/validation-summary.json",
+      "source_sha256": "187b25dac51fbb1b578fbfe90efeff58558990705d1ae13fdd995979da984677",
+      "packaged_sha256": "187b25dac51fbb1b578fbfe90efeff58558990705d1ae13fdd995979da984677",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v6/factorial-protocol.json",
+      "source_sha256": "fc5d156f5d6916491e5887b7126478ea8e4b3ff81044fcb8331cf3979f19deda",
+      "packaged_sha256": "fc5d156f5d6916491e5887b7126478ea8e4b3ff81044fcb8331cf3979f19deda",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v6/factorial-summary.csv",
+      "source_sha256": "3c89991adc1c3fa6d870df0bb675d9c809dad29cb6ad923afe83758b1b02257a",
+      "packaged_sha256": "100f4424940ad6f872de3e7a75326b8a96190a1f978258a4b05bbff3ba922043",
+      "absolute_local_path_metadata_redacted": true,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v6/factorial-summary.json",
+      "source_sha256": "e70ead72be652e7dcee89d197a29db95e0a6931352d5a58dc883940a26f78bd7",
+      "packaged_sha256": "a877b12a8a724eaf016473e078a335238d27cd035f5cc3ad6198c2ecd97fb29b",
+      "absolute_local_path_metadata_redacted": true,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v6/scale-up-protocol.json",
+      "source_sha256": "29a2a100e8d6078ef9883b3299b823bff668911197941049fa3e93120f9ce15c",
+      "packaged_sha256": "29a2a100e8d6078ef9883b3299b823bff668911197941049fa3e93120f9ce15c",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/v6/scale-up-result.json",
+      "source_sha256": "7aef17dcf2190bca8d7e48877d4e17489dfec90574b00739cf4e566fa87c31c5",
+      "packaged_sha256": "7aef17dcf2190bca8d7e48877d4e17489dfec90574b00739cf4e566fa87c31c5",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/persistent-scaleout-recovery-complete/episode-metrics.csv",
+      "source_sha256": "4320f3f67b4c4f528f7bbafcbc648ba747ac4a1090a113a3dd8fd50ad5817d54",
+      "packaged_sha256": "4320f3f67b4c4f528f7bbafcbc648ba747ac4a1090a113a3dd8fd50ad5817d54",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/persistent-scaleout-recovery-complete/initial-topology-checks.csv",
+      "source_sha256": "d478a11d67fabe015221cfe2f1cb862f1f90d9d440f1ebb8ea1cbc5179cb3a59",
+      "packaged_sha256": "d478a11d67fabe015221cfe2f1cb862f1f90d9d440f1ebb8ea1cbc5179cb3a59",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/persistent-scaleout-recovery-complete/interval-trajectories.csv",
+      "source_sha256": "5d7be773155945544d72b60bac2817e7e83fcb46738006330bc11c0cc5b7fcaf",
+      "packaged_sha256": "5d7be773155945544d72b60bac2817e7e83fcb46738006330bc11c0cc5b7fcaf",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/persistent-scaleout-recovery-complete/policy-summary.csv",
+      "source_sha256": "f897587627cdde78fea87b66ba50f375d728fc178ded482ef7effd5c3e38c2c5",
+      "packaged_sha256": "f897587627cdde78fea87b66ba50f375d728fc178ded482ef7effd5c3e38c2c5",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/persistent-scaleout-recovery-complete/primary-effect.json",
+      "source_sha256": "4a8a3ff2cae5465ff8c6efc07b06e906ac9e6164499ca575fc8fabee33c3aa06",
+      "packaged_sha256": "4a8a3ff2cae5465ff8c6efc07b06e906ac9e6164499ca575fc8fabee33c3aa06",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/persistent-scaleout-recovery-complete/registered-protocol.json",
+      "source_sha256": "6dca54dc0b29436b4673b1e405051eba3eb70a96d49de42813b4381e715dcbdb",
+      "packaged_sha256": "6dca54dc0b29436b4673b1e405051eba3eb70a96d49de42813b4381e715dcbdb",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/adverse-probe-ablation/episode_metrics.csv",
+      "source_sha256": "47e160f6a29c356f583def27569502793a17ee77d7e535bdeb49e839b3eeaec5",
+      "packaged_sha256": "47e160f6a29c356f583def27569502793a17ee77d7e535bdeb49e839b3eeaec5",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/adverse-probe-ablation/initial_guard_checks.csv",
+      "source_sha256": "5fb920b77615f14bd8af8bd8a69cf06f1b9f872cc40513e0506c0251531ee380",
+      "packaged_sha256": "5fb920b77615f14bd8af8bd8a69cf06f1b9f872cc40513e0506c0251531ee380",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/adverse-probe-ablation/paired_auc_effects.csv",
+      "source_sha256": "00f03af6fbd6976490afddfbc4b7b000edc7b11aacb61d7fd06366ccc4acfbf8",
+      "packaged_sha256": "00f03af6fbd6976490afddfbc4b7b000edc7b11aacb61d7fd06366ccc4acfbf8",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/adverse-probe-ablation/policy_summary.csv",
+      "source_sha256": "510798e56203dd7ca5b62bc942220ed87118f83728a06d0224081d02ce52b18f",
+      "packaged_sha256": "510798e56203dd7ca5b62bc942220ed87118f83728a06d0224081d02ce52b18f",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/adverse-probe-ablation/registered-protocol.json",
+      "source_sha256": "64524b779c03903ea96d98cef42588eab22603b65f43e2a27f1d5224d15d80ae",
+      "packaged_sha256": "64524b779c03903ea96d98cef42588eab22603b65f43e2a27f1d5224d15d80ae",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/adhoc-migration-sensitivity/combined-episode-metrics.csv",
+      "source_sha256": "8cb0c3f8b0949e1a69a2a9b856287769e61cbdb5f8a465b7224ecc677f75c1d0",
+      "packaged_sha256": "8cb0c3f8b0949e1a69a2a9b856287769e61cbdb5f8a465b7224ecc677f75c1d0",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/adhoc-migration-sensitivity/paired-effects.json",
+      "source_sha256": "99b23b6e9fc32e6616a4f82168112520bc34412fd710276b55e038c6ad46dcac",
+      "packaged_sha256": "99b23b6e9fc32e6616a4f82168112520bc34412fd710276b55e038c6ad46dcac",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/adhoc-migration-sensitivity/policy-summary.csv",
+      "source_sha256": "94db3e06479e810a218432427ed939bee404e9bf471e9c342ee43f2bbe35338d",
+      "packaged_sha256": "94db3e06479e810a218432427ed939bee404e9bf471e9c342ee43f2bbe35338d",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/adhoc-migration-sensitivity/registered-extension.json",
+      "source_sha256": "ee5c66b88da1f94999d62c4712ad00b2d2fa92fc8a0dc69d08121e1210ae0535",
+      "packaged_sha256": "ee5c66b88da1f94999d62c4712ad00b2d2fa92fc8a0dc69d08121e1210ae0535",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/live-dql-20261026/manuscript-summary.json",
+      "source_sha256": "724d5cbd3937af8f516ef8e8f2831558e2c4bbca20b4dbd6a80c636ac28ed4b4",
+      "packaged_sha256": "724d5cbd3937af8f516ef8e8f2831558e2c4bbca20b4dbd6a80c636ac28ed4b4",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/ttl-preload-20260925/manuscript-summary.json",
+      "source_sha256": "b7cfb6d7f2bbb875f828723e2e4a00c39295b9399e01f4913142be7ee893568a",
+      "packaged_sha256": "b7cfb6d7f2bbb875f828723e2e4a00c39295b9399e01f4913142be7ee893568a",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/ttl-loaded-20260925/manuscript-summary.json",
+      "source_sha256": "ae041a70cf749821385c13c0d4fa3535f73859b676116625e8e1ce7d4029a2fb",
+      "packaged_sha256": "ae041a70cf749821385c13c0d4fa3535f73859b676116625e8e1ce7d4029a2fb",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "data/live-20000/handoff-durations.csv",
+      "source_sha256": "037e30ff572a0df1f7e75ba8b86e14ff415ea40114e40f4f350bba438eac33a9",
+      "packaged_sha256": "037e30ff572a0df1f7e75ba8b86e14ff415ea40114e40f4f350bba438eac33a9",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "model/frozen-policy.json",
+      "source_sha256": "3e68371d848eca85ec0b87c7c7dd831ea3ec953e2c1bd51c0d79871c7ef3e1e1",
+      "packaged_sha256": "3e68371d848eca85ec0b87c7c7dd831ea3ec953e2c1bd51c0d79871c7ef3e1e1",
+      "absolute_local_path_metadata_redacted": false,
+      "numeric_values_unchanged": true
+    },
+    {
+      "package_file": "model/loaded-trial-settings.json",
+      "source_sha256": "7d75efd62452f93eb92f6af6988a98e4ca912903331bff533041304687f282a6",
+      "transformation": "allowlisted configuration fields only"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "original_files_unchanged": 14,
+  "copied_assets_byte_identical": 25,
+  "equations": {
+    "original_blocks": 48,
+    "missing_or_changed": 0
+  },
+  "proofs": {
+    "original_blocks": 4,
+    "missing_or_changed": 0
+  },
+  "tables": {
+    "original_blocks": 22,
+    "missing_or_changed": 0
+  },
+  "figures": {
+    "original_blocks": 24,
+    "missing_or_changed": 0
+  },
+  "original_algorithms": {
+    "original_blocks": 3,
+    "missing_or_changed": 0
+  },
+  "original_citation_keys_preserved": 51,
+  "unmatched_prose_lines": []
+}

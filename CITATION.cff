@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "Please cite the manuscript and the exact repository commit used for your analysis."
+title: "Probe-Guided Rebalancing of Persistent Subscription Connections with Greedy and Deep Q-Learning Control"
+type: software
+authors:
+  - family-names: Agrawal
+    given-names: Manish Kumar
+  - family-names: Kumar
+    given-names: Sandeep
+repository-code: "https://github.com/manish94u/rebalancePersistance"
+abstract: "Publication artifacts, redacted evidence, frozen-network inference, a reference simulator, and replication instructions for probe-guided persistent connection rebalancing."
+keywords:
+  - persistent connections
+  - subscription rebalancing
+  - deep Q-learning
+  - autonomic systems
+  - reproducibility

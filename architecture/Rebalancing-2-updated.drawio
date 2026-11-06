@@ -1,0 +1,147 @@
+<mxfile host="Electron" modified="2026-08-14T00:00:00.000Z" agent="Codex" version="26.0.16" type="device">
+  <diagram id="rebalancing-ii" name="Rebalancing-II">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="&lt;b&gt;Rebalancing II: Two-Dimensional Subscription Redistribution&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=28;fontColor=#17324D;strokeColor=none;fillColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="50" y="25" width="1500" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Client-local rebalance across existing persistent connections using subscription-count action &lt;b&gt;a&lt;sup&gt;rebN&lt;/sup&gt;&lt;/b&gt; or backlog action &lt;b&gt;a&lt;sup&gt;rebG&lt;/sup&gt;&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=15;fontColor=#475467;strokeColor=none;fillColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="50" y="72" width="1500" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="phase1" value="&lt;b&gt;1&#160;&#160;Observe active connections&lt;/b&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;fontFamily=Helvetica;fontSize=17;fontColor=#17324D;fillColor=#EAF2F8;strokeColor=#4B77A8;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="50" y="125" width="320" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="phase2" value="&lt;b&gt;2&#160;&#160;Choose rebalance action&lt;/b&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;fontFamily=Helvetica;fontSize=17;fontColor=#7A4B00;fillColor=#FFF5D6;strokeColor=#C58B27;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="400" y="125" width="330" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="phase3" value="&lt;b&gt;3&#160;&#160;Select a bounded move&lt;/b&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;fontFamily=Helvetica;fontSize=17;fontColor=#155E75;fillColor=#E6F6F7;strokeColor=#0E7490;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="760" y="125" width="330" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="phase4" value="&lt;b&gt;4&#160;&#160;Execute fenced reassociation&lt;/b&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacingLeft=16;fontFamily=Helvetica;fontSize=17;fontColor=#285E3B;fillColor=#EAF7EE;strokeColor=#2F855A;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="125" width="430" height="52" as="geometry" />
+        </mxCell>
+
+        <mxCell id="phase_arrow_1" edge="1" parent="1" source="phase1" target="phase2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#667085;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="phase_arrow_2" edge="1" parent="1" source="phase2" target="phase3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#667085;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="phase_arrow_3" edge="1" parent="1" source="phase3" target="phase4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#667085;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="col1" value="" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D0D5DD;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="50" y="195" width="320" height="645" as="geometry" />
+        </mxCell>
+        <mxCell id="set_label" value="&lt;b&gt;Client u: active persistent connection set&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#667085&quot;&gt;Each connection is already endpoint-bound through the Kubernetes Service / load balancer.&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontFamily=Helvetica;fontSize=14;fontColor=#344054;strokeColor=none;fillColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="75" y="217" width="270" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_high" value="&lt;b&gt;Connection c&lt;sub&gt;h&lt;/sub&gt; &amp;middot; Pod P&lt;sub&gt;s&lt;/sub&gt;&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#9B2C2C&quot;&gt;Highest ranked source candidate&lt;/font&gt;&lt;br&gt;&lt;br&gt;Subscriptions: &lt;b&gt;N&lt;sub&gt;u,c&lt;/sub&gt;&lt;/b&gt;&lt;br&gt;Assigned backlog: &lt;b&gt;G&lt;sub&gt;u,c&lt;/sub&gt;&lt;/b&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=12;fontFamily=Helvetica;fontSize=14;fontColor=#344054;fillColor=#FDECEC;strokeColor=#B84A4A;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="75" y="290" width="270" height="125" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_mid" value="&lt;b&gt;Connection c&lt;sub&gt;m&lt;/sub&gt; &amp;middot; Pod P&lt;sub&gt;m&lt;/sub&gt;&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#667085&quot;&gt;Intermediate load; unchanged in this step&lt;/font&gt;&lt;br&gt;&lt;br&gt;N&lt;sub&gt;u,c&lt;/sub&gt; and G&lt;sub&gt;u,c&lt;/sub&gt; remain observed" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=12;fontFamily=Helvetica;fontSize=14;fontColor=#344054;fillColor=#F5F7FA;strokeColor=#98A2B3;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="75" y="435" width="270" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="conn_low" value="&lt;b&gt;Connection c&lt;sub&gt;l&lt;/sub&gt; &amp;middot; Pod P&lt;sub&gt;t&lt;/sub&gt;&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#276749&quot;&gt;Lowest ranked target candidate&lt;/font&gt;&lt;br&gt;&lt;br&gt;Subscriptions: &lt;b&gt;N&lt;sub&gt;u,c&lt;/sub&gt;&lt;/b&gt;&lt;br&gt;Assigned backlog: &lt;b&gt;G&lt;sub&gt;u,c&lt;/sub&gt;&lt;/b&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=12;fontFamily=Helvetica;fontSize=14;fontColor=#344054;fillColor=#EAF7EE;strokeColor=#2F855A;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="75" y="560" width="270" height="125" as="geometry" />
+        </mxCell>
+        <mxCell id="local_metrics" value="&lt;b&gt;Local measurement at epoch t&lt;/b&gt;&lt;br&gt;N&lt;sub&gt;u,c&lt;/sub&gt; = subscription count&lt;br&gt;G&lt;sub&gt;u,c&lt;/sub&gt; = &amp;Sigma;&lt;sub&gt;k&amp;isin;K&lt;sub&gt;u,c&lt;/sub&gt;&lt;/sub&gt; b&lt;sub&gt;u,k&lt;/sub&gt;&lt;br&gt;&lt;font color=&quot;#667085&quot;&gt;Per-subscription queues remain authoritative.&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=12;fontFamily=Helvetica;fontSize=13;fontColor=#344054;fillColor=#F8FAFC;strokeColor=#CBD5E1;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="75" y="705" width="270" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="col2" value="" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D0D5DD;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="400" y="195" width="330" height="645" as="geometry" />
+        </mxCell>
+        <mxCell id="observe" value="&lt;b&gt;Normalize the two imbalance dimensions&lt;/b&gt;&lt;br&gt;&lt;br&gt;Subscription-count variance: &lt;b&gt;V&lt;sup&gt;N&lt;/sup&gt;&lt;sub&gt;u&lt;/sub&gt;&lt;/b&gt;&lt;br&gt;Backlog-load variance: &lt;b&gt;V&lt;sup&gt;G&lt;/sup&gt;&lt;sub&gt;u&lt;/sub&gt;&lt;/b&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=12;fontFamily=Helvetica;fontSize=14;fontColor=#344054;fillColor=#F8FAFC;strokeColor=#98A2B3;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="425" y="225" width="280" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="trigger" value="&lt;b&gt;Rebalance?&lt;/b&gt;&lt;br&gt;V&lt;sup&gt;N&lt;/sup&gt;&lt;sub&gt;u&lt;/sub&gt; &amp;gt; &amp;gamma;&lt;sub&gt;N&lt;/sub&gt;&lt;br&gt;&lt;b&gt;or&lt;/b&gt;&lt;br&gt;V&lt;sup&gt;G&lt;/sup&gt;&lt;sub&gt;u&lt;/sub&gt; &amp;gt; &amp;gamma;&lt;sub&gt;G&lt;/sub&gt;" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;spacing=8;fontFamily=Helvetica;fontSize=14;fontColor=#7A4B00;fillColor=#FFF5D6;strokeColor=#C58B27;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="455" y="370" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="mode" value="&lt;b&gt;Select one bounded action template&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#17324D&quot;&gt;&lt;b&gt;a&lt;sup&gt;rebN&lt;/sup&gt;&lt;/b&gt; when count skew dominates&lt;/font&gt;&lt;br&gt;c&lt;sub&gt;h&lt;/sub&gt; = arg max N&lt;sub&gt;u,c&lt;/sub&gt;; c&lt;sub&gt;l&lt;/sub&gt; = arg min N&lt;sub&gt;u,c&lt;/sub&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#155E75&quot;&gt;&lt;b&gt;a&lt;sup&gt;rebG&lt;/sup&gt;&lt;/b&gt; when backlog skew dominates&lt;/font&gt;&lt;br&gt;c&lt;sub&gt;h&lt;/sub&gt; = arg max G&lt;sub&gt;u,c&lt;/sub&gt;; c&lt;sub&gt;l&lt;/sub&gt; = arg min G&lt;sub&gt;u,c&lt;/sub&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=12;fontFamily=Helvetica;fontSize=13;fontColor=#344054;fillColor=#FFFDF5;strokeColor=#D6A84A;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="425" y="520" width="280" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="action_request" value="&lt;b&gt;Action request&lt;/b&gt;&lt;br&gt;(c&lt;sub&gt;h&lt;/sub&gt;, c&lt;sub&gt;l&lt;/sub&gt;, action mode)" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;spacing=8;fontFamily=Helvetica;fontSize=14;fontColor=#7A4B00;fillColor=#FFF5D6;strokeColor=#C58B27;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="455" y="745" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="decision_edge_1" edge="1" parent="1" source="observe" target="trigger" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#A36A12;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="decision_edge_2" edge="1" parent="1" source="trigger" target="mode" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#A36A12;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="decision_edge_3" edge="1" parent="1" source="mode" target="action_request" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#A36A12;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="col3" value="" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D0D5DD;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="760" y="195" width="330" height="645" as="geometry" />
+        </mxCell>
+        <mxCell id="rank" value="&lt;b&gt;Resolve source and target&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#9B2C2C&quot;&gt;Source c&lt;sub&gt;h&lt;/sub&gt;&lt;/font&gt; carries the dominant pressure.&lt;br&gt;&lt;font color=&quot;#276749&quot;&gt;Target c&lt;sub&gt;l&lt;/sub&gt;&lt;/font&gt; is the least-loaded eligible existing connection." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=12;fontFamily=Helvetica;fontSize=14;fontColor=#344054;fillColor=#F8FAFC;strokeColor=#98A2B3;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="785" y="225" width="280" height="125" as="geometry" />
+        </mxCell>
+        <mxCell id="choose_sub" value="&lt;b&gt;Choose subscription k*&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;a&lt;sup&gt;rebN&lt;/sup&gt;:&lt;/b&gt; select one movable subscription from c&lt;sub&gt;h&lt;/sub&gt;.&lt;br&gt;&lt;br&gt;&lt;b&gt;a&lt;sup&gt;rebG&lt;/sup&gt;:&lt;/b&gt; choose k* that maximizes the predicted decrease in V&lt;sup&gt;G&lt;/sup&gt;&lt;sub&gt;u&lt;/sub&gt;." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=12;fontFamily=Helvetica;fontSize=13;fontColor=#344054;fillColor=#EAF7FA;strokeColor=#0E7490;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="785" y="385" width="280" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="guards" value="&lt;b&gt;Deterministic deployment guards&lt;/b&gt;&lt;br&gt;&lt;br&gt;&amp;bull; target connection is active and has capacity&lt;br&gt;&amp;bull; subscription is movable and authorized&lt;br&gt;&amp;bull; no transfer is already active&lt;br&gt;&amp;bull; cooldown and bounded-step limits pass" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=12;fontFamily=Helvetica;fontSize=13;fontColor=#344054;fillColor=#F8FAFC;strokeColor=#667085;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="785" y="565" width="280" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="handoff_plan" value="&lt;b&gt;Bounded handoff plan&lt;/b&gt;&lt;br&gt;(c&lt;sub&gt;h&lt;/sub&gt;, c&lt;sub&gt;l&lt;/sub&gt;, k*, transfer ID &amp;tau;)" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;spacing=8;fontFamily=Helvetica;fontSize=14;fontColor=#155E75;fillColor=#E6F6F7;strokeColor=#0E7490;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="800" y="745" width="250" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="selection_edge_1" edge="1" parent="1" source="rank" target="choose_sub" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#0E7490;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="selection_edge_2" edge="1" parent="1" source="choose_sub" target="guards" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#0E7490;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="selection_edge_3" edge="1" parent="1" source="guards" target="handoff_plan" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#0E7490;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="col4" value="" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D0D5DD;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="195" width="430" height="645" as="geometry" />
+        </mxCell>
+        <mxCell id="step1" value="&lt;b&gt;4.1&#160;&#160;Prepare target attachment&lt;/b&gt;&lt;br&gt;Reuse existing connection c&lt;sub&gt;l&lt;/sub&gt;; recreate k* as a shadow subscription with delivery disabled." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=12;fontFamily=Helvetica;fontSize=14;fontColor=#285E3B;fillColor=#EAF7EE;strokeColor=#2F855A;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="1145" y="225" width="380" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="step2" value="&lt;b&gt;4.2&#160;&#160;Quiesce source subscription&lt;/b&gt;&lt;br&gt;Stop new dequeues for k* on c&lt;sub&gt;h&lt;/sub&gt;; durably ACK, NACK, or requeue every in-flight message." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=12;fontFamily=Helvetica;fontSize=14;fontColor=#285E3B;fillColor=#F4FAF6;strokeColor=#4F8F68;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="1145" y="360" width="380" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="step3" value="&lt;b&gt;4.3&#160;&#160;Commit one authoritative owner&lt;/b&gt;&lt;br&gt;Atomically compare-and-set the lease:&lt;br&gt;(c&lt;sub&gt;h&lt;/sub&gt;, epoch e) &amp;rarr; (c&lt;sub&gt;l&lt;/sub&gt;, epoch e+1)." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=12;fontFamily=Helvetica;fontSize=14;fontColor=#4A3D6B;fillColor=#F3EFFA;strokeColor=#7B61A8;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="1145" y="495" width="380" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="step4" value="&lt;b&gt;4.4&#160;&#160;Activate target and retire source&lt;/b&gt;&lt;br&gt;Enable delivery on c&lt;sub&gt;l&lt;/sub&gt;, confirm k* active, then remove the old attachment from c&lt;sub&gt;h&lt;/sub&gt;." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=12;fontFamily=Helvetica;fontSize=14;fontColor=#285E3B;fillColor=#EAF7EE;strokeColor=#2F855A;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="1145" y="630" width="380" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="result" value="&lt;b&gt;Result at t+1&lt;/b&gt;&lt;br&gt;Update N and G for c&lt;sub&gt;h&lt;/sub&gt;/c&lt;sub&gt;l&lt;/sub&gt;; recompute V&lt;sup&gt;N&lt;/sup&gt;&lt;sub&gt;u&lt;/sub&gt; and V&lt;sup&gt;G&lt;/sup&gt;&lt;sub&gt;u&lt;/sub&gt; at the next bounded decision epoch." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=12;fontFamily=Helvetica;fontSize=13;fontColor=#285E3B;fillColor=#F4FAF6;strokeColor=#4F8F68;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1145" y="765" width="380" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="exec_edge_1" edge="1" parent="1" source="step1" target="step2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#2F855A;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="exec_edge_2" edge="1" parent="1" source="step2" target="step3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#2F855A;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="exec_edge_3" edge="1" parent="1" source="step3" target="step4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#2F855A;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="exec_edge_4" edge="1" parent="1" source="step4" target="result" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#2F855A;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="invariant" value="&lt;b&gt;Transport and queue invariant&lt;/b&gt;&lt;br&gt;No TCP control block or queued payload moves. The target persistent connection already exists; only the authorized subscription-to-connection ownership changes." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=12;fontFamily=Helvetica;fontSize=14;fontColor=#17324D;fillColor=#EAF2F8;strokeColor=#4B77A8;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="50" y="870" width="930" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="stability" value="&lt;b&gt;Stability rule&lt;/b&gt;&lt;br&gt;Move one bounded batch, apply cooldown, and repeat only if the normalized count or backlog variance remains above its threshold." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=12;fontFamily=Helvetica;fontSize=14;fontColor=#7A4B00;fillColor=#FFF5D6;strokeColor=#C58B27;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="870" width="540" height="85" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

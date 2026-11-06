@@ -1,0 +1,43 @@
+{
+  "observation_builder": {
+    "backlog_growth_reference": 100000,
+    "backlog_imbalance_weight": 0.5,
+    "backlog_reference": 100000,
+    "backlog_variance_reference": 400000000.0,
+    "decision_interval_seconds": 10.0,
+    "max_connections": 5,
+    "max_subscriptions_per_connection": 250,
+    "minimum_backlog_coverage": 0.8,
+    "pod_pressure_weights": {
+      "cumulative_backlog": 0.25,
+      "reliability_risk": 0.25,
+      "subscription_count": 0.3,
+      "threshold_backlog": 0.2
+    },
+    "subscription_hard_threshold": 1000,
+    "subscription_imbalance_weight": 0.5,
+    "subscription_safe_threshold": 800,
+    "subscription_variance_reference": 2500.0,
+    "telemetry_stale_after_seconds": 180.0,
+    "throughput_reference_events_per_second": 1000.0
+  },
+  "reward_weights": {
+    "backlog": 0.2,
+    "backlog_growth": 0.15,
+    "connection_cost": 0.05,
+    "connection_imbalance": 0.15,
+    "migration_cost": 0.1,
+    "pod_pressure": 0.2,
+    "throughput": 0.15
+  },
+  "deployment_allowed_actions": [
+    "stay",
+    "rebN",
+    "rebG",
+    "migrate"
+  ],
+  "deployment_action_restricted": true,
+  "migration_hysteresis_delta": 0.05,
+  "minimum_projected_migration_improvement": 0.01,
+  "require_projected_migration_improvement": true
+}

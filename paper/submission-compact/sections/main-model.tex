@@ -1,0 +1,279 @@
+\section{Problem Formulation}
+\label{sec:problem-formulation}
+
+The main quantities are client subscriptions $\mathcal{K}_u$, active sockets
+$\mathcal{C}_u$, per-subscription backlog $b_{u,k}$, and the corresponding
+connection loads $(N_{u,c},G_{u,c})$. Pod-wide quantities $(X_i,B_i)$ include
+all clients served by Pod $i$. Appendix~\suppref{app:notation} collects the full
+symbol reference; definitions also appear at their first use below.
+
+We model the system at discrete control epochs $t=0,1,\ldots,T$. The interval
+between adjacent epochs is $\Delta$ seconds: the next epoch is $t+1$, while
+its physical time is $(t+1)\Delta$. Live-event timestamps and durations are
+reported separately in seconds. Let
+$\mathcal{S}=\{1,\ldots,n\}$ be the set of subscriber pods and
+$\mathcal{U}=\{1,\ldots,m\}$ be the set of clients. Client $u$ maintains a
+subscription set $\mathcal{K}_u(t)$ and a set of persistent transport
+connections $\mathcal{C}_u(t)$, with
+$1\leq |\mathcal{C}_u(t)|\leq C_{\max}$.
+Indices $i,u,c,k$ refer to Pods, clients, connections, and subscriptions,
+respectively. Calligraphic symbols denote sets; their cardinalities are
+counts. In the single-client scaling rules, $C(t)=|\mathcal{C}_u(t)|$ and
+$N_{\mathrm{sub}}(t)=|\mathcal{K}_u(t)|$ are count shorthands with the fixed client
+index suppressed. They are never used as sets. Figure labels and algorithm
+steps may omit $(t)$ when all quantities refer to the same decision epoch.
+
+\subsection{Per-Subscription Queues}
+
+Each subscription has a queue that stores messages waiting to be delivered and
+processed. Let $Q_{u,k}(t)$ be the queue of subscription
+$k\in\mathcal{K}_u(t)$, and let
+\begin{equation}
+	b_{u,k}(t)=|Q_{u,k}(t)|
+\end{equation}
+be the backlog for that subscription. This is the basic backlog measure used
+by the client. At the pod level, backlog is a
+server-owned aggregate. Let $\mathcal{R}_i(t)$ denote the set of subscription
+queues currently served by pod $i$, and let $\tilde{b}_{i,r}(t)$ be the backlog
+of server-side subscription queue $r\in\mathcal{R}_i(t)$. If queue $r$
+corresponds to client $u$ and subscription $k$, then $\tilde{b}_{i,r}(t)$ is
+the server-side counterpart of $b_{u,k}(t)$; however, $\mathcal{R}_i(t)$ also
+contains queues belonging to other clients and is maintained by the pod, not by
+any single client.
+
+Let $z_{u,k,c}(t)\in\{0,1\}$ indicate whether subscription $k$ of client $u$ is
+assigned to connection $c\in\mathcal{C}_u(t)$. Feasible assignment requires
+\begin{equation}
+	\sum_{c\in\mathcal{C}_u(t)} z_{u,k,c}(t)=1,
+	\qquad \forall u,\; k\in\mathcal{K}_u(t).
+	\label{eq:subscription_assignment}
+\end{equation}
+Let $i_{u,c}(t)\in\mathcal{S}$ denote the pod index reached by connection
+$c$. This endpoint mapping differs from the Pod name $p_i$ and from the
+selected DQL action $a_u(t)$.
+The number of subscriptions and cumulative subscription backlog on connection
+$c$ are
+\begin{align}
+	N_{u,c}(t) &= \sum_{k\in\mathcal{K}_u(t)} z_{u,k,c}(t),\\
+	G_{u,c}(t) &= \sum_{k\in\mathcal{K}_u(t)}
+	b_{u,k}(t)z_{u,k,c}(t).
+	\label{eq:connection_backlog}
+\end{align}
+The first term captures subscription-management pressure on the connection; the
+second captures queue pressure induced by the subscriptions mapped to that
+connection.
+
+\subsection{Pod Statistics and Partial Observability}
+
+Each pod exposes a statistics tuple through active connections and probe
+connections:
+\begin{equation}
+	y_i(t)=\bigl(p_i,\; X_i(t),\; B_i(t),\; H_i\bigr),
+	\label{eq:pod_stats}
+\end{equation}
+Here $p_i$ is the pod name, and $X_i(t)$ is its subscription count.
+The value $B_i(t)$ is the cumulative backlog across all subscription queues
+served by pod $i$. The value $H_i$ is the configured maximum processing threshold. Using the
+server-side queue set $\mathcal{R}_i(t)$, the pod-level subscription count and
+cumulative pod backlog are
+\begin{equation}
+	X_i(t)=|\mathcal{R}_i(t)|,\qquad
+	B_i(t)=
+	\sum_{r\in\mathcal{R}_i(t)}
+	\tilde{b}_{i,r}(t).
+	\label{eq:pod_backlog}
+\end{equation}
+Thus $B_i(t)$ is not defined by summing over the connection set
+$\mathcal{C}_u(t)$ of a particular client. A client's connections determine
+which pod statistics it can observe and which subscriptions it can move, but
+the pod backlog itself is the cumulative backlog over all subscription queues
+served by that pod. These pod-level values include traffic from many clients
+and are not directly computable by a single client unless reported by the pod.
+
+At each statistics interval $\Delta$ (10 seconds in the target deployment),
+every active connection receives the tuple of its current pod. In addition,
+client $u$ maintains one authenticated probe connection whose endpoint is
+selected by the load balancer and receives its tuple. The client
+retains the probe socket and its endpoint identity until promotion, expiry, or
+recycling; it does not resample a different pod merely by reading the next
+observation. Therefore the client observes only a subset
+$\mathcal{O}_u(t)\subseteq\mathcal{S}$ of pod states:
+\begin{equation}
+	\mathcal{O}_u(t)=
+	\{i_{u,c}(t):c\in\mathcal{C}_u(t)\}
+	\cup
+	\{i^{\mathrm{probe}}_u(t)\}.
+\end{equation}
+The client stores the newest tuple for each observed pod in a local cache. This
+makes the placement problem partially observable: global cluster variance is
+available to an offline evaluator or simulator, but not to an individual client
+controller. In particular, an admissible migration target must be represented
+by a currently retained probe socket; the client cannot replace the sampled
+candidate with an unobserved globally optimal pod.
+
+\begin{assumption}[Available deployment signals]
+For every pod $i$ observed by client $u$, where $i\in\mathcal{O}_u(t)$, the
+protocol supplies $(p_i,X_i(t),B_i(t),H_i)$ in a statistics frame, header, or
+control message. Client
+$u$ can also measure its own per-subscription backlogs $b_{u,k}(t)$, delivered
+message count, processed message count, acknowledged message count, active
+connection count, and migration count over each interval $\Delta$.
+\end{assumption}
+
+\begin{assumption}[Transport abstraction]
+The underlying transport is required only to maintain long-lived client--pod
+connections, multiplex one or more subscriptions over a connection, support
+subscription migration or reassignment, and expose periodic statistics through
+headers, frames, or control messages. STOMP-over-TCP, custom TCP streams, and
+WebSocket-based messaging are concrete examples of this abstraction.
+\end{assumption}
+
+\begin{remark}
+The pod threshold $H_i$ is not treated as an actual drain rate. The true drain
+rate depends on the queue subsystem, pod scheduling, network transport,
+connection behavior, client processing capacity, and acknowledgement rate.
+Hence $B_i(t)/(H_i\Delta+\varepsilon_0)$ is used only as a dimensionless
+pod-side pressure ratio. Here $B_i$ counts messages, $H_i$ has units of
+events per second, and $\varepsilon_0$ has units of messages. The ratio is
+not an estimate of the actual drain time.
+\end{remark}
+
+\subsection{Local Imbalance Measures}
+
+For client $u$, define the mean subscription count and mean backlog load across
+its own connections:
+\begin{align}
+	\bar{N}_u(t)
+	&= \frac{1}{|\mathcal{C}_u(t)|}
+	\sum_{c\in\mathcal{C}_u(t)} N_{u,c}(t),\\
+	\bar{G}_u(t)
+	&= \frac{1}{|\mathcal{C}_u(t)|}
+	\sum_{c\in\mathcal{C}_u(t)} G_{u,c}(t).
+\end{align}
+The corresponding variances are
+\begin{align}
+	V^N_u(t)
+	&= \frac{1}{|\mathcal{C}_u(t)|}
+	\sum_{c\in\mathcal{C}_u(t)}
+	\bigl(N_{u,c}(t)-\bar{N}_u(t)\bigr)^2,\\
+	V^G_u(t)
+	&= \frac{1}{|\mathcal{C}_u(t)|}
+	\sum_{c\in\mathcal{C}_u(t)}
+	\bigl(G_{u,c}(t)-\bar{G}_u(t)\bigr)^2.
+\end{align}
+The first variance captures subscription-management skew, while the second
+captures backlog skew. The local rebalancing objective is therefore
+\begin{equation}
+	V_u(t)=
+	\eta_N\widehat{V}^N_u(t)
+	+\eta_G\widehat{V}^G_u(t),
+	\qquad
+	\eta_N+\eta_G=1,
+	\label{eq:local_connection_imbalance}
+\end{equation}
+where hats denote normalized quantities. This formulation is necessary because
+two connections can have equal backlog but very different subscription counts,
+or equal subscription counts but very different backlog.
+The normalized terms place the two variances on a common scale before they are
+combined. In the evaluation setup, we use positive reference values
+$V^N_{\mathrm{ref}}$ and $V^G_{\mathrm{ref}}$ and compute
+\begin{align*}
+	\widehat{V}^N_u(t)
+	&=\min\left\{\frac{V^N_u(t)}{V^N_{\mathrm{ref}}},1\right\},\\
+	\widehat{V}^G_u(t)
+	&=\min\left\{\frac{V^G_u(t)}{V^G_{\mathrm{ref}}},1\right\}.
+\end{align*}
+Thus $V_u(t)$ is a dimensionless connection-imbalance score in which the
+subscription-count component and the backlog-load component are comparable.
+The weights $\eta_N,\eta_G\geq0$ determine how much the controller prioritizes
+subscription-management fairness versus backlog-load fairness. For example,
+larger $\eta_N$ makes the controller more sensitive to connections carrying
+too many subscriptions, while larger $\eta_G$ makes it more sensitive to
+connections accumulating more queued messages. The constraint
+$\eta_N+\eta_G=1$ makes $V_u(t)$ a convex combination rather than an
+unbounded sum.
+
+\subsection{Pod Pressure and Deployable Reward}
+
+For an observed pod $i\in\mathcal{O}_u(t)$, define normalized pressure terms
+\begin{align}
+	P^X_i(t) &= \min\left\{\frac{X_i(t)}{X_{\mathrm{safe}}},1\right\},\\
+	P^B_i(t) &= \min\left\{\frac{B_i(t)}{B_{\mathrm{ref}}},1\right\},\\
+	P^H_i(t) &= \min\left\{\frac{B_i(t)}{H_i\Delta+\varepsilon_0},1\right\},
+	\qquad \varepsilon_0>0.
+\end{align}
+Here $X_{\mathrm{safe}}$ is the subscription count at which pod reliability begins to
+degrade. The value $X_{\mathrm{hard}}$ is the hard reference count at which we treat the
+pod as severely overloaded by subscription-management work.
+The value $B_{\mathrm{ref}}$ is the backlog reference used for normalization. The condition
+$X_{\mathrm{hard}}>X_{\mathrm{safe}}$ is required. Since high subscription count has been
+observed to make connections unreliable, we also define a nonlinear
+reliability-risk penalty
+\begin{equation}
+	P^R_i(t)=
+	\left[
+	\frac{X_i(t)-X_{\mathrm{safe}}}
+	{X_{\mathrm{hard}}-X_{\mathrm{safe}}}
+	\right]_+^2,
+	\qquad [x]_+=\max\{x,0\}.
+\end{equation}
+The pod pressure score is
+\begin{align}
+	P_i(t)=
+	&\omega_X P^X_i(t)
+	+\omega_B P^B_i(t) \nonumber\\
+	&+\omega_H P^H_i(t)
+	+\omega_R P^R_i(t),
+	\label{eq:pod_pressure}\\
+	&\sum_{q\in\{X,B,H,R\}}\omega_q=1,\qquad \omega_q\geq 0. \nonumber
+\end{align}
+Here $P^X_i(t)$ measures normalized subscription-count pressure.
+The term $P^B_i(t)$ measures normalized cumulative-backlog pressure.
+The term $P^H_i(t)$ measures backlog pressure relative to the processing threshold.
+Finally, $P^R_i(t)$ measures nonlinear reliability risk and becomes active only
+when $X_i(t)>X_{\mathrm{safe}}$. The coefficients
+$\omega_X,\omega_B,\omega_H,\omega_R$ specify how much importance the policy
+assigns to each pressure component. For example, if subscription-heavy pods are
+known to become unreliable before backlog becomes large, then $\omega_X$ and
+$\omega_R$ receive greater weight than $\omega_B$ and $\omega_H$. If queue
+accumulation is the dominant failure mode, $\omega_B$ and $\omega_H$
+receive greater weight. This score keeps subscription count and backlog
+count as distinct load dimensions.
+
+Client $u$ also computes local backlog and backlog-growth pressure:
+\begin{align}
+	B_u(t) &= \sum_{k\in\mathcal{K}_u(t)} b_{u,k}(t),\\
+	\mathrm{Grow}_u(t) &= \bigl[B_u(t)-B_u(t-1)\bigr]_+,\qquad t\geq1.
+\end{align}
+At initialization, $\mathrm{Grow}_u(0)=0$. Let $T_u(t)$ be the effective client-side
+throughput in events per second. The rates $T^{\mathrm{del}}_u(t)$, $T^{\mathrm{proc}}_u(t)$,
+and $T^{\mathrm{ack}}_u(t)$ are the delivered, processed, and acknowledged counts in
+the measured interval, each divided by its duration $\Delta$:
+\begin{equation}
+	T_u(t)=
+	\min\{T^{\mathrm{del}}_u(t),T^{\mathrm{proc}}_u(t),T^{\mathrm{ack}}_u(t)\}.
+\end{equation}
+For an action that selects or keeps pod $i$, the deployable reward is
+\begin{align}
+	R_u(t)=
+	&-\lambda_1\widehat{B}_u(t)
+	-\lambda_2\widehat{\mathrm{Grow}}_u(t)
+	-\lambda_3 P_i(t)
+	-\lambda_4 V_u(t) \nonumber\\
+	&-\lambda_5 M_u(t)
+	-\lambda_6\widehat{C}_u(t)
+	+\lambda_7\widehat{T}_u(t),
+	\label{eq:deployable_reward}
+\end{align}
+where $M_u(t)$ is the migration indicator or normalized migration count,
+$\widehat{C}_u(t)=|\mathcal{C}_u(t)|/C_{\max}$, and
+$\lambda_\ell\geq0$ with $\sum_{\ell=1}^{7}\lambda_\ell=1$.
+The hats on backlog, backlog growth, and throughput denote their normalized
+versions under the stated experiment's scaling convention, not different
+physical quantities. This reward is computable by the client from
+local measurements and observed pod tuples.
+
+Detailed reference-scale calibration, the global evaluation objective, and
+step-by-step proofs of the subscription-density and backlog-variance
+properties are provided in Section~\suppref{app:extended-mathematics}. The full notation reference is in
+Section~\suppref{app:notation}.

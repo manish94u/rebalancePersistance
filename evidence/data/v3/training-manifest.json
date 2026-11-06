@@ -1,0 +1,1499 @@
+{
+  "candidate_count": 3,
+  "candidate_seeds": [
+    101,
+    211,
+    307
+  ],
+  "candidate_selection_rule": "candidates selecting rebN, rebG, and migrate in at least 80 percent of admissible episodes in each action's intended fixed-validation scenario are eligible; choose the highest mean reward among eligible candidates; if none qualify, retain the highest-reward candidate and block holdout execution",
+  "candidate_summaries": [
+    {
+      "action_counts": {
+        "migrate": 32,
+        "rebG": 138,
+        "rebN": 493,
+        "scale+": 423,
+        "scale-": 337,
+        "stay": 8577
+      },
+      "action_noop_count": 0,
+      "candidate_index": 0,
+      "checkpoint_sha256": "908158c66949a79408844694705689cc0f7e5018a7703f99c9a03bc4647a014f",
+      "core_action_coverage_pass": true,
+      "environment_steps": 10000,
+      "episodes": 100,
+      "final_epsilon": 0.05022518548815514,
+      "final_replay_size": 5000,
+      "mean_bellman_loss": 0.05415050546006966,
+      "mean_training_reward": -0.177169641230114,
+      "research_checkpoint_sha256": "e3b6cde1ca386f53b8be726a2f29a539e1c98a6f1674c563d732816f2523012e",
+      "resumed_from_checkpoint_sha256": null,
+      "seed": 101,
+      "selection_score": -0.1286184238824402,
+      "starting_replay_size": 0,
+      "starting_training_steps": 0,
+      "training_steps": 9985,
+      "transition_ledger_count": 10000,
+      "transition_ledger_sha256": "e5da3b7b2aa4463740d335ae200d2f07a0474274d8ef14d68264ee69337e1bab",
+      "validation": {
+        "action_noop_count": {
+          "mean": 0.0,
+          "normal_approximation_ci95": [
+            0.0,
+            0.0
+          ],
+          "sample_standard_deviation": 0.0
+        },
+        "connection_churn": {
+          "mean": 0.0,
+          "normal_approximation_ci95": [
+            0.0,
+            0.0
+          ],
+          "sample_standard_deviation": 0.0
+        },
+        "episode_count": 40,
+        "mean_backlog_imbalance": {
+          "mean": 0.21989635202952465,
+          "normal_approximation_ci95": [
+            0.10130726099713047,
+            0.33848544306191886
+          ],
+          "sample_standard_deviation": 0.3826649319504229
+        },
+        "mean_backlog_ratio": {
+          "mean": 0.17522364341875524,
+          "normal_approximation_ci95": [
+            0.08594995574752544,
+            0.264497331089985
+          ],
+          "sample_standard_deviation": 0.28806957975875436
+        },
+        "mean_connection_backlog_variance": {
+          "mean": 22815313314683.062,
+          "normal_approximation_ci95": [
+            10412842484237.889,
+            35217784145128.234
+          ],
+          "sample_standard_deviation": 40020465753068.1
+        },
+        "mean_connection_imbalance": {
+          "mean": 0.1548442736710123,
+          "normal_approximation_ci95": [
+            0.09881727293381869,
+            0.2108712744082059
+          ],
+          "sample_standard_deviation": 0.18078870693618848
+        },
+        "mean_connection_subscription_variance": {
+          "mean": 574.67005,
+          "normal_approximation_ci95": [
+            262.2766133384324,
+            887.0634866615675
+          ],
+          "sample_standard_deviation": 1008.0354958552048
+        },
+        "mean_pod_pressure": {
+          "mean": 0.18415355193247412,
+          "normal_approximation_ci95": [
+            0.16505883681935923,
+            0.20324826704558902
+          ],
+          "sample_standard_deviation": 0.06161509288722733
+        },
+        "mean_reward": {
+          "mean": -0.1286184238824402,
+          "normal_approximation_ci95": [
+            -0.155810525308902,
+            -0.10142632245597842
+          ],
+          "sample_standard_deviation": 0.08774385191217637
+        },
+        "mean_subscription_imbalance": {
+          "mean": 0.08979219531249999,
+          "normal_approximation_ci95": [
+            0.04098072083413006,
+            0.1386036697908699
+          ],
+          "sample_standard_deviation": 0.15750554622737573
+        },
+        "mean_throughput_ratio": {
+          "mean": 0.28398506469210016,
+          "normal_approximation_ci95": [
+            0.22309569414624114,
+            0.3448744352379592
+          ],
+          "sample_standard_deviation": 0.1964786696111067
+        },
+        "migration_count": {
+          "mean": 0.325,
+          "normal_approximation_ci95": [
+            0.13425308753380932,
+            0.5157469124661906
+          ],
+          "sample_standard_deviation": 0.6155047959570696
+        }
+      },
+      "validation_action_coverage": {
+        "by_scenario": {
+          "deployment_client_slowdown": {
+            "migrate": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebG": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebN": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "scale+": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": 0.0
+            },
+            "scale-": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "stay": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 5000,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            }
+          },
+          "deployment_connection_count_skew": {
+            "migrate": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebG": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebN": {
+              "admissible_count": 1250,
+              "admissible_episode_count": 10,
+              "selected_count": 1250,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            },
+            "scale+": {
+              "admissible_count": 1250,
+              "admissible_episode_count": 10,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": 0.0
+            },
+            "scale-": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "stay": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 3750,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            }
+          },
+          "deployment_pod_pressure_skew": {
+            "migrate": {
+              "admissible_count": 13,
+              "admissible_episode_count": 10,
+              "selected_count": 13,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            },
+            "rebG": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebN": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "scale+": {
+              "admissible_count": 4961,
+              "admissible_episode_count": 10,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": 0.0
+            },
+            "scale-": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "stay": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 4987,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            }
+          },
+          "deployment_tiered_backlog": {
+            "migrate": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebG": {
+              "admissible_count": 4940,
+              "admissible_episode_count": 10,
+              "selected_count": 10,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            },
+            "rebN": {
+              "admissible_count": 12,
+              "admissible_episode_count": 10,
+              "selected_count": 10,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            },
+            "scale+": {
+              "admissible_count": 4940,
+              "admissible_episode_count": 10,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": 0.0
+            },
+            "scale-": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "stay": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 4980,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            }
+          }
+        },
+        "intended_scenario_episode_coverage": {
+          "migrate": {
+            "minimum_episode_coverage": 0.8,
+            "pass": true,
+            "scenario": "deployment_pod_pressure_skew",
+            "selected_episode_rate_when_admissible": 1.0
+          },
+          "rebG": {
+            "minimum_episode_coverage": 0.8,
+            "pass": true,
+            "scenario": "deployment_tiered_backlog",
+            "selected_episode_rate_when_admissible": 1.0
+          },
+          "rebN": {
+            "minimum_episode_coverage": 0.8,
+            "pass": true,
+            "scenario": "deployment_connection_count_skew",
+            "selected_episode_rate_when_admissible": 1.0
+          }
+        },
+        "overall": {
+          "migrate": {
+            "admissible_count": 13,
+            "admissible_episode_count": 10,
+            "selected_count": 13,
+            "selected_episode_count": 10,
+            "selected_episode_rate_when_admissible": 1.0,
+            "selection_rate_when_admissible": 1.0
+          },
+          "rebG": {
+            "admissible_count": 4940,
+            "admissible_episode_count": 10,
+            "selected_count": 10,
+            "selected_episode_count": 10,
+            "selected_episode_rate_when_admissible": 1.0,
+            "selection_rate_when_admissible": 0.0020242914979757085
+          },
+          "rebN": {
+            "admissible_count": 1262,
+            "admissible_episode_count": 20,
+            "selected_count": 1260,
+            "selected_episode_count": 20,
+            "selected_episode_rate_when_admissible": 1.0,
+            "selection_rate_when_admissible": 0.9984152139461173
+          },
+          "scale+": {
+            "admissible_count": 16151,
+            "admissible_episode_count": 40,
+            "selected_count": 0,
+            "selected_episode_count": 0,
+            "selected_episode_rate_when_admissible": 0.0,
+            "selection_rate_when_admissible": 0.0
+          },
+          "scale-": {
+            "admissible_count": 0,
+            "admissible_episode_count": 0,
+            "selected_count": 0,
+            "selected_episode_count": 0,
+            "selected_episode_rate_when_admissible": null,
+            "selection_rate_when_admissible": null
+          },
+          "stay": {
+            "admissible_count": 20000,
+            "admissible_episode_count": 40,
+            "selected_count": 18717,
+            "selected_episode_count": 40,
+            "selected_episode_rate_when_admissible": 1.0,
+            "selection_rate_when_admissible": 0.93585
+          }
+        },
+        "required_actions_observed": true,
+        "required_actions_reliably_observed": true,
+        "required_rebalancing_actions": [
+          "rebN",
+          "rebG",
+          "migrate"
+        ]
+      }
+    },
+    {
+      "action_counts": {
+        "migrate": 27,
+        "rebG": 202,
+        "rebN": 652,
+        "scale+": 351,
+        "scale-": 233,
+        "stay": 8535
+      },
+      "action_noop_count": 0,
+      "candidate_index": 1,
+      "checkpoint_sha256": "6d8f9cab5d222099ed685bba5a648a50787e29fc2ea9c3707f35510fd9125607",
+      "core_action_coverage_pass": false,
+      "environment_steps": 10000,
+      "episodes": 100,
+      "final_epsilon": 0.05022518548815514,
+      "final_replay_size": 5000,
+      "mean_bellman_loss": 0.06130069314971652,
+      "mean_training_reward": -0.18948877785888452,
+      "research_checkpoint_sha256": "ce5068f4e681654cf10405a20e7b9d063fcc872de1f3f0d997f8e2d5bf8d1fca",
+      "resumed_from_checkpoint_sha256": null,
+      "seed": 211,
+      "selection_score": -0.14048224788067634,
+      "starting_replay_size": 0,
+      "starting_training_steps": 0,
+      "training_steps": 9985,
+      "transition_ledger_count": 10000,
+      "transition_ledger_sha256": "6b1f02efb9085cfabdd1d831a64f40be29ac8db605b8579e1c608f30eff12260",
+      "validation": {
+        "action_noop_count": {
+          "mean": 0.0,
+          "normal_approximation_ci95": [
+            0.0,
+            0.0
+          ],
+          "sample_standard_deviation": 0.0
+        },
+        "connection_churn": {
+          "mean": 0.0,
+          "normal_approximation_ci95": [
+            0.0,
+            0.0
+          ],
+          "sample_standard_deviation": 0.0
+        },
+        "episode_count": 40,
+        "mean_backlog_imbalance": {
+          "mean": 0.21992094753872687,
+          "normal_approximation_ci95": [
+            0.10131825320954059,
+            0.33852364186791317
+          ],
+          "sample_standard_deviation": 0.38270882725812727
+        },
+        "mean_backlog_ratio": {
+          "mean": 0.17525087483384824,
+          "normal_approximation_ci95": [
+            0.08596235404983697,
+            0.2645393956178595
+          ],
+          "sample_standard_deviation": 0.2881174434538356
+        },
+        "mean_connection_backlog_variance": {
+          "mean": 22825788816351.66,
+          "normal_approximation_ci95": [
+            10417551273251.338,
+            35234026359451.984
+          ],
+          "sample_standard_deviation": 40039073861845.64
+        },
+        "mean_connection_imbalance": {
+          "mean": 0.23203957533186345,
+          "normal_approximation_ci95": [
+            0.15940328668448028,
+            0.3046758639792466
+          ],
+          "sample_standard_deviation": 0.2343837886807774
+        },
+        "mean_connection_subscription_variance": {
+          "mean": 1562.6125,
+          "normal_approximation_ci95": [
+            713.2482074791284,
+            2411.9767925208716
+          ],
+          "sample_standard_deviation": 2740.7405383504824
+        },
+        "mean_pod_pressure": {
+          "mean": 0.18557383201074001,
+          "normal_approximation_ci95": [
+            0.1671624097821497,
+            0.20398525423933034
+          ],
+          "sample_standard_deviation": 0.05941023388305994
+        },
+        "mean_reward": {
+          "mean": -0.14048224788067634,
+          "normal_approximation_ci95": [
+            -0.16629816530444036,
+            -0.11466633045691232
+          ],
+          "sample_standard_deviation": 0.08330316218971488
+        },
+        "mean_subscription_imbalance": {
+          "mean": 0.24415820312499997,
+          "normal_approximation_ci95": [
+            0.11144503241861381,
+            0.37687137383138614
+          ],
+          "sample_standard_deviation": 0.42824070911726286
+        },
+        "mean_throughput_ratio": {
+          "mean": 0.2839847096480765,
+          "normal_approximation_ci95": [
+            0.2230954686787026,
+            0.34487395061745035
+          ],
+          "sample_standard_deviation": 0.19647825149189815
+        },
+        "migration_count": {
+          "mean": 0.325,
+          "normal_approximation_ci95": [
+            0.13425308753380932,
+            0.5157469124661906
+          ],
+          "sample_standard_deviation": 0.6155047959570696
+        }
+      },
+      "validation_action_coverage": {
+        "by_scenario": {
+          "deployment_client_slowdown": {
+            "migrate": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebG": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebN": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "scale+": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": 0.0
+            },
+            "scale-": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "stay": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 5000,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            }
+          },
+          "deployment_connection_count_skew": {
+            "migrate": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebG": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebN": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": 0.0
+            },
+            "scale+": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": 0.0
+            },
+            "scale-": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "stay": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 5000,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            }
+          },
+          "deployment_pod_pressure_skew": {
+            "migrate": {
+              "admissible_count": 13,
+              "admissible_episode_count": 10,
+              "selected_count": 13,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            },
+            "rebG": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebN": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "scale+": {
+              "admissible_count": 4961,
+              "admissible_episode_count": 10,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": 0.0
+            },
+            "scale-": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "stay": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 4987,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            }
+          },
+          "deployment_tiered_backlog": {
+            "migrate": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebG": {
+              "admissible_count": 4973,
+              "admissible_episode_count": 10,
+              "selected_count": 9,
+              "selected_episode_count": 9,
+              "selected_episode_rate_when_admissible": 0.9
+            },
+            "rebN": {
+              "admissible_count": 4464,
+              "admissible_episode_count": 9,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": 0.0
+            },
+            "scale+": {
+              "admissible_count": 4973,
+              "admissible_episode_count": 10,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": 0.0
+            },
+            "scale-": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "stay": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 4991,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            }
+          }
+        },
+        "intended_scenario_episode_coverage": {
+          "migrate": {
+            "minimum_episode_coverage": 0.8,
+            "pass": true,
+            "scenario": "deployment_pod_pressure_skew",
+            "selected_episode_rate_when_admissible": 1.0
+          },
+          "rebG": {
+            "minimum_episode_coverage": 0.8,
+            "pass": true,
+            "scenario": "deployment_tiered_backlog",
+            "selected_episode_rate_when_admissible": 0.9
+          },
+          "rebN": {
+            "minimum_episode_coverage": 0.8,
+            "pass": false,
+            "scenario": "deployment_connection_count_skew",
+            "selected_episode_rate_when_admissible": 0.0
+          }
+        },
+        "overall": {
+          "migrate": {
+            "admissible_count": 13,
+            "admissible_episode_count": 10,
+            "selected_count": 13,
+            "selected_episode_count": 10,
+            "selected_episode_rate_when_admissible": 1.0,
+            "selection_rate_when_admissible": 1.0
+          },
+          "rebG": {
+            "admissible_count": 4973,
+            "admissible_episode_count": 10,
+            "selected_count": 9,
+            "selected_episode_count": 9,
+            "selected_episode_rate_when_admissible": 0.9,
+            "selection_rate_when_admissible": 0.0018097727729740598
+          },
+          "rebN": {
+            "admissible_count": 9464,
+            "admissible_episode_count": 19,
+            "selected_count": 0,
+            "selected_episode_count": 0,
+            "selected_episode_rate_when_admissible": 0.0,
+            "selection_rate_when_admissible": 0.0
+          },
+          "scale+": {
+            "admissible_count": 19934,
+            "admissible_episode_count": 40,
+            "selected_count": 0,
+            "selected_episode_count": 0,
+            "selected_episode_rate_when_admissible": 0.0,
+            "selection_rate_when_admissible": 0.0
+          },
+          "scale-": {
+            "admissible_count": 0,
+            "admissible_episode_count": 0,
+            "selected_count": 0,
+            "selected_episode_count": 0,
+            "selected_episode_rate_when_admissible": null,
+            "selection_rate_when_admissible": null
+          },
+          "stay": {
+            "admissible_count": 20000,
+            "admissible_episode_count": 40,
+            "selected_count": 19978,
+            "selected_episode_count": 40,
+            "selected_episode_rate_when_admissible": 1.0,
+            "selection_rate_when_admissible": 0.9989
+          }
+        },
+        "required_actions_observed": false,
+        "required_actions_reliably_observed": false,
+        "required_rebalancing_actions": [
+          "rebN",
+          "rebG",
+          "migrate"
+        ]
+      }
+    },
+    {
+      "action_counts": {
+        "migrate": 30,
+        "rebG": 152,
+        "rebN": 578,
+        "scale+": 338,
+        "scale-": 229,
+        "stay": 8673
+      },
+      "action_noop_count": 0,
+      "candidate_index": 2,
+      "checkpoint_sha256": "9fd18f9fb39256867063c7390ec5f8ee279ef26a38b6ecac93f2c3123a4351e6",
+      "core_action_coverage_pass": false,
+      "environment_steps": 10000,
+      "episodes": 100,
+      "final_epsilon": 0.05022518548815514,
+      "final_replay_size": 5000,
+      "mean_bellman_loss": 0.05655402107049785,
+      "mean_training_reward": -0.18219555279567848,
+      "research_checkpoint_sha256": "7f76daa9b02f7a293458f8cd2de0e12f0484fc8957deca9a5bb0446fdcf1b64d",
+      "resumed_from_checkpoint_sha256": null,
+      "seed": 307,
+      "selection_score": -0.14046597405434064,
+      "starting_replay_size": 0,
+      "starting_training_steps": 0,
+      "training_steps": 9985,
+      "transition_ledger_count": 10000,
+      "transition_ledger_sha256": "6098e638887a21e91188f5dca40cc151e6fe13b5963628412b79a0e66ff7b77f",
+      "validation": {
+        "action_noop_count": {
+          "mean": 0.0,
+          "normal_approximation_ci95": [
+            0.0,
+            0.0
+          ],
+          "sample_standard_deviation": 0.0
+        },
+        "connection_churn": {
+          "mean": 0.0,
+          "normal_approximation_ci95": [
+            0.0,
+            0.0
+          ],
+          "sample_standard_deviation": 0.0
+        },
+        "episode_count": 40,
+        "mean_backlog_imbalance": {
+          "mean": 0.2198124375038056,
+          "normal_approximation_ci95": [
+            0.1012689487154298,
+            0.3383559262921814
+          ],
+          "sample_standard_deviation": 0.3825177819937771
+        },
+        "mean_backlog_ratio": {
+          "mean": 0.1751918529829603,
+          "normal_approximation_ci95": [
+            0.08593542373014815,
+            0.26444828223577244
+          ],
+          "sample_standard_deviation": 0.28801389005364014
+        },
+        "mean_connection_backlog_variance": {
+          "mean": 22804959409012.516,
+          "normal_approximation_ci95": [
+            10408115148407.08,
+            35201803669617.95
+          ],
+          "sample_standard_deviation": 40002309859080.78
+        },
+        "mean_connection_imbalance": {
+          "mean": 0.2319862968769028,
+          "normal_approximation_ci95": [
+            0.1593649179694531,
+            0.30460767578435255
+          ],
+          "sample_standard_deviation": 0.23433567772413408
+        },
+        "mean_connection_subscription_variance": {
+          "mean": 1562.625,
+          "normal_approximation_ci95": [
+            713.2629723720385,
+            2411.9870276279617
+          ],
+          "sample_standard_deviation": 2740.73322996247
+        },
+        "mean_pod_pressure": {
+          "mean": 0.18556675569859732,
+          "normal_approximation_ci95": [
+            0.1671581268698119,
+            0.20397538452738273
+          ],
+          "sample_standard_deviation": 0.05940122010163239
+        },
+        "mean_reward": {
+          "mean": -0.14046597405434064,
+          "normal_approximation_ci95": [
+            -0.1662742208064346,
+            -0.1146577273022467
+          ],
+          "sample_standard_deviation": 0.08327841035944879
+        },
+        "mean_subscription_imbalance": {
+          "mean": 0.24416015624999998,
+          "normal_approximation_ci95": [
+            0.11144733943313101,
+            0.37687297306686895
+          ],
+          "sample_standard_deviation": 0.4282395671816359
+        },
+        "mean_throughput_ratio": {
+          "mean": 0.28402317919501074,
+          "normal_approximation_ci95": [
+            0.22311760250976242,
+            0.34492875588025906
+          ],
+          "sample_standard_deviation": 0.1965309638075846
+        },
+        "migration_count": {
+          "mean": 0.325,
+          "normal_approximation_ci95": [
+            0.13425308753380932,
+            0.5157469124661906
+          ],
+          "sample_standard_deviation": 0.6155047959570696
+        }
+      },
+      "validation_action_coverage": {
+        "by_scenario": {
+          "deployment_client_slowdown": {
+            "migrate": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebG": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebN": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "scale+": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": 0.0
+            },
+            "scale-": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "stay": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 5000,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            }
+          },
+          "deployment_connection_count_skew": {
+            "migrate": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebG": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebN": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": 0.0
+            },
+            "scale+": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": 0.0
+            },
+            "scale-": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "stay": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 5000,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            }
+          },
+          "deployment_pod_pressure_skew": {
+            "migrate": {
+              "admissible_count": 13,
+              "admissible_episode_count": 10,
+              "selected_count": 13,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            },
+            "rebG": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebN": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "scale+": {
+              "admissible_count": 4961,
+              "admissible_episode_count": 10,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": 0.0
+            },
+            "scale-": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "stay": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 4987,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            }
+          },
+          "deployment_tiered_backlog": {
+            "migrate": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "rebG": {
+              "admissible_count": 4970,
+              "admissible_episode_count": 10,
+              "selected_count": 10,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            },
+            "rebN": {
+              "admissible_count": 4960,
+              "admissible_episode_count": 10,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": 0.0
+            },
+            "scale+": {
+              "admissible_count": 4970,
+              "admissible_episode_count": 10,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": 0.0
+            },
+            "scale-": {
+              "admissible_count": 0,
+              "admissible_episode_count": 0,
+              "selected_count": 0,
+              "selected_episode_count": 0,
+              "selected_episode_rate_when_admissible": null
+            },
+            "stay": {
+              "admissible_count": 5000,
+              "admissible_episode_count": 10,
+              "selected_count": 4990,
+              "selected_episode_count": 10,
+              "selected_episode_rate_when_admissible": 1.0
+            }
+          }
+        },
+        "intended_scenario_episode_coverage": {
+          "migrate": {
+            "minimum_episode_coverage": 0.8,
+            "pass": true,
+            "scenario": "deployment_pod_pressure_skew",
+            "selected_episode_rate_when_admissible": 1.0
+          },
+          "rebG": {
+            "minimum_episode_coverage": 0.8,
+            "pass": true,
+            "scenario": "deployment_tiered_backlog",
+            "selected_episode_rate_when_admissible": 1.0
+          },
+          "rebN": {
+            "minimum_episode_coverage": 0.8,
+            "pass": false,
+            "scenario": "deployment_connection_count_skew",
+            "selected_episode_rate_when_admissible": 0.0
+          }
+        },
+        "overall": {
+          "migrate": {
+            "admissible_count": 13,
+            "admissible_episode_count": 10,
+            "selected_count": 13,
+            "selected_episode_count": 10,
+            "selected_episode_rate_when_admissible": 1.0,
+            "selection_rate_when_admissible": 1.0
+          },
+          "rebG": {
+            "admissible_count": 4970,
+            "admissible_episode_count": 10,
+            "selected_count": 10,
+            "selected_episode_count": 10,
+            "selected_episode_rate_when_admissible": 1.0,
+            "selection_rate_when_admissible": 0.002012072434607646
+          },
+          "rebN": {
+            "admissible_count": 9960,
+            "admissible_episode_count": 20,
+            "selected_count": 0,
+            "selected_episode_count": 0,
+            "selected_episode_rate_when_admissible": 0.0,
+            "selection_rate_when_admissible": 0.0
+          },
+          "scale+": {
+            "admissible_count": 19931,
+            "admissible_episode_count": 40,
+            "selected_count": 0,
+            "selected_episode_count": 0,
+            "selected_episode_rate_when_admissible": 0.0,
+            "selection_rate_when_admissible": 0.0
+          },
+          "scale-": {
+            "admissible_count": 0,
+            "admissible_episode_count": 0,
+            "selected_count": 0,
+            "selected_episode_count": 0,
+            "selected_episode_rate_when_admissible": null,
+            "selection_rate_when_admissible": null
+          },
+          "stay": {
+            "admissible_count": 20000,
+            "admissible_episode_count": 40,
+            "selected_count": 19977,
+            "selected_episode_count": 40,
+            "selected_episode_rate_when_admissible": 1.0,
+            "selection_rate_when_admissible": 0.99885
+          }
+        },
+        "required_actions_observed": false,
+        "required_actions_reliably_observed": false,
+        "required_rebalancing_actions": [
+          "rebN",
+          "rebG",
+          "migrate"
+        ]
+      }
+    }
+  ],
+  "checkpoint_every_steps": 500,
+  "conditioned_probe_scenarios": {
+    "deployment_pod_pressure_skew": 3
+  },
+  "evaluation_episode_steps": 500,
+  "evaluation_scenario_definitions": [
+    {
+      "base_arrival_rate": 0.0,
+      "beta": 1000.0,
+      "burst_end": 1000000000,
+      "burst_start": 1000000000,
+      "client_ack_capacity": 60000.0,
+      "hot_multiplier": 1.0,
+      "hot_subscription_fraction": 0.0,
+      "initial_assignment_mode": "weighted",
+      "initial_backlog_tiers": [],
+      "initial_connection_pods": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "initial_connection_weights": [
+        0.35,
+        0.3,
+        0.2,
+        0.15
+      ],
+      "initial_connections": 4,
+      "max_connections": 6,
+      "name": "deployment_connection_count_skew",
+      "pod_capacity": 100000.0,
+      "pod_count": 4,
+      "slowdown_end": 1000000000,
+      "slowdown_factor": 1.0,
+      "slowdown_start": 1000000000,
+      "steps": 500,
+      "subscription_count": 1000,
+      "theta_n": 400
+    },
+    {
+      "base_arrival_rate": 20.0,
+      "beta": 1000.0,
+      "burst_end": 1000000000,
+      "burst_start": 1000000000,
+      "client_ack_capacity": 52000.0,
+      "hot_multiplier": 2.0,
+      "hot_subscription_fraction": 0.1,
+      "initial_assignment_mode": "tier_skewed",
+      "initial_backlog_tiers": [
+        [
+          0.25,
+          100000.0
+        ],
+        [
+          0.25,
+          50000.0
+        ],
+        [
+          0.25,
+          5000.0
+        ],
+        [
+          0.25,
+          0.0
+        ]
+      ],
+      "initial_connection_pods": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "initial_connection_weights": [],
+      "initial_connections": 4,
+      "max_connections": 6,
+      "name": "deployment_tiered_backlog",
+      "pod_capacity": 100000.0,
+      "pod_count": 4,
+      "slowdown_end": 1000000000,
+      "slowdown_factor": 1.0,
+      "slowdown_start": 1000000000,
+      "steps": 500,
+      "subscription_count": 1200,
+      "theta_n": 400
+    },
+    {
+      "base_arrival_rate": 25.0,
+      "beta": 1000.0,
+      "burst_end": 1000000000,
+      "burst_start": 1000000000,
+      "client_ack_capacity": 58000.0,
+      "hot_multiplier": 2.8,
+      "hot_subscription_fraction": 0.2,
+      "initial_assignment_mode": "round_robin",
+      "initial_backlog_tiers": [],
+      "initial_connection_pods": [],
+      "initial_connection_weights": [],
+      "initial_connections": 4,
+      "max_connections": 6,
+      "name": "deployment_client_slowdown",
+      "pod_capacity": 100000.0,
+      "pod_count": 4,
+      "slowdown_end": 375,
+      "slowdown_factor": 0.35,
+      "slowdown_start": 125,
+      "steps": 500,
+      "subscription_count": 1600,
+      "theta_n": 400
+    },
+    {
+      "base_arrival_rate": 24.0,
+      "beta": 1000.0,
+      "burst_end": 1000000000,
+      "burst_start": 1000000000,
+      "client_ack_capacity": 56000.0,
+      "hot_multiplier": 2.4,
+      "hot_subscription_fraction": 0.15,
+      "initial_assignment_mode": "round_robin",
+      "initial_backlog_tiers": [],
+      "initial_connection_pods": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "initial_connection_weights": [],
+      "initial_connections": 4,
+      "max_connections": 6,
+      "name": "deployment_pod_pressure_skew",
+      "pod_capacity": 100000.0,
+      "pod_count": 4,
+      "slowdown_end": 1000000000,
+      "slowdown_factor": 1.0,
+      "slowdown_start": 1000000000,
+      "steps": 500,
+      "subscription_count": 1600,
+      "theta_n": 400
+    }
+  ],
+  "frozen_checkpoint": "frozen-policy.json",
+  "frozen_checkpoint_sha256": "3e68371d848eca85ec0b87c7c7dd831ea3ec953e2c1bd51c0d79871c7ef3e1e1",
+  "frozen_epsilon": 0.0,
+  "frozen_training_enabled": false,
+  "generated_at_utc": "2026-09-11T13:19:23Z",
+  "holdout_executed": false,
+  "holdout_gate": "Run only when every intended scripted action improves its scenario-specific metric and the selected frozen DQL policy selects rebN, rebG, and migrate on the fixed validation bank",
+  "holdout_requested": false,
+  "holdout_seed_bank": "v3",
+  "holdout_seed_count_requested": 10,
+  "holdout_seeds": [],
+  "holdout_status": "reserved-not-consumed",
+  "probe_lifecycle": "persistent until promotion or migration",
+  "resume_research_checkpoint_sha256": null,
+  "resume_semantics": null,
+  "resumed_from_research_checkpoint": false,
+  "reward_weights": {
+    "backlog": 0.2,
+    "backlog_growth": 0.15,
+    "connection_cost": 0.05,
+    "connection_imbalance": 0.15,
+    "migration_cost": 0.1,
+    "pod_pressure": 0.2,
+    "throughput": 0.15
+  },
+  "runtime": {
+    "machine": "x86_64",
+    "platform": "macOS-26.6.2-x86_64-i386-64bit",
+    "python_implementation": "CPython",
+    "python_version": "3.9.12"
+  },
+  "scenario_adequacy_artifact": "scenario-adequacy-summary.json",
+  "scenario_adequacy_pass": true,
+  "schema": "oaes-dql-training-run/v2",
+  "selected_candidate_index": 0,
+  "selected_candidate_seed": 101,
+  "selected_core_action_coverage_pass": true,
+  "source_sha256": {
+    "client_dql": "49973cdacf24707cf1c1dea6c2e685c4831784f11ebc723f302227e6b2278695",
+    "simulator_environment": "a2359756535ca246b9f34bfb8304281fd4c711b40146eeda896a8f2a874358f8",
+    "trainer": "f5a97f70867740ab05f1910ec80892c270eb6f95ea06f7f1b79c808299044d95"
+  },
+  "training_episode_steps": 100,
+  "training_feature_count": 21,
+  "training_scenario_definitions": [
+    {
+      "base_arrival_rate": 0.0,
+      "beta": 1000.0,
+      "burst_end": 1000000000,
+      "burst_start": 1000000000,
+      "client_ack_capacity": 60000.0,
+      "hot_multiplier": 1.0,
+      "hot_subscription_fraction": 0.0,
+      "initial_assignment_mode": "weighted",
+      "initial_backlog_tiers": [],
+      "initial_connection_pods": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "initial_connection_weights": [
+        0.35,
+        0.3,
+        0.2,
+        0.15
+      ],
+      "initial_connections": 4,
+      "max_connections": 6,
+      "name": "deployment_connection_count_skew",
+      "pod_capacity": 100000.0,
+      "pod_count": 4,
+      "slowdown_end": 1000000000,
+      "slowdown_factor": 1.0,
+      "slowdown_start": 1000000000,
+      "steps": 100,
+      "subscription_count": 1000,
+      "theta_n": 400
+    },
+    {
+      "base_arrival_rate": 20.0,
+      "beta": 1000.0,
+      "burst_end": 1000000000,
+      "burst_start": 1000000000,
+      "client_ack_capacity": 52000.0,
+      "hot_multiplier": 2.0,
+      "hot_subscription_fraction": 0.1,
+      "initial_assignment_mode": "tier_skewed",
+      "initial_backlog_tiers": [
+        [
+          0.25,
+          100000.0
+        ],
+        [
+          0.25,
+          50000.0
+        ],
+        [
+          0.25,
+          5000.0
+        ],
+        [
+          0.25,
+          0.0
+        ]
+      ],
+      "initial_connection_pods": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "initial_connection_weights": [],
+      "initial_connections": 4,
+      "max_connections": 6,
+      "name": "deployment_tiered_backlog",
+      "pod_capacity": 100000.0,
+      "pod_count": 4,
+      "slowdown_end": 1000000000,
+      "slowdown_factor": 1.0,
+      "slowdown_start": 1000000000,
+      "steps": 100,
+      "subscription_count": 1200,
+      "theta_n": 400
+    },
+    {
+      "base_arrival_rate": 25.0,
+      "beta": 1000.0,
+      "burst_end": 1000000000,
+      "burst_start": 1000000000,
+      "client_ack_capacity": 58000.0,
+      "hot_multiplier": 2.8,
+      "hot_subscription_fraction": 0.2,
+      "initial_assignment_mode": "round_robin",
+      "initial_backlog_tiers": [],
+      "initial_connection_pods": [],
+      "initial_connection_weights": [],
+      "initial_connections": 4,
+      "max_connections": 6,
+      "name": "deployment_client_slowdown",
+      "pod_capacity": 100000.0,
+      "pod_count": 4,
+      "slowdown_end": 75,
+      "slowdown_factor": 0.35,
+      "slowdown_start": 25,
+      "steps": 100,
+      "subscription_count": 1600,
+      "theta_n": 400
+    },
+    {
+      "base_arrival_rate": 24.0,
+      "beta": 1000.0,
+      "burst_end": 1000000000,
+      "burst_start": 1000000000,
+      "client_ack_capacity": 56000.0,
+      "hot_multiplier": 2.4,
+      "hot_subscription_fraction": 0.15,
+      "initial_assignment_mode": "round_robin",
+      "initial_backlog_tiers": [],
+      "initial_connection_pods": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "initial_connection_weights": [],
+      "initial_connections": 4,
+      "max_connections": 6,
+      "name": "deployment_pod_pressure_skew",
+      "pod_capacity": 100000.0,
+      "pod_count": 4,
+      "slowdown_end": 1000000000,
+      "slowdown_factor": 1.0,
+      "slowdown_start": 1000000000,
+      "steps": 100,
+      "subscription_count": 1600,
+      "theta_n": 400
+    }
+  ],
+  "training_steps_per_candidate": 10000,
+  "validation_policy_mode": "independent frozen copy with epsilon zero",
+  "validation_seeds": [
+    4101,
+    4127,
+    4153,
+    4177,
+    4201,
+    4229,
+    4253,
+    4273,
+    4297,
+    4327
+  ]
+}

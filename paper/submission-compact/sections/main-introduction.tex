@@ -1,0 +1,59 @@
+\section{Introduction}
+
+Distributed messaging systems support cloud-native and event-driven applications. Real-time analytics, notifications, workflow engines, and microservices need reliable event delivery as workloads change. Many deployments run several subscriber-service instances behind a transport-layer load balancer. Clients keep persistent STOMP/TCP, raw TCP, or WebSocket-style connections to these services.
+
+Load balancing is therefore an important design concern. Poor distribution leaves some subscriber instances with growing backlogs and others with spare capacity. Clients then experience uneven delivery delays. Cloud resource-management reviews describe machine-learning methods for changing demand and capacity \cite{Khan2022MLCloudReview}. Deep-reinforcement-learning reviews also discuss adaptive policies for different resource types and competing objectives \cite{Zhou2024DRLCloudReview}. Conventional load balancers, however, usually distribute connections through policies such as round-robin or least-connections.
+
+Those policies are simple and scalable, but connection count alone does not describe subscription-heavy messaging. A persistent connection may carry a few lightweight subscriptions or hundreds of high-rate subscriptions with growing queues. The load balancer may count both cases as one connection. The subscriber pod handles very different workloads in these cases. Its load depends on subscription count, backlog per subscription, and the client's message-processing and acknowledgement rates.
+
+Subscriber-pod scale-out exposes this mismatch directly. If ten persistent
+connections are established while only one pod exists, new pods increase
+available processing capacity but do not change those established endpoints.
+The client can use the new capacity by promoting a probe that reaches a
+suitable pod and reassociating subscription-bearing connections to it. This
+scale-out recovery is the central experiment in Section~\ref{sec:scaleout-recovery}.
+The corresponding live handoff mechanism is examined during loaded Oracle
+Cloud cluster scale-out in Section~\ref{sec:live-dql-scaleout}.
+
+This mismatch creates two related problems. First, a client may reach a pod that already manages too many subscriptions, even when its connection count is acceptable. Second, the client may place too many subscriptions on one of its own connections. This can create local backlog even when the pod has enough capacity overall. A fixed connection pool cannot increase parallelism as subscription counts grow or event rates rise. Opening more connections without moving subscriptions, however, can leave the workload unevenly distributed.
+
+Deep reinforcement learning has been used for hierarchical cloud scheduling \cite{Zhou2022DRLSelector}, multidimensional data-center allocation \cite{Wei2023TNSM}, and distributed cloud-edge offloading \cite{Nieto2024DRLOffloading}. Decentralized bandit methods select service instances from client QoS feedback \cite{Cilic2025} or coordinate edge offloading through server rewards \cite{Yahya2024}. BLOC also shows how client-side load balancing can use overload feedback without a central metadata store \cite{Bhattacharya2024}. These studies provide examples of adaptive control with limited information. Our focus is how the client changes persistent subscription connections. It retains a probed socket, promotes it only when the required checks pass, and transfers subscription ownership while preserving the durable queues.
+
+Server placement, connection scaling, and subscription assignment depend on each other. Placement determines which pod a connection reaches. Scaling determines how many connections the client can use in parallel. Subscription assignment determines how evenly the work is spread across those connections. A practical controller must coordinate these decisions using only the information available to the client at runtime.
+
+We propose an adaptive framework with coordinated control loops for persistent subscription messaging. It applies to long-lived STOMP/TCP, raw TCP, or WebSocket connections that carry multiple subscriptions and periodically report application-level statistics. The framework has three control loops at different system layers:
+
+\begin{enumerate}
+	\item A policy layer that chooses bounded actions from active-connection and probe statistics. We evaluate deterministic greedy rules and DQL as alternative selectors under partial observability.
+	
+	\item A client-side adaptive parallel connection scaling loop that adjusts the number of persistent transport connections based on total subscription count and per-subscription backlog characteristics.
+	
+	\item A connection-level load rebalancing loop that minimizes both subscription-count variance and per-subscription-backlog variance across scaled connections.
+\end{enumerate}
+
+Together, these loops let the client choose and carry out rebalancing actions without full cluster visibility. Both policy families use the client's own queues, active-connection statistics, and one retained probe assigned by the load balancer. The greedy policy responds to measured pressure and imbalance. DQL learns action values for the same operational objectives. The design keeps the existing transport load balancer.
+
+\subsection*{Contributions}
+
+The key contributions of this work are:
+
+\begin{itemize}
+	\item A client-side connection-replacement mechanism for persistent subscription transports. The client retains an authenticated, load-balancer-assigned probe and conditionally promotes that same socket, preserving the observed endpoint without requiring direct routing to a chosen Pod.
+	
+	\item A policy-independent separation of observation, action selection, and guarded execution. A pressure-aware greedy policy and a partially observable DQL policy use client-local queues and sampled Pod statistics. The experiments distinguish the benefit of the common mechanism from the choice of selector.
+	
+	\item Subscription- and backlog-aware connection scaling and two-dimensional connection rebalancing. These mechanisms distinguish adding transport parallelism, redistributing subscriptions across existing connections, and replacing a connection's delivery endpoint.
+	
+	\item An implemented receipt-gated handoff that retains subscription identity and durable queues. Standby target bindings, source quiescence, a fresh zero-in-flight check, target activation, and source retirement make migration an explicit protocol rather than an instantaneous reassignment.
+	
+	\item Complementary deployment and policy evidence: a 20,000-subscription Oracle Cloud cluster connection-replacement experiment, an isolated loaded scale-out trial with selective DQL handoffs, and controlled simulator comparisons and ablations. The evaluation separates executable handoff behavior, the benefit of rebalancing, and the contribution of learned action selection.
+\end{itemize}
+
+The contribution is not a new Q-learning update or a new greedy optimizer.
+It is their integration with retained-probe selection and subscription-aware
+connection replacement, supported by separate mechanism and policy tests.
+Greedy control provides a transparent reference and a usable control policy;
+DQL provides a learned choice among competing operational objectives. The
+reported experiments evaluate them separately. They do not use a DQL model
+to tune the scripted comparator or claim an evaluated hybrid policy.
+

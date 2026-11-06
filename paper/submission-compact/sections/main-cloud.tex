@@ -1,0 +1,235 @@
+\section{Oracle Cloud Cluster Deployment Experiment}
+\label{sec:mumbai-experiment}
+
+We deployed the connection-replacement mechanism in an Oracle Cloud cluster
+running Kubernetes in a development environment and first exercised it with 20,000
+registered subscriptions. This initial experiment
+measures live probe promotion, subscription reassociation, handoff timing, and
+post-migration topology. The controlled scale-out and policy comparisons in
+Section~\ref{sec:locked-evidence} use a simulator and are reported separately.
+Sections~\suppref{sec:mumbai-startup} and~\ref{sec:live-dql-scaleout} report
+separate isolated trials, including selective DQL migration during delivery
+and a one-to-four-Pod scale-out sequence.
+
+\subsection{Deployment and Execution}
+
+The deployment contained ten subscriber-service pods. Ten client processes
+each maintained five active persistent connections, with 400 subscriptions per
+connection, and one additional subscription-free probe. The inventory had
+four event-type groups, each with 5,000 subscriptions. Every client loaded the
+same frozen DQL checkpoint, with exploration disabled and no training updates
+during evaluation. The deployed action profile admitted rebalancing and
+migration but masked connection scale-up and scale-down.
+
+Each client could execute at most one guarded connection migration. A selected
+probe was promoted only after telemetry and execution checks passed. The
+executor then reassociated the source connection's 400 subscriptions, drained
+in-flight delivery, retired the source socket, and opened a fresh
+subscription-free probe. Subscription receipts and server-reported counts
+were checked against the client assignment. After execution, each process
+held its topology for 1,800 seconds and checked it again before shutdown.
+The statistical unit is one deployment run, containing ten client migrations.
+
+\begin{table}[t]
+  \caption{Measured Oracle Cloud cluster deployment results. Handoff and drain statistics
+  summarize ten executed connection migrations. Drain wait is part of handoff
+  time, not an additional independent interval.}
+  \Description{Live experiment with ten pods, twenty thousand subscriptions,
+  ten successful connection replacements, four thousand moved subscriptions,
+  and exact final topology in all ten clients. Handoff median is 14.498 seconds;
+  drain-wait median is 7.347 seconds.}
+  \label{tab:mumbai-live-results}
+  \centering
+  \small
+  \begin{tabular}{p{0.60\linewidth}r}
+    \toprule
+    Measurement & Observed value \\
+    \midrule
+    Subscriber-service pods / client processes & 10 / 10 \\
+    Registered and attached subscriptions & 20,000 \\
+    Active persistent connections / probes & 50 / 10 \\
+    Executed full-connection migrations & 10 \\
+    Subscriptions moved per migration / total & 400 / 4,000 \\
+    Handoff time: minimum / median / maximum (s) & 7.898 / 14.498 / 101.563 \\
+    Drain wait: minimum / median / maximum (s) & 1.264 / 7.347 / 92.450 \\
+    Exact final topologies after 1,800 s & 10/10 \\
+    Recorded deliveries / processed and acknowledged & 114,986 / 113,149 \\
+    Processing failures / ACK failures / NACK failures & 0 / 0 / 0 \\
+    Recorded duplicate candidates & 0 \\
+    Independent pod samples / collection errors & 310 / 0 \\
+    Pod restart increase during observation & 0 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Observed Handoff and Topology}
+
+Table~\ref{tab:mumbai-live-results} shows that all ten clients replaced one
+active connection and moved its full subscription set. In every case, the
+destination was the retained probe, the other four active connections remained
+in place, and the replacement probe had no subscriptions. The final checks
+confirmed all 2,000 subscriptions and five active connections in each client
+after the 30-minute hold. Thus, 4,000 subscriptions changed their transport
+association while the complete 20,000-subscription client population remained
+accounted for.
+
+Handoff duration ranged from 7.898 to 101.563 seconds, with a median of
+14.498 seconds. The corresponding source-drain waits ranged from 1.264 to
+92.450 seconds, with a median of 7.347 seconds. The range is important:
+replacement time includes waiting for outstanding work, not just opening
+a socket. This run deliberately used eight processing workers
+and a two-second processing delay per event in each client. Those settings
+exercise handoff under a bounded client drain rate. The endpoint is handoff
+behavior under this processing limit, rather than maximum Pod throughput.
+
+The paired handoff/drain distributions and their statistical interpretation
+are retained in Section~\suppref{app:cloud-timing}.
+An independent collector retained 31 observations of each of the ten pods
+over approximately 2,422 seconds. All pods remained Ready, with unchanged
+pod, image, and process identities and no restart increase. These observations
+establish operational continuity over this observation period. Long-term
+availability is outside the measurement window.
+
+\subsection{Event Accounting and Interpretation}
+
+The clients recorded 114,986 deliveries and 113,149 processed and acknowledged
+events, with no recorded processing, acknowledgement, or negative-
+acknowledgement failures. The final difference is 1,837 deliveries whose
+eventual status is not resolved by these counters. Zero duplicate candidates
+describes the configured observation window, rather than an exactly-once
+delivery guarantee. The run consumed existing queued work without a matched
+static-policy workload. Its contribution is measured probe-based connection
+replacement with 20,000 subscriptions: subscription reassociation, source
+retirement, and the connection layout after the hold period. Its endpoints
+are handoff execution and topology retention, not a comparative backlog-drain
+rate.
+
+The private evidence archive retains the frozen-policy and inventory hashes,
+per-client decision and topology records, delivery counters, and independent
+pod observations. A recursive manifest covers 134 files; aggregate values in
+Table~\ref{tab:mumbai-live-results} come from the active-execution gate and
+pod-observation summaries, not from simulator output.
+\subsection{Loaded DQL Migration During Pod Scale-Out}
+\label{sec:live-dql-scaleout}
+
+We next tested selective connection replacement during event delivery in a
+separate Oracle Cloud cluster run. One client attached 1,000 registered
+subscriptions to four persistent connections on one subscriber Pod, with
+250 subscriptions per connection. The isolated deployment then grew from
+one to four Ready Pods while the same client process remained running.
+The second Pod became Ready before standby activation was released; the
+third and fourth Pods were added during observation. The transport load
+balancer assigned each empty probe to a Pod. The client used the retained
+socket only when DQL selected migration and the execution guards passed.
+
+The frozen checkpoint had 9,985 training updates and used $\epsilon=0$.
+The trial allowed three executed actions in a configured 600-second window,
+with a 60-attempt probe-discovery budget. Telemetry had to satisfy the
+180-second age limit and 0.8 minimum backlog coverage. Each Pod requested
+1.5 CPU cores and 4~GiB memory, with limits of three cores and 6~GiB.
+The client used 32 workers and a fixed one-second processing delay to keep
+work outstanding during handoff. This setting tests acknowledgement-aware
+migration under a bounded client drain rate, rather than maximum Pod capacity.
+
+Two bounded batches each published four synthetic source events. Each event
+matched 5,000 registered subscriptions, including the client's 1,000-subscription
+cohort. Thus, publication exposed the queue to 40,000 copies while the measured
+cohort accounted for 8,000 delivery attempts. Capacity was checked before each
+batch against the existing 400~MB limit, retaining an 80~MB reserve and prior
+unreconciled publication costs. No queue purge or quota increase was used.
+
+\begin{table}[!htbp]
+  \centering
+  \small
+  \caption{Executed frozen-DQL handoffs in the loaded Oracle Cloud scale-out
+  run. P1 is the initial Pod; P2 and P3 are added Pods. Drain time is included
+  in total handoff time. These are three actions within one run.}
+  \Description{Three handoffs each move 250 subscriptions and retain the other
+  three active sessions. The first two move from P1 to P2; the third moves the
+  first group again from P2 to P3. Total times are 97.555, 10.881 and 79.657 seconds.}
+  \label{tab:live-dql-loaded-handoffs}
+  \begin{tabular}{llrrrr}
+    \toprule
+    Action & Path & Subscriptions & Other sessions & Drain (s) & Total (s) \\
+    \midrule
+    H1 & P1 to P2 & 250 & 3 retained & 93.862 & 97.555 \\
+    H2 & P1 to P2 & 250 & 3 retained & 8.339 & 10.881 \\
+    H3 & P2 to P3 & 250 & 3 retained & 76.166 & 79.657 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Table~\ref{tab:live-dql-loaded-handoffs} records actual policy execution, not
+just a migration recommendation. The three observed differences between the
+migration and stay Q-values were 1.7126, 1.2919 and 1.8201. Each migration was
+admissible and selected by the frozen network. Before-and-after session maps
+show that every handoff preserved the other three active connections. Two
+original sessions remained unchanged throughout the run. The mechanism
+therefore replaced selected connections without disconnecting the whole pool.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/live-dql-loaded-scaleout.pdf}
+  \caption{Measured loaded DQL migration in the Oracle Cloud cluster.
+  (a) Receipt-confirmed client bindings at the initial snapshot and after
+  H1--H3. Each bar accounts for all 1,000 subscriptions; the four active
+  connections each retain 250 subscriptions. P4 has no client bindings and
+  is observed only through a probe. (b) Cumulative ACK receipts, aggregated
+  in one-second bins. Shaded spans show the measured complete handoff
+  intervals, including source drain. The curve describes this bounded
+  workload, not a matched between-policy throughput comparison.}
+  \Description{Placement changes from one thousand bindings on P1 to seven
+  hundred fifty on P1 and two hundred fifty on P2, then five hundred on each,
+  and finally five hundred on P1, two hundred fifty on P2 and two hundred fifty
+  on P3. ACK receipts reach eight thousand while three shaded handoff intervals
+  mark selective connection migration.}
+  \label{fig:live-dql-loaded-scaleout}
+\end{figure}
+
+Figure~\ref{fig:live-dql-loaded-scaleout}(a) separates moved subscriptions
+from handoff operations. H3 moves the group already transferred by H1, so
+the three actions comprise 750 subscription-handoff operations involving
+500 distinct subscriptions. The final distribution across the four available
+Pods is 500, 250, 250 and zero. The maximum client population on one Pod falls
+from 1,000 to 500, a 50\% reduction, without increasing the four active
+connections. The last Pod remains a probe candidate after the three-action
+budget is reached. Discovering it does not automatically promote it.
+
+Figure~\ref{fig:live-dql-loaded-scaleout}(b) uses the confirmed ACK receipt
+timestamp of each recorded delivery. Its cumulative total reaches 8,000,
+and each of the 1,000 registered subscription hashes has eight acknowledged
+delivery records. The ledger contains zero recorded ACK failures, processing
+failures, duplicate candidates or unresolved deliveries at clean closure.
+Long drain intervals remain visible: source retirement waits for outstanding
+work instead of discarding it to shorten the measured handoff. The configured
+window contains 60 decision records; its actual measurement boundaries span
+609.716 seconds, including boundary handling.
+
+The identity check uses STOMP message identifiers and confirms observed
+delivery/ACK accounting. Source CloudEvent identities and individual backend
+queue deletions are outside that ledger's scope. A separate unloaded
+1,000-subscription run executed two handoffs in 5.244 and 5.172 seconds;
+those timings are retained separately because the processing conditions
+differ. The online and target weights remained identical to the input
+checkpoint in both runs. The loaded run saved 39 valid experience transitions
+without applying new training updates. The complete private archive verifies
+256 files, and the manuscript figure uses identifier-free aggregates derived
+from those records. The isolated deployment was restored to one Ready Pod;
+all 13 shared-resource isolation checks passed.
+
+
+\subsection{TTL Reconnection Comparison}
+An isolated matched-preload pair used 5,000 subscriptions and 30,000 delivery
+attempts per arm. Native TTL produced twelve server-matched interruptions and
+26,831 confirmed ACKs (89.44\%), leaving 3,169 unresolved receipts. The
+TTL-disabled DQL arm confirmed all 30,000 ACKs without interruptions, but its
+telemetry guards held every decision at \emph{stay}. A 200-second minimum
+telemetry sweep exceeded the 180-second freshness deadline. This pair measures
+expiry-related interruption and receipt completion, not a learned-migration
+throughput advantage. Unresolved receipts are not classified as event loss.
+
+Detailed TTL implementation paths, recovery endpoints, the two-burst trial,
+and matched-preload diagnostics are provided in
+Section~\suppref{sec:ttl-reconnection}.
+The separate 2,000-subscription calibration and startup-under-load trial is
+retained in Section~\suppref{sec:mumbai-startup}.

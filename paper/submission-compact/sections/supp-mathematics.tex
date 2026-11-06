@@ -1,0 +1,151 @@
+\section{Extended Mathematical Details}
+\label{app:extended-mathematics}
+The core queue, pressure, imbalance, and reward definitions appear in the main
+paper. This section retains their reference-scale calibration, the offline
+objective, and the full proofs.
+\subsection{Variance Reference Scales}
+The subscription-count reference $V^N_{\mathrm{ref}}$ is chosen from an
+operational tolerance rather than learned by DQL. Since
+$\sqrt{V^N_u(t)}$ is the standard deviation of subscription counts across
+client $u$'s active connections, a tolerable subscription-count standard
+deviation $\sigma^{N}_{\mathrm{tol}}$ defines
+\[
+	V^N_{\mathrm{ref}}=(\sigma^{N}_{\mathrm{tol}})^2.
+\]
+For example, if the operator allows roughly a $\Delta_N$-subscription spread
+between a heavy and a light connection, then
+$\sigma^{N}_{\mathrm{tol}}\approx \Delta_N/2$ is a practical calibration. If
+the subscription-density threshold is $\Theta_N$, a default choice is
+$\sigma^{N}_{\mathrm{tol}}=\rho_N\Theta_N$ with
+$\rho_N\in[0.1,0.25]$; smaller values increase sensitivity to
+subscription-count skew.
+The backlog-load reference $V^G_{\mathrm{ref}}$ is chosen in the same way,
+but in backlog units. Since $\sqrt{V^G_u(t)}$ is the standard deviation of
+cumulative connection backlog $G_{u,c}(t)$ across client $u$'s active
+connections, a tolerable backlog-load standard deviation
+$\sigma^{G}_{\mathrm{tol}}$ defines
+\[
+	V^G_{\mathrm{ref}}=(\sigma^{G}_{\mathrm{tol}})^2.
+\]
+If the operator allows roughly a $\Delta_G$-message backlog spread between a
+heavy and a light connection, then
+$\sigma^{G}_{\mathrm{tol}}\approx \Delta_G/2$ is the direct calibration. When
+the tolerance is latency-driven, $\Delta_G$ is derived from the
+client-observed processing capability rather than from pod capacity alone. For
+example, if $\widehat{r}^{\mathrm{ack}}_{u}$ is a conservative ACK or processing rate
+measured by client $u$ and $\tau_G$ is the acceptable additional drain-time
+skew, then $\Delta_G=\widehat{r}^{\mathrm{ack}}_{u}\tau_G$ is a defensible choice. If
+no latency SLO is available, a practical default is
+$\sigma^{G}_{\mathrm{tol}}=\rho_G\beta\Theta_N$ with
+$\rho_G\in[0.1,0.25]$, where $\beta\Theta_N$ is the nominal backlog budget of
+a connection carrying $\Theta_N$ subscriptions.
+The weights $\eta_N,\eta_G\geq0$ determine how much the controller prioritizes
+subscription-management fairness versus backlog-load fairness. For example,
+larger $\eta_N$ makes the controller more sensitive to connections carrying
+too many subscriptions, while larger $\eta_G$ makes it more sensitive to
+connections accumulating more queued messages. The constraint
+$\eta_N+\eta_G=1$ makes $V_u(t)$ a convex combination rather than an
+unbounded sum.
+\subsection{Global Evaluation Objective}
+
+The controller does not require cluster-wide variance. However, simulation and
+offline validation can report global metrics. A finite-horizon evaluation cost
+is
+\begin{align}
+	J_T =
+	\sum_{t=0}^{T}
+	\Bigl[
+	&\Lambda_B \sum_{i\in\mathcal{S}}B_i(t)
+	+\Lambda_X \Phi_X(t) \nonumber\\
+	&+\Lambda_C \sum_{u\in\mathcal{U}}V_u(t)
+	+\Lambda_M M(t)
+	\Bigr].
+\end{align}
+where $\Phi_X(t)$ is pod subscription-count variance and $M(t)$ is total
+migration count. This objective is used to evaluate system-level behavior, not
+as information assumed available to every client.
+
+The quantity $J_T$ is an offline finite-horizon cost: lower values indicate
+better system-level behavior over the evaluation horizon $0,\ldots,T$. The
+first term penalizes total pod backlog, where $B_i(t)$ is the cumulative
+backlog over all subscription queues served by pod $i$. The second term
+penalizes uneven subscription placement across pods. Specifically, if
+\begin{align*}
+	\bar{X}(t)
+	&=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}}X_i(t),\\
+	\Phi_X(t)
+	&=\frac{1}{|\mathcal{S}|}
+	\sum_{i\in\mathcal{S}}\bigl(X_i(t)-\bar{X}(t)\bigr)^2,
+\end{align*}
+then $\Phi_X(t)$ is high when some pods carry many more subscriptions than
+others. The third term aggregates client-side connection imbalance, using
+$V_u(t)$ from (\mainref{eq:local_connection_imbalance}); it measures whether a
+client's own persistent connections are uneven in subscription count or
+backlog load. The fourth term penalizes operational churn through $M(t)$, the
+number of migration or reconnect operations performed during epoch $t$.
+The coefficients
+$\Lambda_B,\Lambda_X,\Lambda_C,\Lambda_M\geq 0$ determine the relative
+importance of backlog reduction, pod-level subscription balance, client-side
+connection balance, and migration stability. Normalization before weighting
+places the components on comparable scales, preventing a large-scale metric
+from dominating $J_T$ merely because of its units.
+
+\subsection{Rebalancing Properties}
+
+\begin{proposition}[Subscription-density bound]
+If $1\leq|\mathcal{K}_u(t)|\leq \Theta_N C_{\max}$ and the scaling rule sets
+\begin{equation}
+	|\mathcal{C}_u(t)| =
+	\left\lceil\frac{|\mathcal{K}_u(t)|}{\Theta_N}\right\rceil,
+\end{equation}
+then the mean subscription density satisfies $\bar{N}_u(t)\leq\Theta_N$.
+\end{proposition}
+
+\begin{proof}
+By definition, $\bar{N}_u(t)=|\mathcal{K}_u(t)|/|\mathcal{C}_u(t)|$. Since
+$|\mathcal{C}_u(t)|\geq |\mathcal{K}_u(t)|/\Theta_N$, it follows that
+$\bar{N}_u(t)\leq\Theta_N$.
+\end{proof}
+
+\begin{proposition}[Backlog-variance reduction]
+For client $u$, let $c_h,c_l\in\mathcal{C}_u(t)$ be two active persistent
+connections, where $c_h$ is the source connection from which subscription $k$
+is removed and $c_l$ is the target connection to which subscription $k$ is
+assigned. Let $G_{u,c_h}(t)$ and $G_{u,c_l}(t)$ be the cumulative backlog loads
+on these two connections before the move, and let $b_{u,k}(t)>0$ be the backlog
+of the moved subscription queue. If
+\begin{equation}
+	G_{u,c_h}(t)-G_{u,c_l}(t)>b_{u,k}(t),
+\end{equation}
+then moving subscription $k$ from $c_h$ to $c_l$ strictly decreases the
+connection-level backlog variance $V^G_u(t)$.
+\end{proposition}
+
+The condition states that the source connection is heavier than the target
+connection by more than the backlog carried by the moved subscription. Hence
+the move reduces their squared-deviation sum. It can cross the equal-load
+point and still reduce variance: loads $(10,0)$ become $(2,8)$ after a move
+of size 8. Avoiding that crossing would require the stronger condition
+$2b_{u,k}(t)\leq G_{u,c_h}(t)-G_{u,c_l}(t)$, which is not needed by the proposition.
+
+\begin{proof}
+The move preserves total backlog and therefore preserves $\bar{G}_u(t)$. Let
+$d_h=G_{u,c_h}(t)-\bar{G}_u(t)$ and
+$d_l=G_{u,c_l}(t)-\bar{G}_u(t)$. Only two squared-deviation terms change. With
+$b=b_{u,k}(t)$, the unnormalized variance change is
+\begin{align}
+	&(d_h-b)^2+(d_l+b)^2-d_h^2-d_l^2 \nonumber\\
+	&\quad =
+	2b\bigl(b-(G_{u,c_h}(t)-G_{u,c_l}(t))\bigr)<0.
+\end{align}
+Thus $V^G_u(t)$ decreases.
+\end{proof}
+
+\begin{remark}
+The placement loop optimizes a client-observed reward rather than an
+unobserved global cluster objective. It is a decentralized control mechanism operating
+under partial observability: active connections and probe connections provide
+fresh but incomplete pod statistics, and the client optimizes its own reward
+using these observations.
+\end{remark}
+

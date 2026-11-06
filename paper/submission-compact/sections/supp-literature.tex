@@ -1,0 +1,78 @@
+\section{Extended Cloud and Edge Literature}
+\label{app:extended-literature}
+\subsection{Cloud, Microservice, and Load-Balancing Literature}
+
+Recent cloud resource-management studies emphasize that adaptive schedulers
+must operate under workload uncertainty, heterogeneous resources, and competing
+objectives such as latency, throughput, energy, and utilization
+\cite{Khan2022MLCloudReview}. Reviews of DRL-based cloud control identify the
+same practical issues that matter here: reward design, non-stationary demand,
+and operational deployment \cite{Zhou2024DRLCloudReview}. DRL has been used
+for algorithm selection in hierarchical cloud scheduling
+\cite{Zhou2022DRLSelector}, feedback-control-based cloud resource allocation
+\cite{Chen2022RLFeedback}, multi-objective virtual-machine placement
+\cite{Caviglione2021VMPlacement}, and multidimensional allocation in
+distributed data centers \cite{Wei2023TNSM}. These works show how learned
+control can account for delayed effects and competing objectives.
+However, their controlled objects are usually tasks, virtual machines, jobs, or
+data-center resources. Our controlled objects are lower in the messaging
+stack: subscriptions, persistent client connections, and observed subscriber
+pods.
+
+Cloud scheduling offers several distinct approaches, not all of them
+learning-based. Belgacem et al. use a spacing multi-objective antlion algorithm
+to optimize makespan and virtual-machine cost \cite{Belgacem2020DynamicResource}.
+Ding et al. instead use Q-learning for energy-efficient task scheduling
+\cite{Ding2020QLearningCloud}, while Chen et al. use actor--critic DRL for
+resource allocation in cloud data centers \cite{Chen2022ActorCritic}.
+Collaborative scheduling addresses heterogeneous workflows
+\cite{Chen2023CollaborativeScheduling}; workload-time windows provide temporal
+context for cloud-service allocation \cite{Chen2023WorkloadWindows}.
+Li et al. apply DRL to energy-aware Spark scheduling \cite{Li2023SparkDRL}.
+Sanjalawe et al. provide a comprehensive review of AI-driven cloud job
+scheduling \cite{Sanjalawe2025AIJobScheduling}.
+
+The controlled workload also matters. Dong et al. use DQN for manufacturing
+task scheduling \cite{Dong2020CloudManufacturing}, and Chen et al. study
+attention-based scheduling across manufacturing cloud and edge resources
+\cite{Chen2023CloudEdgeManufacturing}. Cheng et al. introduce preemption into
+cost-aware cloud scheduling \cite{Cheng2023PreemptiveCloud}; Liu et al. consider
+inter-region bandwidth and traffic costs for data-intensive jobs
+\cite{Liu2026GeoDRL}. These papers supply scheduling context. Our problem
+instead requires subscription reassociation while retaining queue identity
+and delivery ownership across persistent connections.
+
+Edge research is relevant here in two narrower respects: decentralized
+observations and explicit tradeoffs among resource costs. Iftikhar et al.
+provide a taxonomy of AI-based fog and edge computing \cite{Iftikhar2023EdgeAI},
+while Hortelano et al. survey RL-based computation offloading
+\cite{Hortelano2023RLOffloading}. A concrete decentralized example is Nieto
+et al.'s per-device actor--critic offloading policy, which trades battery-related
+QoE against task-latency requirements \cite{Nieto2024DRLOffloading}. Hou et al.
+explicitly formulate distributed offloading with partial global information
+\cite{Hou2023PODRL}. Partial observability is therefore already addressed in
+earlier work. It is not, by itself, a new contribution of our controller.
+
+Other offloading papers inform the choice of cost terms, rather than the
+transport handoff mechanism. Xu et al. optimize cloud-edge resource rental and
+allocation costs \cite{Xu2022CloudEdgeResource}. Huang et al. combine
+computation offloading with resource allocation in wireless-powered edge
+networks \cite{Huang2020Offloading}. Pan et al. model dependent tasks and train
+an offloading scheduler using a modified PPO method \cite{Pan2023ICNOffloading}.
+Jayanetti et al. consider energy and execution time for precedence-constrained
+tasks \cite{Jayanetti2022EdgeCloudScheduling}. Mitsis et al. incorporate price
+and risk into offloading decisions \cite{Mitsis2022RiskOffloading}, whereas Cui
+et al. optimize caching and request routing for latency-sensitive content
+distribution \cite{Cui2023IoTEdgeCloud}. Our migration and connection costs
+likewise make operational tradeoffs explicit, but their definitions and the
+subscription-ownership contract are specific to persistent messaging.
+
+Microservice autoscaling provides a closer infrastructure comparison.
+Abdel Khaleq and Ra use reinforcement learning to control horizontal scaling
+from resource demand \cite{AbdelKhaleq2021Autoscaling}. HephaestusForge learns
+microservice placement across Kubernetes clusters with multiple deployment
+objectives \cite{Santos2025HephaestusForge}. These approaches change service
+capacity or placement. Our mechanism addresses the complementary client-side
+step: existing subscription-bearing sockets must reach the added capacity,
+and candidate promotion must account for both subscription and backlog pressure.
+

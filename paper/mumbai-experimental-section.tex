@@ -1,0 +1,140 @@
+\section{Oracle Cloud Cluster Deployment Experiment}
+\label{sec:mumbai-experiment}
+
+We deployed the connection-replacement mechanism in an Oracle Cloud cluster
+running Kubernetes in a development environment and first exercised it with 20,000
+registered subscriptions. This initial experiment
+measures live probe promotion, subscription reassociation, handoff timing, and
+post-migration topology. The controlled scale-out and policy comparisons in
+Section~\ref{sec:locked-evidence} use a simulator and are reported separately.
+Sections~\ref{sec:mumbai-startup} and~\ref{sec:live-dql-scaleout} report
+separate isolated trials, including selective DQL migration during delivery
+and a one-to-four-Pod scale-out sequence.
+
+\subsection{Deployment and Execution}
+
+The deployment contained ten subscriber-service pods. Ten client processes
+each maintained five active persistent connections, with 400 subscriptions per
+connection, and one additional subscription-free probe. The inventory had
+four event-type groups, each with 5,000 subscriptions. Every client loaded the
+same frozen DQL checkpoint, with exploration disabled and no training updates
+during evaluation. The deployed action profile admitted rebalancing and
+migration but masked connection scale-up and scale-down.
+
+Each client could execute at most one guarded connection migration. A selected
+probe was promoted only after telemetry and execution checks passed. The
+executor then reassociated the source connection's 400 subscriptions, drained
+in-flight delivery, retired the source socket, and opened a fresh
+subscription-free probe. Subscription receipts and server-reported counts
+were checked against the client assignment. After execution, each process
+held its topology for 1,800 seconds and checked it again before shutdown.
+The statistical unit is one deployment run, containing ten client migrations.
+
+\begin{table}[t]
+  \caption{Measured Oracle Cloud cluster deployment results. Handoff and drain statistics
+  summarize ten executed connection migrations. Drain wait is part of handoff
+  time, not an additional independent interval.}
+  \Description{Live experiment with ten pods, twenty thousand subscriptions,
+  ten successful connection replacements, four thousand moved subscriptions,
+  and exact final topology in all ten clients. Handoff median is 14.498 seconds;
+  drain-wait median is 7.347 seconds.}
+  \label{tab:mumbai-live-results}
+  \centering
+  \small
+  \begin{tabular}{p{0.60\linewidth}r}
+    \toprule
+    Measurement & Observed value \\
+    \midrule
+    Subscriber-service pods / client processes & 10 / 10 \\
+    Registered and attached subscriptions & 20,000 \\
+    Active persistent connections / probes & 50 / 10 \\
+    Executed full-connection migrations & 10 \\
+    Subscriptions moved per migration / total & 400 / 4,000 \\
+    Handoff time: minimum / median / maximum (s) & 7.898 / 14.498 / 101.563 \\
+    Drain wait: minimum / median / maximum (s) & 1.264 / 7.347 / 92.450 \\
+    Exact final topologies after 1,800 s & 10/10 \\
+    Recorded deliveries / processed and acknowledged & 114,986 / 113,149 \\
+    Processing failures / ACK failures / NACK failures & 0 / 0 / 0 \\
+    Recorded duplicate candidates & 0 \\
+    Independent pod samples / collection errors & 310 / 0 \\
+    Pod restart increase during observation & 0 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Observed Handoff and Topology}
+
+Table~\ref{tab:mumbai-live-results} shows that all ten clients replaced one
+active connection and moved its full subscription set. In every case, the
+destination was the retained probe, the other four active connections remained
+in place, and the replacement probe had no subscriptions. The final checks
+confirmed all 2,000 subscriptions and five active connections in each client
+after the 30-minute hold. Thus, 4,000 subscriptions changed their transport
+association while the complete 20,000-subscription client population remained
+accounted for.
+
+Handoff duration ranged from 7.898 to 101.563 seconds, with a median of
+14.498 seconds. The corresponding source-drain waits ranged from 1.264 to
+92.450 seconds, with a median of 7.347 seconds. The range is important:
+replacement time includes waiting for outstanding work, not just opening
+a socket. This run deliberately used eight processing workers
+and a two-second processing delay per event in each client. Those settings
+exercise handoff under a bounded client drain rate. The endpoint is handoff
+behavior under this processing limit, rather than maximum Pod throughput.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/mumbai-handoff-boxplots.pdf}
+  \caption{Measured Oracle Cloud cluster migration timing. Left: paired source-drain and
+  total-handoff durations for each of the ten client migrations. Right:
+  quartile boxes with median lines, mean diamonds, and all ten observations;
+  whiskers extend to observations within 1.5 interquartile ranges. These are
+  ten migrations in one cluster run, not ten independent cluster trials.}
+  \Description{Paired duration markers and box plots show source drain and
+  total handoff for ten clients. Longer handoffs coincide with longer source
+  drain waits. Drain is a component of
+  total handoff, not an additional duration.}
+  \label{fig:mumbai-handoff-distributions}
+\end{figure}
+\FloatBarrier
+
+Figure~\ref{fig:mumbai-handoff-distributions} retains the pairing that a
+summary median cannot show. For client $u$, the interval between its two
+markers is $T^{\mathrm{handoff}}_u-T^{\mathrm{drain}}_u$, the measured non-drain remainder of
+the handoff; it is not an estimate of network latency alone. The box extends
+from the sample's first to third quartile, so the interquartile range describes
+the central half of the timings. All points, including the long-duration
+observations, remain visible. Longer handoffs coincide with longer source
+drains, consistent with the receipt-gated mechanism waiting for outstanding
+work. These are within-run timing distributions; their scope is the observed
+deployment, without a between-deployment confidence interval.
+
+An independent collector retained 31 observations of each of the ten pods
+over approximately 2,422 seconds. All pods remained Ready, with unchanged
+pod, image, and process identities and no restart increase. These observations
+establish operational continuity over this observation period. Long-term
+availability is outside the measurement window.
+
+\subsection{Event Accounting and Interpretation}
+
+The clients recorded 114,986 deliveries and 113,149 processed and acknowledged
+events, with no recorded processing, acknowledgement, or negative-
+acknowledgement failures. The final difference is 1,837 deliveries whose
+eventual status is not resolved by these counters. Zero duplicate candidates
+describes the configured observation window, rather than an exactly-once
+delivery guarantee. The run consumed existing queued work without a matched
+static-policy workload. Its contribution is measured probe-based connection
+replacement with 20,000 subscriptions: subscription reassociation, source
+retirement, and the connection layout after the hold period. Its endpoints
+are handoff execution and topology retention, not a comparative backlog-drain
+rate.
+
+The private evidence archive retains the frozen-policy and inventory hashes,
+per-client decision and topology records, delivery counters, and independent
+pod observations. A recursive manifest covers 134 files; aggregate values in
+Table~\ref{tab:mumbai-live-results} come from the active-execution gate and
+pod-observation summaries, not from simulator output.
+
+\input{mumbai-startup-section}
+\input{live-dql-scaleout-section}
+\input{ttl-reconnection-section}

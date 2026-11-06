@@ -1,0 +1,146 @@
+\ifdefined\pdfminorversion\pdfminorversion=7\fi
+\RequirePackage{xr-hyper}
+\documentclass[manuscript]{acmart}
+
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{pdflscape}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{needspace}
+\usepackage{array}
+\usepackage{microtype}
+\usepackage{placeins}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepgfplotslibrary{statistics}
+\pgfplotsset{compat=1.17}
+\usetikzlibrary{arrows.meta,positioning,fit,calc,shapes.geometric}
+\usepackage[ruled,vlined,linesnumbered,longend]{algorithm2e}
+
+\AtBeginDocument{%
+  \providecommand\BibTeX{{Bib\TeX}}}
+\acmJournal{TAAS}
+\setcopyright{none}
+
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
+
+
+\usepackage{afterpage}
+\newcommand{\suppref}[1]{\ref{S-#1} of the Online Supplementary Material}
+\newcommand{\mainref}[1]{\ref{M-#1} of the main paper}
+\externaldocument[S-]{Online_Appendix}
+\begin{document}
+
+\title[Probe-Guided Rebalancing of Persistent Subscription Connections]{Probe-Guided Rebalancing of Persistent Subscription Connections with Greedy and Deep Q-Learning Control}
+
+\author{Manish Kumar Agrawal}
+\email{m\_agrawal@cs.iitr.ac.in}
+\affiliation{%
+  \department{Department of Computer Science and Engineering}
+  \institution{Indian Institute of Technology Roorkee}
+  \city{Roorkee}
+  \state{Uttarakhand}
+  \country{India}}
+
+\author{Sandeep Kumar}
+\email{sandeep.garg@cs.iitr.ac.in}
+\affiliation{%
+  \department{Department of Computer Science and Engineering}
+  \institution{Indian Institute of Technology Roorkee}
+  \city{Roorkee}
+  \state{Uttarakhand}
+  \country{India}}
+
+\begin{abstract}
+Transport load balancers cannot observe the application-level signals that
+affect persistent subscription delivery. These include the subscriptions on
+each connection, backlog per subscription, client acknowledgement capacity,
+and pod reliability under subscription pressure. As a result, balanced
+connection counts can still hide large differences in subscription counts and
+queue backlog. We model client-side rebalancing as a sequence of decisions
+based on partial observations. We present a probe-guided rebalancing framework
+for persistent subscription transports, implemented and tested with STOMP. A
+client combines telemetry from active persistent connections, local queue and
+throughput counters, and one subscription-free connection that the existing
+load balancer assigns to a random pod. The framework separates policy selection
+from receipt-gated execution. It supports deterministic, pressure-aware greedy
+control and Deep Q-Learning (DQL) over bounded actions. Both use subscription
+count and backlog to assess a candidate; neither needs full cluster visibility.
+The DQL policy additionally learns the tradeoff among backlog, imbalance,
+throughput, and intervention cost. Execution guards block infeasible actions.
+When migration is selected, the probe is promoted through a receipt-gated
+standby, quiesce, drain, activate, detach, and old-socket retirement protocol.
+
+In a locked scale-out simulator experiment, 20,000 subscriptions carry 775
+million queued events on ten connections established on one Pod. Across 20
+paired seeds, adding three Pods with unchanged connection placement yields
+58,000 events/s. Probe-guided DQL and guarded-greedy migration yield 219,762
+and 221,260 events/s, respectively. DQL reduces normalized backlog area by
+12.30\% relative to unchanged placement (paired difference $-0.117504$;
+95\% confidence interval $[-0.121210,-0.113345]$). The comparison establishes
+the value of connection reassociation under the stated service model.
+In a separate mixed-workload holdout, DQL improves mean composite reward by
+0.0318 and reduces subscription-count variance by 90.0\% relative to the
+two-dimensional heuristic, with a 4.5\% throughput tradeoff. Oracle Cloud
+experiments establish execution of the mechanism: ten connection replacements
+reassociate 4,000 of 20,000 subscriptions, and a loaded scale-out trial completes
+three selective handoffs while retaining the other sessions and confirming
+all 8,000 observed delivery ACKs. The framework therefore offers both a
+transparent greedy policy and a learned multi-objective policy, with their
+benefits evaluated separately from the shared handoff mechanism.
+\end{abstract}
+
+\begin{CCSXML}
+<ccs2012>
+ <concept>
+  <concept_id>10010147.10010257.10010293.10010294</concept_id>
+  <concept_desc>Computing methodologies~Reinforcement learning</concept_desc>
+  <concept_significance>500</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10010520.10010521.10010528</concept_id>
+  <concept_desc>Computer systems organization~Cloud computing</concept_desc>
+  <concept_significance>500</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10011007.10010940.10010971.10010972</concept_id>
+  <concept_desc>Software and its engineering~Message passing</concept_desc>
+  <concept_significance>300</concept_significance>
+ </concept>
+ <concept>
+  <concept_id>10011007.10010940.10010971.10010972.10010973</concept_id>
+  <concept_desc>Software and its engineering~Publish-subscribe / event-based architectures</concept_desc>
+  <concept_significance>300</concept_significance>
+ </concept>
+</ccs2012>
+\end{CCSXML}
+\ccsdesc[500]{Computing methodologies~Reinforcement learning}
+\ccsdesc[500]{Computer systems organization~Cloud computing}
+\ccsdesc[300]{Software and its engineering~Message passing}
+\ccsdesc[300]{Software and its engineering~Publish-subscribe / event-based architectures}
+
+\keywords{persistent connections, subscription rebalancing, deep Q-learning,
+partial observability, probe promotion, greedy control, messaging systems, autonomic control}
+
+\maketitle
+\raggedbottom
+
+\input{sections/main-introduction}
+\input{sections/main-related}
+\input{sections/main-system}
+\input{sections/main-model}
+\input{sections/main-policy}
+\input{sections/main-cloud}
+\input{sections/main-scaleout}
+\input{sections/main-holdout}
+\input{sections/main-discussion}
+\FloatBarrier
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{example}
+\end{document}

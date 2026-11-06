@@ -1,0 +1,69 @@
+\section{Stability Controls and Policy Validation}
+
+Because the controller operates with partial and periodically refreshed
+statistics, stability is enforced at two levels.  During learning, replay,
+target-network synchronization, bounded rewards, and epsilon decay limit the
+rate at which value estimates change.  During execution, feasibility masks,
+minimum-improvement thresholds, cooldowns, and the receipt-gated handoff protocol
+prevent a high Q-value from bypassing required operating rules. These controls
+bound the available transitions. Their role is operational stability, distinct
+from a proof of learned-policy convergence.
+
+Classical tabular Q-learning guarantees assume a stationary, fully observable
+Markov decision process and sufficient visitation of every state-action pair.
+The client instead receives delayed partial observations in an environment
+whose queue arrivals, acknowledgement capacity, and competing clients can
+change. Policy quality is therefore evaluated under the stated workloads,
+without a global-optimality guarantee. The finite v3 traces describe training
+behavior rather than Bellman-loss convergence. The v4--v6 results distinguish
+training completion from action coverage. The validation protocol uses
+action-coverage, fault-safety, churn, and performance gates to assess each
+frozen policy.
+
+\section{Discussion}
+
+The main systems finding is that subscriber capacity and client access to that
+capacity are separate. Adding Pods supplies service capacity; moving existing
+subscription-bearing connections makes it reachable by persistent clients.
+The guarded-greedy and DQL policies both achieve this in the scale-out model.
+Their nearby throughput results support the shared mechanism rather than
+requiring a claim that learning beats a strong greedy rule in every workload.
+
+Policy choice depends on the operational objective. Greedy control gives a
+direct, inspectable response to measured pressure. DQL can account for delayed
+costs and several competing objectives. A subscription move changes future
+backlog distribution; migration trades immediate handoff cost for later
+capacity. Both selectors operate above the same bounded, checked actions.
+
+The action-contract studies provide a further design lesson: a useful
+executor and a policy that reliably selects it are separate requirements.
+The cap-restoring scale-up preflight improved reward and maximum subscription
+count, but the expanded learner study did not pass every coverage gate.
+Appendix~\suppref{app:action-diagnostics} retains these results. They explain why
+the live checkpoint uses a compatible, restricted rebalancing profile.
+
+\section{Conclusion}
+
+We presented a probe-guided, client-side framework for rebalancing
+persistent subscription connections without requiring cluster-wide client
+visibility.  The mechanism combines per-subscription queues, active-connection
+telemetry, and a load-balancer-assigned probe. Greedy rules or DQL select
+bounded actions, and a shared executor carries out receipt-gated handoff.
+The technical contribution is the link between partial observations,
+endpoint-preserving probe promotion, and selective subscription reassociation.
+
+The primary experiment demonstrates recovery after a one-to-four pod capacity
+increase with 20,000 subscriptions and 775 million queued events. Guarded-greedy
+migration and frozen DQL deliver 221,260 and 219,762 events/s, respectively,
+compared with 58,000 events/s for unchanged placement. Frozen DQL
+uses all four pods, delivers 3.79 times the mean throughput, and leaves 27.52\%
+less backlog after 20 minutes than retaining the ten original connection
+assignments. Its 12.30\% reduction in backlog area satisfies the registered
+paired statistical criterion. The adverse-probe ablation complements this
+result: evaluating the candidate before promotion reduces backlog area by
+4.19\% relative to forcing one harmful migration.
+The Oracle Cloud experiments establish live handoff execution, subscription
+retention, and observed delivery behavior. The comparative throughput and
+backlog-recovery gains are simulator measurements under the stated service
+assumptions. These results support two evaluated policy options above the same
+probe-guided handoff mechanism.

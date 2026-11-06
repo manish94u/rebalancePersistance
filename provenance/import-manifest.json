@@ -1,0 +1,650 @@
+{
+  "export_date": "2026-11-06",
+  "description": "Byte-preserving publication export; no private client/server archives or live logs.",
+  "files": [
+    {
+      "path": "architecture/Rebalancing-2-updated.drawio",
+      "source_sha256": "1fcd8ce6fcdf75a4081c840e162d841e2d170698ab0a2b0445e8f4290d415aca"
+    },
+    {
+      "path": "architecture/Rebalancing-DQL-Combined.drawio",
+      "source_sha256": "4979b42abba25dd3afdc9294ff8c3d16390f78b900901f3df42cf249d7ba039c"
+    },
+    {
+      "path": "architecture/Rebalancing-DQL-Migration-Architecture.drawio",
+      "source_sha256": "ef9eeeb1d9e189653f3f12d485c079c56fef2677c952196c612691d225a7797b"
+    },
+    {
+      "path": "evidence/MANIFEST.json",
+      "source_sha256": "3fabcb7e27621bd410d16f03d4ecccdb0c0dad32c8aae6dcc44b02177cd11736"
+    },
+    {
+      "path": "evidence/PROVENANCE.json",
+      "source_sha256": "804e5d5be5941bf1af94938e5aec785ee33bb46b6427bd98d7a0fff0c27171b8"
+    },
+    {
+      "path": "evidence/README.md",
+      "source_sha256": "92eb0422371eb0bced4d92a4ea53824794f55d980826fc52d6e4af61d6a48585"
+    },
+    {
+      "path": "evidence/data/adhoc-migration-sensitivity/combined-episode-metrics.csv",
+      "source_sha256": "8cb0c3f8b0949e1a69a2a9b856287769e61cbdb5f8a465b7224ecc677f75c1d0"
+    },
+    {
+      "path": "evidence/data/adhoc-migration-sensitivity/paired-effects.json",
+      "source_sha256": "99b23b6e9fc32e6616a4f82168112520bc34412fd710276b55e038c6ad46dcac"
+    },
+    {
+      "path": "evidence/data/adhoc-migration-sensitivity/policy-summary.csv",
+      "source_sha256": "94db3e06479e810a218432427ed939bee404e9bf471e9c342ee43f2bbe35338d"
+    },
+    {
+      "path": "evidence/data/adhoc-migration-sensitivity/registered-extension.json",
+      "source_sha256": "ee5c66b88da1f94999d62c4712ad00b2d2fa92fc8a0dc69d08121e1210ae0535"
+    },
+    {
+      "path": "evidence/data/adverse-probe-ablation/episode_metrics.csv",
+      "source_sha256": "47e160f6a29c356f583def27569502793a17ee77d7e535bdeb49e839b3eeaec5"
+    },
+    {
+      "path": "evidence/data/adverse-probe-ablation/initial_guard_checks.csv",
+      "source_sha256": "5fb920b77615f14bd8af8bd8a69cf06f1b9f872cc40513e0506c0251531ee380"
+    },
+    {
+      "path": "evidence/data/adverse-probe-ablation/paired_auc_effects.csv",
+      "source_sha256": "00f03af6fbd6976490afddfbc4b7b000edc7b11aacb61d7fd06366ccc4acfbf8"
+    },
+    {
+      "path": "evidence/data/adverse-probe-ablation/policy_summary.csv",
+      "source_sha256": "510798e56203dd7ca5b62bc942220ed87118f83728a06d0224081d02ce52b18f"
+    },
+    {
+      "path": "evidence/data/adverse-probe-ablation/registered-protocol.json",
+      "source_sha256": "64524b779c03903ea96d98cef42588eab22603b65f43e2a27f1d5224d15d80ae"
+    },
+    {
+      "path": "evidence/data/live-20000/handoff-durations.csv",
+      "source_sha256": "037e30ff572a0df1f7e75ba8b86e14ff415ea40114e40f4f350bba438eac33a9"
+    },
+    {
+      "path": "evidence/data/live-dql-20261026/manuscript-summary.json",
+      "source_sha256": "724d5cbd3937af8f516ef8e8f2831558e2c4bbca20b4dbd6a80c636ac28ed4b4"
+    },
+    {
+      "path": "evidence/data/persistent-scaleout-recovery-complete/episode-metrics.csv",
+      "source_sha256": "4320f3f67b4c4f528f7bbafcbc648ba747ac4a1090a113a3dd8fd50ad5817d54"
+    },
+    {
+      "path": "evidence/data/persistent-scaleout-recovery-complete/initial-topology-checks.csv",
+      "source_sha256": "d478a11d67fabe015221cfe2f1cb862f1f90d9d440f1ebb8ea1cbc5179cb3a59"
+    },
+    {
+      "path": "evidence/data/persistent-scaleout-recovery-complete/interval-trajectories.csv",
+      "source_sha256": "5d7be773155945544d72b60bac2817e7e83fcb46738006330bc11c0cc5b7fcaf"
+    },
+    {
+      "path": "evidence/data/persistent-scaleout-recovery-complete/policy-summary.csv",
+      "source_sha256": "f897587627cdde78fea87b66ba50f375d728fc178ded482ef7effd5c3e38c2c5"
+    },
+    {
+      "path": "evidence/data/persistent-scaleout-recovery-complete/primary-effect.json",
+      "source_sha256": "4a8a3ff2cae5465ff8c6efc07b06e906ac9e6164499ca575fc8fabee33c3aa06"
+    },
+    {
+      "path": "evidence/data/persistent-scaleout-recovery-complete/registered-protocol.json",
+      "source_sha256": "6dca54dc0b29436b4673b1e405051eba3eb70a96d49de42813b4381e715dcbdb"
+    },
+    {
+      "path": "evidence/data/ttl-loaded-20260925/manuscript-summary.json",
+      "source_sha256": "ae041a70cf749821385c13c0d4fa3535f73859b676116625e8e1ce7d4029a2fb"
+    },
+    {
+      "path": "evidence/data/ttl-preload-20260925/manuscript-summary.json",
+      "source_sha256": "b7cfb6d7f2bbb875f828723e2e4a00c39295b9399e01f4913142be7ee893568a"
+    },
+    {
+      "path": "evidence/data/v3/analysis-manifest.json",
+      "source_sha256": "b6884655dc7c269c31bf0d85e7117e5ca47d85879f1d6c7399dfb3735aa433f0"
+    },
+    {
+      "path": "evidence/data/v3/analysis-summary.json",
+      "source_sha256": "7b71c49b4924e45e4f8599fb7e7b5f5b85740e1bf693703ca4ca70f02e9adb14"
+    },
+    {
+      "path": "evidence/data/v3/holdout-episodes.csv",
+      "source_sha256": "e7a15d8b3b6fd7d02ee626d55025da5167f167fd63b59d730b996594f9d060d1"
+    },
+    {
+      "path": "evidence/data/v3/holdout-manifest.json",
+      "source_sha256": "2a502753cec304d928d7f0923a40f079794e320cf797f787f90abf45ab230c18"
+    },
+    {
+      "path": "evidence/data/v3/holdout-summary.json",
+      "source_sha256": "993ef1caa9993f192b04c260447faec38e0bf6aa66337779b9e7acfaa9efe940"
+    },
+    {
+      "path": "evidence/data/v3/overall-paired-tests.csv",
+      "source_sha256": "6d48c286b54605fcff485aa4edc2e1d301cb62f542057104fa2d044f22fc098c"
+    },
+    {
+      "path": "evidence/data/v3/policy-scenario-summary.csv",
+      "source_sha256": "729d02ceb4ef8457d9fa059dca0e157efc1dc74bcc2ab6b2faff5a129e561e5a"
+    },
+    {
+      "path": "evidence/data/v3/scenario-paired-effects.csv",
+      "source_sha256": "104e07034d019d8823c11c0a78266108790060b38b20bfeede701d13881b6f26"
+    },
+    {
+      "path": "evidence/data/v3/training-curve.csv",
+      "source_sha256": "23784bf9d2631768419424d6f835302168e403980cfaf339e2bc6f92e5042495"
+    },
+    {
+      "path": "evidence/data/v3/training-manifest.json",
+      "source_sha256": "334725fed2e15fbca422558c80bcf6c5463636bba9e06770cee4091e4a868a42"
+    },
+    {
+      "path": "evidence/data/v3/validation-summary.json",
+      "source_sha256": "7368125e01aaa796f4e099655e948af4754d7c00da42217e27b42e5dcf0d0da8"
+    },
+    {
+      "path": "evidence/data/v4/stratified-training-manifest.json",
+      "source_sha256": "3943ed2e6f2222b89d62e3e8198ae9526e23031fea3c66987c2686b3caf43b83"
+    },
+    {
+      "path": "evidence/data/v4/stratified-validation-summary.json",
+      "source_sha256": "48dd2eb1b2e271eed29b2dbf3ad2d89131e3d69e3bc9f8eee656c34d60f592e9"
+    },
+    {
+      "path": "evidence/data/v4/uniform-training-manifest.json",
+      "source_sha256": "fde2a248ff684a3f64ccd7bcb6c5e5b4986c4bb5e9528301bab9eb6c26c45b1f"
+    },
+    {
+      "path": "evidence/data/v4/uniform-validation-summary.json",
+      "source_sha256": "f24bb5a2883add87b51f27e0578f1963721f6f52b3e6bc7737d4336469c81d0d"
+    },
+    {
+      "path": "evidence/data/v5/candidate-summary.csv",
+      "source_sha256": "9d01022b9af0455c13e06758882a1d23a2100eb5f484964e80bd3c17d160860d"
+    },
+    {
+      "path": "evidence/data/v5/study-protocol.json",
+      "source_sha256": "e0a8a3f023423c2cffef52cf620b98af560fde9ede48ecfbb4dafbfed04b9342"
+    },
+    {
+      "path": "evidence/data/v5/validation-summary.json",
+      "source_sha256": "187b25dac51fbb1b578fbfe90efeff58558990705d1ae13fdd995979da984677"
+    },
+    {
+      "path": "evidence/data/v6/factorial-protocol.json",
+      "source_sha256": "fc5d156f5d6916491e5887b7126478ea8e4b3ff81044fcb8331cf3979f19deda"
+    },
+    {
+      "path": "evidence/data/v6/factorial-summary.csv",
+      "source_sha256": "100f4424940ad6f872de3e7a75326b8a96190a1f978258a4b05bbff3ba922043"
+    },
+    {
+      "path": "evidence/data/v6/factorial-summary.json",
+      "source_sha256": "a877b12a8a724eaf016473e078a335238d27cd035f5cc3ad6198c2ecd97fb29b"
+    },
+    {
+      "path": "evidence/data/v6/scale-up-protocol.json",
+      "source_sha256": "29a2a100e8d6078ef9883b3299b823bff668911197941049fa3e93120f9ce15c"
+    },
+    {
+      "path": "evidence/data/v6/scale-up-result.json",
+      "source_sha256": "7aef17dcf2190bca8d7e48877d4e17489dfec90574b00739cf4e566fa87c31c5"
+    },
+    {
+      "path": "evidence/model/frozen-policy.json",
+      "source_sha256": "3e68371d848eca85ec0b87c7c7dd831ea3ec953e2c1bd51c0d79871c7ef3e1e1"
+    },
+    {
+      "path": "evidence/model/loaded-trial-settings.json",
+      "source_sha256": "115c48a65deb9f7e6516d83d99ca53901b4e9753d58a709a90748e32635bdcd8"
+    },
+    {
+      "path": "evidence/reanalyse.py",
+      "source_sha256": "3e061591aa8513996c6d2bc685861863bc66196f09e1485008aa16ad56622294"
+    },
+    {
+      "path": "evidence/test_reanalyse.py",
+      "source_sha256": "8acfa5930c387a3634bcfac95d380119b9ee4e84dc461e063b170207736f2b15"
+    },
+    {
+      "path": "paper/Rebalancing-Connection-TAAS.pdf",
+      "source_sha256": "a782b1ba2098b11da4fa63ba48e6531b2b61d533cb5b7f3f92a09bd18eea1e58"
+    },
+    {
+      "path": "paper/Rebalancing-Connection-TAAS.tex",
+      "source_sha256": "4a35a41b9bd85fed97df04c1d79a025d9a4788abbfa0aa7bc7ab6f6bc9eb6fb9"
+    },
+    {
+      "path": "paper/System-Architecture.jpg",
+      "source_sha256": "76c51e8c5b822d76fe955e8d2f77ceddde1d45ec1c7cd26d47b0e6c71780e025"
+    },
+    {
+      "path": "paper/action-diagnostics-appendix.tex",
+      "source_sha256": "8475558b9a571694fc9d48e5d21f012b3843a1586f6f33fe6050619a7dbb4a6f"
+    },
+    {
+      "path": "paper/evidence/adhoc-migration-sensitivity/comparison-table.tex",
+      "source_sha256": "8b867adfde4f0360f7ab26230650ca097fd2ed43b574fea59ef73358476c736e"
+    },
+    {
+      "path": "paper/evidence/persistent-scaleout-recovery-complete/persistent_scaleout_backlog_recovery.pdf",
+      "source_sha256": "9475f0e2fe5f5154502f04ece65fce9478e3baf3bcbbc4e1c2fd1f4dd6d84ca5"
+    },
+    {
+      "path": "paper/evidence/persistent-scaleout-recovery-complete/persistent_scaleout_capacity_activation.pdf",
+      "source_sha256": "ef77cae3a0c50391d850fb2f9c7f09c0db4929818fdd7142fc49f3289241c824"
+    },
+    {
+      "path": "paper/evidence/persistent-scaleout-recovery-complete/persistent_scaleout_recovery_table.tex",
+      "source_sha256": "fa1b8dcfb5d9509180fbdc3cbadff00bb24a6878ed5b65cbc580299e86ff4de6"
+    },
+    {
+      "path": "paper/example.bib",
+      "source_sha256": "df2a3b1acef042cd1ed5ac42b52be73a900ed1471e5155f226a3fd76f42e0b45"
+    },
+    {
+      "path": "paper/figures/activation-and-ack-rate.pdf",
+      "source_sha256": "121c13aebfa1201695ed5c02b596d5f961675841c36c88829d06de3d10af0b53"
+    },
+    {
+      "path": "paper/figures/activation-latency-violin-box.pdf",
+      "source_sha256": "ebdb2916ee4e899056d23131e2a0dfe950d5eb6b1ab70546f573a6140058b0d9"
+    },
+    {
+      "path": "paper/figures/adhoc-migration-distributions.pdf",
+      "source_sha256": "7fd343646bdc5fd2bc959df052fb2564ce01c89eafb61bb31f557d28057c85cb"
+    },
+    {
+      "path": "paper/figures/adhoc-migration-radar.pdf",
+      "source_sha256": "8ea8028add8e315785f7cd2938f78ab56e8bb102497345452ce3defadaf997d5"
+    },
+    {
+      "path": "paper/figures/backlog_trajectories.pdf",
+      "source_sha256": "92c94fb26f0240498d0f5b5b1d3744340a08ddea03f59934f94e2c3e94942525"
+    },
+    {
+      "path": "paper/figures/control-architecture-original-style.pdf",
+      "source_sha256": "bf1b061263e7a45358023c36fde0808ca4c29e7044348c1198ab7af55e4e014c"
+    },
+    {
+      "path": "paper/figures/live-dql-loaded-scaleout.pdf",
+      "source_sha256": "03944665a623cf834bc2aede3372ee0cc494c1593653e416280035b29c0a18b6"
+    },
+    {
+      "path": "paper/figures/mumbai-handoff-boxplots.pdf",
+      "source_sha256": "a46ec321041d25c600b33ffa1673ef7d13f18bd49eb23e17eb6639ff8958028f"
+    },
+    {
+      "path": "paper/figures/observed-pod-redistribution.pdf",
+      "source_sha256": "db35c53ccb84366ea2f446aefe79c0da5078f1f1397987562a2d5a4a44c4945c"
+    },
+    {
+      "path": "paper/figures/paired_auc_effects.pdf",
+      "source_sha256": "c4036b195178f44c8eadc29145899c910313de7e4f204242731b0f8436a0d2d0"
+    },
+    {
+      "path": "paper/figures/scaleout-violin-distributions.pdf",
+      "source_sha256": "3f0ac9f9d5eb19addf84172532d222b3c6d899ab82f4a11cf531043b5618019c"
+    },
+    {
+      "path": "paper/figures/ttl-preload-ack-completion.pdf",
+      "source_sha256": "e06804540af8c8fe55537314674d0786b81a2c3fa3471008e8678fdc2786ee76"
+    },
+    {
+      "path": "paper/figures/ttl-preload-ack-latency-violin-box.pdf",
+      "source_sha256": "5be6e8709b50a2f029f4af9084102175f848fcdcc1d42701a40b9170f80e774f"
+    },
+    {
+      "path": "paper/figures/v3-operational-radar.pdf",
+      "source_sha256": "00fa0f570fc5ece81e3f00ee184c354ac9ed654204dc3b74f356c42a9839c13d"
+    },
+    {
+      "path": "paper/figures/v3-paired-benefit-forest.pdf",
+      "source_sha256": "e470c2c5b90e8b432cde52d0be591bfc98ce7a8e3006bd86ffe1d3da5c73bfa3"
+    },
+    {
+      "path": "paper/figures/v3-reward-boxplots.pdf",
+      "source_sha256": "97da5ab613aef1f765697084addbb55e45c31c943fda733cc984d38f481a7b2b"
+    },
+    {
+      "path": "paper/figures/v3-training-diagnostics.pdf",
+      "source_sha256": "f7280e077565f33b239fb371b32f37a956a35d14a65e25c08019b9827a409311"
+    },
+    {
+      "path": "paper/figures/v4-action-coverage.pdf",
+      "source_sha256": "835fb3ecb3324ffdf507c07164acb61f5fbbf7894f764f438a861926a6064769"
+    },
+    {
+      "path": "paper/live-dql-scaleout-section.tex",
+      "source_sha256": "d2ce0ff21aa14319825a978468b65447a814a88edd039f4e11fbd3d7f738ce0f"
+    },
+    {
+      "path": "paper/locked-evidence-section.tex",
+      "source_sha256": "61a352c2497d46e913223dbca5bbbc647143dfea8611b9c90f11bea970345455"
+    },
+    {
+      "path": "paper/model-implementation-appendix.tex",
+      "source_sha256": "1e53f1a0e93f2136b383a7c777cbdb9ff04a8508aa7b5ceed5fa556811079470"
+    },
+    {
+      "path": "paper/mumbai-experimental-section.tex",
+      "source_sha256": "e0f801f10690f310050fe3c2bba1a5207f0734ccaa1b1e694eb4eaf09255cc47"
+    },
+    {
+      "path": "paper/mumbai-startup-section.tex",
+      "source_sha256": "f5a0b07c72025d5c1157cff37ff16786a99d2be15fc38a523ef2ad5ede4a8937"
+    },
+    {
+      "path": "paper/notation-appendix.tex",
+      "source_sha256": "0ed4fbf425f3c24f948f569026551b08c42c1b54cb56518f6ef247ec60830506"
+    },
+    {
+      "path": "paper/reviewer-evidence.zip",
+      "source_sha256": "6707b28f9702b1e097e038489e2899a4d0a7ab4ca8854b235bc3fe2ad10457cd"
+    },
+    {
+      "path": "paper/scaleout-recovery-section.tex",
+      "source_sha256": "12dfefa05d067fb49cae4e27a85154e8cc04d85a828e6a412708ca3d4f2ee950"
+    },
+    {
+      "path": "paper/submission-compact/Main_Manuscript.pdf",
+      "source_sha256": "484a053ecc6cee54bf157033062c77582cfc7aa327e6c7ba1430c595b7fc07f7"
+    },
+    {
+      "path": "paper/submission-compact/Main_Manuscript.tex",
+      "source_sha256": "fb39205d5a5b43eab6f8f5bba70a82f55119d149b6f65b63226a0df4c96371de"
+    },
+    {
+      "path": "paper/submission-compact/Online_Appendix.pdf",
+      "source_sha256": "d145539236911824c5f7645f40dce0ac9ce2941f3a72deba10fe031c83fd5b73"
+    },
+    {
+      "path": "paper/submission-compact/Online_Appendix.tex",
+      "source_sha256": "c39813081380e5614b5ff2f8afc3819774e5f92806fab03ef5fca1c2ed8e4d66"
+    },
+    {
+      "path": "paper/submission-compact/QA_20261104.md",
+      "source_sha256": "537af341ef2352d165c374d6ca6411ba9b9f0d64e7b57ef3c638293efc262664"
+    },
+    {
+      "path": "paper/submission-compact/README.md",
+      "source_sha256": "365cdaafd724cc7bd56ddebd79e7c426d6fea83a13e48c0a0afe3496622a1d9d"
+    },
+    {
+      "path": "paper/submission-compact/System-Architecture.jpg",
+      "source_sha256": "76c51e8c5b822d76fe955e8d2f77ceddde1d45ec1c7cd26d47b0e6c71780e025"
+    },
+    {
+      "path": "paper/submission-compact/assemble_submission.py",
+      "source_sha256": "2132b7544834e564bceb206f3efe4cea6fa021ffb25453a666d011efa3bed9e7"
+    },
+    {
+      "path": "paper/submission-compact/build_submission.py",
+      "source_sha256": "f5dd912d6ffba87ef0c5e834c2aefe0d662dcca9d308112474e0df21301dcc17",
+      "packaged_sha256": "edc4787751f5b337da1899ca16ce2853b0ac01f2f396f6e057d94b956ae99377",
+      "change_reason": "Force each latexmk pass with -g so cross-document references resolve from a clean checkout without existing auxiliary files."
+    },
+    {
+      "path": "paper/submission-compact/editorial-bridges.tex",
+      "source_sha256": "8cfbb0b36cb9e46560e6bd95744a70f267311ee1de0233cb23735af9ea1f3ed7"
+    },
+    {
+      "path": "paper/submission-compact/evidence/persistent-scaleout-recovery-complete/persistent_scaleout_backlog_recovery.pdf",
+      "source_sha256": "9475f0e2fe5f5154502f04ece65fce9478e3baf3bcbbc4e1c2fd1f4dd6d84ca5"
+    },
+    {
+      "path": "paper/submission-compact/evidence/persistent-scaleout-recovery-complete/persistent_scaleout_capacity_activation.pdf",
+      "source_sha256": "ef77cae3a0c50391d850fb2f9c7f09c0db4929818fdd7142fc49f3289241c824"
+    },
+    {
+      "path": "paper/submission-compact/example.bib",
+      "source_sha256": "df2a3b1acef042cd1ed5ac42b52be73a900ed1471e5155f226a3fd76f42e0b45"
+    },
+    {
+      "path": "paper/submission-compact/figures/activation-and-ack-rate.pdf",
+      "source_sha256": "121c13aebfa1201695ed5c02b596d5f961675841c36c88829d06de3d10af0b53"
+    },
+    {
+      "path": "paper/submission-compact/figures/activation-latency-violin-box.pdf",
+      "source_sha256": "ebdb2916ee4e899056d23131e2a0dfe950d5eb6b1ab70546f573a6140058b0d9"
+    },
+    {
+      "path": "paper/submission-compact/figures/adhoc-migration-distributions.pdf",
+      "source_sha256": "7fd343646bdc5fd2bc959df052fb2564ce01c89eafb61bb31f557d28057c85cb"
+    },
+    {
+      "path": "paper/submission-compact/figures/adhoc-migration-radar.pdf",
+      "source_sha256": "8ea8028add8e315785f7cd2938f78ab56e8bb102497345452ce3defadaf997d5"
+    },
+    {
+      "path": "paper/submission-compact/figures/backlog_trajectories.pdf",
+      "source_sha256": "92c94fb26f0240498d0f5b5b1d3744340a08ddea03f59934f94e2c3e94942525"
+    },
+    {
+      "path": "paper/submission-compact/figures/control-architecture-original-style.pdf",
+      "source_sha256": "bf1b061263e7a45358023c36fde0808ca4c29e7044348c1198ab7af55e4e014c"
+    },
+    {
+      "path": "paper/submission-compact/figures/live-dql-loaded-scaleout.pdf",
+      "source_sha256": "03944665a623cf834bc2aede3372ee0cc494c1593653e416280035b29c0a18b6"
+    },
+    {
+      "path": "paper/submission-compact/figures/mumbai-handoff-boxplots.pdf",
+      "source_sha256": "a46ec321041d25c600b33ffa1673ef7d13f18bd49eb23e17eb6639ff8958028f"
+    },
+    {
+      "path": "paper/submission-compact/figures/observed-pod-redistribution.pdf",
+      "source_sha256": "db35c53ccb84366ea2f446aefe79c0da5078f1f1397987562a2d5a4a44c4945c"
+    },
+    {
+      "path": "paper/submission-compact/figures/paired_auc_effects.pdf",
+      "source_sha256": "c4036b195178f44c8eadc29145899c910313de7e4f204242731b0f8436a0d2d0"
+    },
+    {
+      "path": "paper/submission-compact/figures/scaleout-violin-distributions.pdf",
+      "source_sha256": "3f0ac9f9d5eb19addf84172532d222b3c6d899ab82f4a11cf531043b5618019c"
+    },
+    {
+      "path": "paper/submission-compact/figures/ttl-preload-ack-completion.pdf",
+      "source_sha256": "e06804540af8c8fe55537314674d0786b81a2c3fa3471008e8678fdc2786ee76"
+    },
+    {
+      "path": "paper/submission-compact/figures/ttl-preload-ack-latency-violin-box.pdf",
+      "source_sha256": "5be6e8709b50a2f029f4af9084102175f848fcdcc1d42701a40b9170f80e774f"
+    },
+    {
+      "path": "paper/submission-compact/figures/v3-operational-radar.pdf",
+      "source_sha256": "00fa0f570fc5ece81e3f00ee184c354ac9ed654204dc3b74f356c42a9839c13d"
+    },
+    {
+      "path": "paper/submission-compact/figures/v3-paired-benefit-forest.pdf",
+      "source_sha256": "e470c2c5b90e8b432cde52d0be591bfc98ce7a8e3006bd86ffe1d3da5c73bfa3"
+    },
+    {
+      "path": "paper/submission-compact/figures/v3-reward-boxplots.pdf",
+      "source_sha256": "97da5ab613aef1f765697084addbb55e45c31c943fda733cc984d38f481a7b2b"
+    },
+    {
+      "path": "paper/submission-compact/figures/v3-training-diagnostics.pdf",
+      "source_sha256": "f7280e077565f33b239fb371b32f37a956a35d14a65e25c08019b9827a409311"
+    },
+    {
+      "path": "paper/submission-compact/figures/v4-action-coverage.pdf",
+      "source_sha256": "835fb3ecb3324ffdf507c07164acb61f5fbbf7894f764f438a861926a6064769"
+    },
+    {
+      "path": "paper/submission-compact/inspect_pdf_layout.py",
+      "source_sha256": "8e7d43ea5ed188ff780850fbc00b922485aecfb5091ede604aa935651f0afc78"
+    },
+    {
+      "path": "paper/submission-compact/preservation-check.json",
+      "source_sha256": "52eb295a8d1067dd6ae8af5aad82a52467747fa42122441f6d4d314fe1221ef5"
+    },
+    {
+      "path": "paper/submission-compact/relocation-manifest.json",
+      "source_sha256": "9bdbd21311dc6c6b6ecc74b0d9bb3f619ae036d034f1787e24e58464f40c6fe2"
+    },
+    {
+      "path": "paper/submission-compact/reviewer-evidence.zip",
+      "source_sha256": "6707b28f9702b1e097e038489e2899a4d0a7ab4ca8854b235bc3fe2ad10457cd"
+    },
+    {
+      "path": "paper/submission-compact/sections/main-cloud.tex",
+      "source_sha256": "3e5254f8abafa55aabdf152fe7f09e48dbcdaccf33868acccc0b6690309a5ce1"
+    },
+    {
+      "path": "paper/submission-compact/sections/main-discussion.tex",
+      "source_sha256": "246232f05977187462eca77ee5f22c51fd89c982c4c75e25e7f1c71c78773536"
+    },
+    {
+      "path": "paper/submission-compact/sections/main-holdout.tex",
+      "source_sha256": "ebf1a218716d6390b69e96936617156631a3f140d90c80eb19a0dcb0797f27a4"
+    },
+    {
+      "path": "paper/submission-compact/sections/main-introduction.tex",
+      "source_sha256": "69ba445c491a406cf9144a5e7cd46c28d81906256de7995d826769bee5b4f895"
+    },
+    {
+      "path": "paper/submission-compact/sections/main-model.tex",
+      "source_sha256": "47cac89b26215d89d3222c9a6904c303c59ba4854348cc6d52809527f3ca5f2d"
+    },
+    {
+      "path": "paper/submission-compact/sections/main-policy.tex",
+      "source_sha256": "764b654379074b8ae4d9f2c5566a525bde5d6a6c0f1fe7e5fe04d40d50773716"
+    },
+    {
+      "path": "paper/submission-compact/sections/main-related.tex",
+      "source_sha256": "24f28dddf265ad76950637bb841f98c8f44696095947e9cbc0b7ba10ec9c791f"
+    },
+    {
+      "path": "paper/submission-compact/sections/main-scaleout.tex",
+      "source_sha256": "0294f778acae7e8f9c475c9277ffbb5a8833c093b5110e981981a28b28cbd34e"
+    },
+    {
+      "path": "paper/submission-compact/sections/main-system.tex",
+      "source_sha256": "1f083878e4037a207595e47a8fda5fc48ebedd911e5888b6c1ae65fca192e8dc"
+    },
+    {
+      "path": "paper/submission-compact/sections/supp-cloud-timing.tex",
+      "source_sha256": "6a6ed7372e4d1e7386f34225130c22a470b9245672432e4ab8aa3c1d19b3198c"
+    },
+    {
+      "path": "paper/submission-compact/sections/supp-diagnostics.tex",
+      "source_sha256": "46308e09cafcdbeed8f6c18c85adfd686c6dcd48020b141a41a09d184447a42d"
+    },
+    {
+      "path": "paper/submission-compact/sections/supp-discussion.tex",
+      "source_sha256": "9d8bed416d820d5ef359b28082cd46d3a457aa1cc7a01925e2ae88c1bbeb1000"
+    },
+    {
+      "path": "paper/submission-compact/sections/supp-features.tex",
+      "source_sha256": "cc11eb34ecc06c921a2ac3296b779a0ef1f4bf5958bbb75f92aacc7707523918"
+    },
+    {
+      "path": "paper/submission-compact/sections/supp-holdout.tex",
+      "source_sha256": "6121cfea9c789c8b981c8387b9dffa57ba79db65dcf9e17f7784063d47c4a982"
+    },
+    {
+      "path": "paper/submission-compact/sections/supp-literature.tex",
+      "source_sha256": "95aaaad28dbf1f09cd4b8de9092d1f183544d8342a62475a4edc3d57f2692ecb"
+    },
+    {
+      "path": "paper/submission-compact/sections/supp-mathematics.tex",
+      "source_sha256": "50cefc43426e47d86896e192a7b38aa6eadc463d0b21c7f30510b78fe8311e75"
+    },
+    {
+      "path": "paper/submission-compact/sections/supp-notation.tex",
+      "source_sha256": "0ed4fbf425f3c24f948f569026551b08c42c1b54cb56518f6ef247ec60830506"
+    },
+    {
+      "path": "paper/submission-compact/sections/supp-runtime.tex",
+      "source_sha256": "9180cdece3950d4f902e442332861ae9fc6410653dd5c30e94c7a2cbfdbf5b65"
+    },
+    {
+      "path": "paper/submission-compact/sections/supp-scaleout.tex",
+      "source_sha256": "53f76bfe891d12e725ae1609789eb56d49b9f548ce4a0c09e77a94e66b7801cb"
+    },
+    {
+      "path": "paper/submission-compact/sections/supp-startup.tex",
+      "source_sha256": "184f05daa3a4039158bb6ecb014a2d16de85f9b2680b8f2e815090eab0ca2677"
+    },
+    {
+      "path": "paper/submission-compact/sections/supp-system.tex",
+      "source_sha256": "42bcfd040ec7851c37ee2fcd86bb8e2547f7aadf7e7aca0774eeee18f383d245"
+    },
+    {
+      "path": "paper/submission-compact/sections/supp-ttl.tex",
+      "source_sha256": "c9120970364d8efb79f8b7c783fe818c31b733730b3dc052270119f41a76cb7e"
+    },
+    {
+      "path": "paper/submission-compact/vendor/ACM-Reference-Format.bst",
+      "source_sha256": "4342d27456645567ef1a027f6474e894715bc31d468f040142fa54540440ad04"
+    },
+    {
+      "path": "paper/submission-compact/vendor/ACMART-README.txt",
+      "source_sha256": "5f4b13963e839e1df1783d70495d1ea485e58facf936cfea27841fad6bdda863"
+    },
+    {
+      "path": "paper/submission-compact/vendor/acmart.cls",
+      "source_sha256": "784c4f2fb07a70d8a797ee9d1c63f441c10fbd2f915c9c615d28cda35c0b742a"
+    },
+    {
+      "path": "paper/submission-compact/verify_relocation.py",
+      "source_sha256": "7ad4a54d098f4901a5e94adcdfaeee6768b99b9ad125ed7eadd70bd61be9e59c"
+    },
+    {
+      "path": "paper/ttl-preload-results-section.tex",
+      "source_sha256": "0da048ff1fedb8a3dbc6c27f0c11707ba14331aa0a764d35cfdf9635e95c5ef6"
+    },
+    {
+      "path": "paper/ttl-reconnection-section.tex",
+      "source_sha256": "fde5966e43779bb0672336e5c0009d854119d5118872132c6d64d4daebced489"
+    },
+    {
+      "path": "paper/vendor/ACM-Reference-Format.bst",
+      "source_sha256": "4342d27456645567ef1a027f6474e894715bc31d468f040142fa54540440ad04"
+    },
+    {
+      "path": "paper/vendor/ACMART-README.txt",
+      "source_sha256": "5f4b13963e839e1df1783d70495d1ea485e58facf936cfea27841fad6bdda863"
+    },
+    {
+      "path": "paper/vendor/acmart.cls",
+      "source_sha256": "784c4f2fb07a70d8a797ee9d1c63f441c10fbd2f915c9c615d28cda35c0b742a"
+    },
+    {
+      "path": "simulator/oaes_rebalancing_sim/__init__.py",
+      "source_sha256": "f28078b92a4566ef659a9a4f416dca104dcd8eb00bdc34bf7fc20ebfb9b28c72"
+    },
+    {
+      "path": "simulator/oaes_rebalancing_sim/controllers.py",
+      "source_sha256": "5ce7436cd14b2a1ba789bbf77a393bf094bccc56d7ead6706075455ef7d476a7"
+    },
+    {
+      "path": "simulator/oaes_rebalancing_sim/dql.py",
+      "source_sha256": "3451ef514d9d21d5040d6f4d291cefb8be542cc6a21cadaf87fec85644b28e33"
+    },
+    {
+      "path": "simulator/oaes_rebalancing_sim/environment.py",
+      "source_sha256": "1e78a3af478475e4e083690e3a07b68ac3125cb416f8234881731836a51cdc3c"
+    },
+    {
+      "path": "simulator/oaes_rebalancing_sim/metrics.py",
+      "source_sha256": "9164d4e4030d43eabc751a4c7c6fb9baa48a90b185fe1896f128387373b10f03"
+    },
+    {
+      "path": "simulator/run_experiments.py",
+      "source_sha256": "8b377dd511e05b10e6f37b5418fc4f213da843f8a93e2dce98d738f998938f26"
+    },
+    {
+      "path": "simulator/run_tiered_backlog_experiment.py",
+      "source_sha256": "7fb737982edee5a1b7f42149d6df11d3236814457e1e52954eb96df1927307a9",
+      "packaged_sha256": "9923b4a24d6637ed5d6e683394a9b91049af2ac7ea83e8cf42b1532ac9e2bb05",
+      "change_reason": "Formatting-only fix: close tiered setup table with table instead of table*; numerical code unchanged."
+    }
+  ]
+}

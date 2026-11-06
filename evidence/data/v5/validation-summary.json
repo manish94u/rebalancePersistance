@@ -1,0 +1,595 @@
+{
+  "development_eligible_candidates": [],
+  "holdout_executed": false,
+  "holdout_requested": false,
+  "scenario_adequacy_pass": true,
+  "selected_candidate_index": 1,
+  "selected_core_action_coverage_pass": false,
+  "selected_safety_contracts_pass": true,
+  "selected_validation_action_coverage": {
+    "by_scenario": {
+      "deployment_client_slowdown": {
+        "migrate": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebG": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebN": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "scale+": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": 0.0
+        },
+        "scale-": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "stay": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 5000,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        }
+      },
+      "deployment_connection_count_skew": {
+        "migrate": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebG": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebN": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": 0.0
+        },
+        "scale+": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "scale-": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "stay": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 5000,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        }
+      },
+      "deployment_distribution_shift": {
+        "migrate": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebG": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebN": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "scale+": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": 0.0
+        },
+        "scale-": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "stay": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 5000,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        }
+      },
+      "deployment_pod_pressure_skew": {
+        "migrate": {
+          "admissible_count": 13,
+          "admissible_episode_count": 10,
+          "selected_count": 13,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        },
+        "rebG": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebN": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "scale+": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "scale-": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "stay": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 4987,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        }
+      },
+      "deployment_scale_down_idle": {
+        "migrate": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebG": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebN": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": 0.0
+        },
+        "scale+": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "scale-": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": 0.0
+        },
+        "stay": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 5000,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        }
+      },
+      "deployment_scale_up_pressure": {
+        "migrate": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebG": {
+          "admissible_count": 1224,
+          "admissible_episode_count": 10,
+          "selected_count": 1095,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        },
+        "rebN": {
+          "admissible_count": 1448,
+          "admissible_episode_count": 10,
+          "selected_count": 73,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        },
+        "scale+": {
+          "admissible_count": 20,
+          "admissible_episode_count": 10,
+          "selected_count": 10,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        },
+        "scale-": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "stay": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 3822,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        }
+      },
+      "deployment_tiered_backlog": {
+        "migrate": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebG": {
+          "admissible_count": 4391,
+          "admissible_episode_count": 10,
+          "selected_count": 203,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        },
+        "rebN": {
+          "admissible_count": 4381,
+          "admissible_episode_count": 10,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": 0.0
+        },
+        "scale+": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "scale-": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "stay": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 4797,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        }
+      },
+      "failure_probe_miss": {
+        "migrate": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebG": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebN": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "scale+": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": 0.0
+        },
+        "scale-": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "stay": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 5000,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        }
+      },
+      "failure_stale_active_telemetry": {
+        "migrate": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebG": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebN": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "scale+": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "scale-": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "stay": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 5000,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        }
+      },
+      "failure_stale_probe_telemetry": {
+        "migrate": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebG": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebN": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "scale+": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": 0.0
+        },
+        "scale-": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "stay": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 5000,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        }
+      },
+      "failure_unavailable_probe": {
+        "migrate": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebG": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "rebN": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "scale+": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": 0.0
+        },
+        "scale-": {
+          "admissible_count": 0,
+          "admissible_episode_count": 0,
+          "selected_count": 0,
+          "selected_episode_count": 0,
+          "selected_episode_rate_when_admissible": null
+        },
+        "stay": {
+          "admissible_count": 5000,
+          "admissible_episode_count": 10,
+          "selected_count": 5000,
+          "selected_episode_count": 10,
+          "selected_episode_rate_when_admissible": 1.0
+        }
+      }
+    },
+    "intended_scenario_episode_coverage": {
+      "migrate": {
+        "minimum_episode_coverage": 0.8,
+        "pass": true,
+        "scenario": "deployment_pod_pressure_skew",
+        "selected_episode_rate_when_admissible": 1.0
+      },
+      "rebG": {
+        "minimum_episode_coverage": 0.8,
+        "pass": true,
+        "scenario": "deployment_tiered_backlog",
+        "selected_episode_rate_when_admissible": 1.0
+      },
+      "rebN": {
+        "minimum_episode_coverage": 0.8,
+        "pass": false,
+        "scenario": "deployment_connection_count_skew",
+        "selected_episode_rate_when_admissible": 0.0
+      },
+      "scale+": {
+        "minimum_episode_coverage": 0.8,
+        "pass": true,
+        "scenario": "deployment_scale_up_pressure",
+        "selected_episode_rate_when_admissible": 1.0
+      },
+      "scale-": {
+        "minimum_episode_coverage": 0.8,
+        "pass": false,
+        "scenario": "deployment_scale_down_idle",
+        "selected_episode_rate_when_admissible": 0.0
+      }
+    },
+    "overall": {
+      "migrate": {
+        "admissible_count": 13,
+        "admissible_episode_count": 10,
+        "selected_count": 13,
+        "selected_episode_count": 10,
+        "selected_episode_rate_when_admissible": 1.0,
+        "selection_rate_when_admissible": 1.0
+      },
+      "rebG": {
+        "admissible_count": 5615,
+        "admissible_episode_count": 20,
+        "selected_count": 1298,
+        "selected_episode_count": 20,
+        "selected_episode_rate_when_admissible": 1.0,
+        "selection_rate_when_admissible": 0.231166518254675
+      },
+      "rebN": {
+        "admissible_count": 15829,
+        "admissible_episode_count": 40,
+        "selected_count": 73,
+        "selected_episode_count": 10,
+        "selected_episode_rate_when_admissible": 0.25,
+        "selection_rate_when_admissible": 0.004611788489481332
+      },
+      "scale+": {
+        "admissible_count": 25020,
+        "admissible_episode_count": 60,
+        "selected_count": 10,
+        "selected_episode_count": 10,
+        "selected_episode_rate_when_admissible": 0.16666666666666666,
+        "selection_rate_when_admissible": 0.0003996802557953637
+      },
+      "scale-": {
+        "admissible_count": 5000,
+        "admissible_episode_count": 10,
+        "selected_count": 0,
+        "selected_episode_count": 0,
+        "selected_episode_rate_when_admissible": 0.0,
+        "selection_rate_when_admissible": 0.0
+      },
+      "stay": {
+        "admissible_count": 55000,
+        "admissible_episode_count": 110,
+        "selected_count": 53606,
+        "selected_episode_count": 110,
+        "selected_episode_rate_when_admissible": 1.0,
+        "selection_rate_when_admissible": 0.9746545454545454
+      }
+    },
+    "required_actions_observed": false,
+    "required_actions_reliably_observed": false,
+    "required_rebalancing_actions": [
+      "rebN",
+      "rebG",
+      "scale+",
+      "scale-",
+      "migrate"
+    ]
+  },
+  "selection_pool": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ]
+}

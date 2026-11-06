@@ -1,0 +1,706 @@
+\section{Detailed Runtime Algorithms and Checkpoint Persistence}
+\label{app:runtime-details}
+The main paper gives the shared control-loop summary. The following material
+retains the action-contract details, checkpoint behavior, sizing rules,
+executors, and full DQL algorithm.
+\subsection{Action Contract}
+The scale-up action is one logical option even though its guarded executor can
+contain several reassociations. After the new socket is ready, the executor
+repeatedly applies the same receipt-gated $a^{\mathrm{reb}N}$ primitive while
+$\max_c N_{u,c}(t)>\Theta_N$ and an eligible move exists. It records the opened
+session, completed move count, final maximum count, elapsed time, and whether
+the target was restored. If opening fails, the unused socket is removed. If a
+later reassociation fails, the completed receipt-gated moves remain valid and
+the option reports failure rather than claiming an atomic rollback of the
+whole sequence. New checkpoints carry an action-contract version.
+Full-action execution rejects the older open-only meaning of
+$a^{\mathrm{scale}+}$. An explicit rebalancing-only allowlist may load a legacy
+checkpoint because it disables both scaling actions. This is the profile used
+in the October loaded cluster trial. Table~\ref{tab:action-contract-map}
+separates the evaluated contracts; the legacy checkpoint is not evidence for
+learned cap-restoring scale-up.
+\subsubsection{Persistent Learning and Frozen Evaluation}
+Learning is retained between runs through two checkpoint types. A research
+checkpoint stores both networks' weights and biases, replay transitions and
+their next-state action masks, the random-generator state, the exploration
+rate, the training-update count, and the learner configuration. Restoring this
+checkpoint continues the learner from its saved state rather than initializing
+new weights. Simulator continuation starts fresh workload episodes; the
+checkpoint does not restore an interrupted Kubernetes deployment or simulator
+trajectory. Checkpoints also retain the action-contract version so that replay
+from incompatible action meanings is not silently combined.
+
+Each eligible transition is recorded before its model update, using the
+action actually applied and the subsequent observed reward. A masked decision
+or shadow recommendation is not evidence that a migration occurred; shadow
+execution contributes only its applied stay action. Stale or incomplete
+telemetry interrupts the learning trajectory instead of joining observations
+across the missing interval. An append-only transition record and checkpoint
+hashes preserve a traceable history of later training.
+
+A deployment checkpoint is a separate frozen copy: exploration is disabled,
+network updates are disabled, and replay is not modified during evaluation.
+The evaluation records observations and outcomes without turning them into
+training data for that comparison. Further development uses separately
+designated training data and produces a new candidate, which requires its own
+validation before deployment. Thus, retained learning avoids restarting from
+zero without making a fixed-policy experiment adapt to its test outcomes.
+
+The layer is designed to:
+   
+   \begin{itemize}
+   	\item Dynamically scale the number of parallel persistent transport connections
+   	\item Improve parallel processing for high-backlog subscriptions
+   	\item Maintain balanced subscription distribution across connections
+   	\item Prevent overload of individual connections
+   \end{itemize}
+
+\begin{figure*}[!htbp]
+	\centering
+	\scriptsize
+	\resizebox{\textwidth}{!}{%
+	\begin{tikzpicture}[
+		font=\scriptsize,
+		node distance=9mm and 16mm,
+		flowstep/.style={draw, rounded corners=2pt, align=center, minimum height=8mm, minimum width=38mm, fill=gray!8},
+		decision/.style={draw, diamond, aspect=2.2, align=center, inner sep=1pt, fill=yellow!12},
+		action/.style={draw, rounded corners=2pt, align=center, minimum height=8mm, minimum width=34mm, fill=green!8},
+		guard/.style={draw, rounded corners=2pt, align=center, minimum height=8mm, minimum width=34mm, fill=red!6},
+		arrow/.style={-Latex, thick}
+	]
+	\node[flowstep] (measure) at (0,0) {Measure client state\\$N_{\mathrm{sub}}(t)$, $b_{u,k}(t)$, $C(t)$, $N_{u,c}(t)$, $G_{u,c}(t)$};
+	\node[flowstep] (subreq) at (0,-1.3) {Subscription requirement\\$C_{\mathrm{sub}}=\min(\lceil N_{\mathrm{sub}}/\Theta_N\rceil,C_{\max})$};
+	\node[flowstep] (backreq) at (0,-2.6) {Backlog requirement\\$C_{\mathrm{back}}=\max_k \min(\lceil b_{u,k}/\beta\rceil,C_{\max})$};
+	\node[flowstep] (desired) at (0,-3.9) {Desired parallelism\\$C^\star=\max(C_{\mathrm{sub}},C_{\mathrm{back}})$};
+	\node[decision] (more) at (0,-5.45) {$C^\star>C(t)$?};
+	\node[action] (open) at (5.0,-5.45) {If selected and admitted:\\open one connection};
+	\node[decision] (less) at (0,-7.0) {$C^\star<C(t)$\\and idle?};
+	\node[action] (close) at (5.0,-7.0) {If selected and admitted:\\close one safe idle\\connection};
+	\node[guard] (cap) at (0,-8.55) {If $C(t)=C_{\max}$,\\apply cap-aware placement};
+	\node[action] (assign) at (0,-9.95) {Assign or move subscriptions using\\$\eta_N\widehat{N}_{u,c}+\eta_G\widehat{G}_{u,c}$};
+	\node[flowstep] (update) at (0,-11.25) {Update connection loads and recompute\\$V^N_u(t)$, $V^G_u(t)$};
+
+	\draw[arrow] (measure) -- (subreq);
+	\draw[arrow] (subreq) -- (backreq);
+	\draw[arrow] (backreq) -- (desired);
+	\draw[arrow] (desired) -- (more);
+	\draw[arrow] (more.east) -- node[above] {yes} (open.west);
+		\draw[arrow] (open.east) -- ++(0.9,0) |- (cap.east);
+	\draw[arrow] (more) -- node[right] {no} (less);
+	\draw[arrow] (less.east) -- node[above] {yes} (close.west);
+		\draw[arrow] (close.east) -- ++(0.9,0) |- (cap.east);
+	\draw[arrow] (less) -- node[right] {no} (cap);
+	\draw[arrow] (cap) -- (assign);
+	\draw[arrow] (assign) -- (update);
+	\draw[arrow] (update.west) -- ++(-1.5,0) |- node[pos=0.25, left] {next interval $\Delta$} (measure.west);
+	\end{tikzpicture}
+	}
+	\caption{Adaptive connection-scaling workflow. The client first computes the connection requirement induced by subscription density and the requirement induced by per-subscription backlog. The larger requirement determines the desired number of persistent connections, bounded by $C_{\max}$. If the cap is reached, the client assigns or moves subscriptions using a two-dimensional score that combines subscription-count pressure and backlog pressure. One DQL $a^{\mathrm{scale}+}$ decision creates at most one connection and then restores the subscription target through bounded receipt-gated reassociation.}
+	\Description{Flowchart beginning with observed subscription and backlog state. Parallel branches calculate connection requirements from subscription density and queue backlog, merge them into a bounded desired connection count, then compare desired and current counts. The yes branches open or close persistent connections; otherwise the workflow performs cap-aware two-dimensional subscription placement and returns to monitoring.}
+	\label{fig:scaling_workflow}
+\end{figure*}
+   
+
+\subsection{Adaptive Parallel Connection Scaling - Algorithm}
+
+\subsubsection{Mathematical Model}
+
+Unlike server-level placement, which changes the pod reached by a connection,
+connection scaling changes the amount of parallelism available to a client. In
+subscription-driven messaging systems, too few persistent connections can force
+many high-backlog subscriptions through the same processing path, increasing
+latency and delaying acknowledgements.
+
+The algorithms use the same backlog $b_{u,k}(t)$ and connection subscription
+count $N_{u,c}(t)$ as the formal model. For compactness, the single-client
+scaling counts below suppress the fixed client index $u$.
+
+Let the client-side subscription population be
+\begin{equation}
+	N_{\mathrm{sub}}(t)=|\mathcal{K}_u(t)|,
+\end{equation}
+where $\mathcal{K}_u(t)$ is the set of active subscriptions maintained by
+client $u$ at time $t$. Thus $N_{\mathrm{sub}}(t)$ counts subscriptions, not messages.
+
+Let the current connection count be
+\begin{equation}
+	C(t)=|\mathcal{C}_u(t)|,
+\end{equation}
+where $\mathcal{C}_u(t)$ is the set of active persistent transport connections
+used by client $u$ for message delivery at time $t$. Hence $C(t)$ is the
+current number of usable STOMP/TCP/WebSocket-style delivery connections before
+the scaling decision is applied. The retained statistics-only probe is not
+counted in $C(t)$ unless it is promoted into a
+persistent delivery connection.
+
+The desired count $C^\star(t)$ can differ from the amount executed in one DQL
+decision. Algorithm~\ref{alg:adaptive_parallel_scaling} computes the desired
+parallelism, whereas one $a^{\mathrm{scale}+}$ option adds at most one connection. It
+then moves whole subscriptions until no active connection exceeds $\Theta_N$,
+or until no eligible move remains. A subscription has exactly one active
+delivery binding outside the receipt-gated handoff interval; this mechanism does
+not split one subscription queue across several connections.
+Using the requirements defined below, the workflow abbreviates
+$C_{\mathrm{back}}(t)=\max_{k\in\mathcal{K}_u(t)}C_k(t)$ and
+$C^\star(t)=\max\{C_{\mathrm{sub}}(t),C_{\mathrm{back}}(t)\}$ for a nonempty subscription set.
+
+We define:
+
+\begin{itemize}
+	\item $\Theta_N$ : maximum desired subscription count per connection
+	\item $\beta$ : backlog threshold
+	\item $C_{\max}$ : maximum allowable connections
+\end{itemize}
+
+The complete notation reference is collected in Appendix~\ref{app:notation}.
+
+\subsubsection{Subscription-Based Scaling}
+
+As the number of subscriptions increases, each connection must handle more message streams. To prevent overload, the desired number of connections is defined as:
+
+\begin{equation}
+	C_{\mathrm{sub}}(t) =
+	\min\left(
+	\left\lceil \frac{N_{\mathrm{sub}}(t)}{\Theta_N} \right\rceil,
+	C_{\max}
+	\right)
+\end{equation}
+
+Here $\Theta_N$ is a configured subscription-density threshold: it is the
+maximum desired number of subscriptions assigned to one persistent connection
+under normal operating conditions. It is not learned by DQL and is not the
+DQL parameter vector $\theta$ used in $Q_\theta(o,a)$.
+
+If:
+
+\[
+C_{\mathrm{sub}}(t) > C(t)
+\]
+
+the desired count exceeds the current count. The policy may request one
+admissible scale-up action; the sizing calculation itself opens no sockets.
+
+The count rule bounds mean subscription density when sufficient capacity is
+available. A per-connection bound additionally requires the reassociations
+to complete; the executor records whether that target was restored.
+
+The sizing rule and the reassociation executor therefore have separate roles:
+one requests enough sockets, and the other redistributes eligible subscriptions.
+
+
+\subsubsection{Max-Cap Distribution Strategy}
+
+When:
+
+\[
+C(t) = C_{\max}
+\]
+
+further scaling is restricted. In this scenario, newly arriving subscriptions are assigned using load-aware distribution.
+
+Let:
+
+\begin{equation}
+	N_{u,c_j}(t)
+\end{equation}
+
+denote the number of subscriptions assigned to connection $c_j$.
+
+New subscriptions are assigned to the connection with the lowest combined
+subscription-count and backlog pressure:
+
+\begin{equation}
+	c^{\mathrm{place}} =
+	\arg\min_{c_j \in \mathcal{C}_u(t)}
+	\left(
+	\eta_N \widehat{N}_{u,c_j}(t)
+	+\eta_G \widehat{G}_{u,c_j}(t)
+	\right)
+\end{equation}
+
+This greedy balancing strategy avoids assigning new subscriptions to a
+connection that is already heavy either in subscription count or cumulative
+subscription backlog.
+Here $c^{\mathrm{place}}$ is the selected placement connection, while $c^\star$ is the
+connection evaluated for migration. The hats on $N_{u,c_j}$ and $G_{u,c_j}$
+denote normalized loads, not the normalized variances
+$\widehat{V}^N_u$ and $\widehat{V}^G_u$.
+
+\subsubsection{Backlog-Based Scaling}
+
+Subscription backlog signals queued work, but its cause may lie in Pod service,
+client acknowledgement capacity, or shared queue bandwidth. Scaling is useful
+when additional connections can reach otherwise unused service capacity.
+
+For subscription $k$, let backlog be:
+
+\begin{equation}
+	b_{u,k}(t)
+\end{equation}
+
+If:
+
+\[
+b_{u,k}(t) > \beta
+\]
+
+the configured backlog-pressure threshold has been crossed.
+
+The required number of connections is:
+
+\begin{equation}
+	C_k(t) =
+	\min\left(
+	\left\lceil \frac{b_{u,k}(t)}{\beta} \right\rceil,
+	C_{\max}
+	\right)
+\end{equation}
+
+If:
+
+\[
+C_k(t) > C(t)
+\]
+
+backlog suggests additional parallelism. The selector still decides whether
+to execute a bounded scaling action under the current guards.
+
+The additional capacity can then receive eligible whole subscriptions from
+loaded connections. Subscription $k$ itself remains active on exactly one
+connection; its queue is not partitioned by this mechanism. Thus backlog-based
+scaling can improve parallelism across a set of subscriptions, but it cannot
+parallelize the delivery of one indivisible subscription queue by itself.
+
+
+
+\subsubsection{Scaling Objective}
+
+The objective of adaptive parallel connection scaling is to minimize backlog while respecting connection constraints:
+
+\begin{equation}
+	\min \sum_{k\in\mathcal{K}_u(t)} b_{u,k}(t)
+\end{equation}
+
+subject to:
+
+\begin{equation}
+	C(t) \le C_{\max}
+\end{equation}
+
+This represents a constrained parallel resource allocation problem.
+
+
+\begin{algorithm}[htbp]
+\small
+\caption{Desired Connection Count (Sizing Only)}
+\label{alg:adaptive_parallel_scaling}
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+\Input{Subscription set $\mathcal{K}_u(t)$, backlogs $b_{u,k}(t)$;
+thresholds $\Theta_N,\beta$; hard cap $C_{\max}$}
+\Output{Desired count $C^\star(t)$; no connection mutation}
+$N_{\mathrm{sub}}(t)\leftarrow|\mathcal{K}_u(t)|$\;
+$C_{\mathrm{sub}}(t)\leftarrow
+\min\{\lceil N_{\mathrm{sub}}(t)/\Theta_N\rceil,C_{\max}\}$\;
+$C_{\mathrm{back}}(t)\leftarrow0$\;
+\ForEach{$k\in\mathcal{K}_u(t)$}{
+ $C_k(t)\leftarrow\min\{\lceil b_{u,k}(t)/\beta\rceil,C_{\max}\}$\;
+ $C_{\mathrm{back}}(t)\leftarrow\max\{C_{\mathrm{back}}(t),C_k(t)\}$\;
+}
+$C^\star(t)\leftarrow\max\{C_{\mathrm{sub}}(t),C_{\mathrm{back}}(t)\}$\;
+\Return $C^\star(t)$ as decision context for the selector\;
+\end{algorithm}
+
+\subsection{Connection-Level Load Rebalancing - Algorithm}
+
+\subsubsection{Motivation}
+
+Adaptive connection scaling increases processing capacity as subscription count or backlog grows. Scaling alone, however, does not guarantee an even workload. New subscriptions, changing backlogs, and scaling decisions made at different times can leave some connections with far more subscriptions than others.
+
+Such imbalance leads to:
+
+\begin{itemize}
+	\item Uneven CPU utilization
+	\item Increased processing latency on overloaded connections
+	\item Underutilized parallel capacity on lightly loaded connections
+\end{itemize}
+
+Therefore, a dedicated rebalancing mechanism is required to maintain fairness and stability across scaled connections.
+
+\subsubsection{Load Distribution Model}
+
+Connection load is represented by two variables. For connection $c$, $N_{u,c}(t)$
+is the number of subscriptions assigned to the connection, and $G_{u,c}(t)$ is
+the cumulative backlog of those subscriptions. The rebalancing controller
+therefore monitors both $V^N_u(t)$ and $V^G_u(t)$ as defined in the problem
+formulation.
+
+High $V^N_u(t)$ means that subscription-management work is skewed across the
+client's persistent connections. High $V^G_u(t)$ means that queue pressure is
+skewed even if subscription counts look balanced. Either condition can degrade
+delivery stability.
+
+\subsubsection{Rebalancing Objective}
+
+The local objective of connection-level rebalancing is:
+
+\begin{equation}
+	\min
+	\left(
+	\eta_N\widehat{V}^N_u(t)
+	+\eta_G\widehat{V}^G_u(t)
+	\right)
+\end{equation}
+
+subject to:
+
+\begin{equation}
+	1 \leq |\mathcal{C}_u(t)| \leq C_{\max}.
+\end{equation}
+
+This objective keeps both subscription-count skew and backlog skew under
+control.
+
+\subsubsection{Guarded Connection-Level Rebalancing Strategy}
+
+The two rebalancing templates have separate admissibility conditions:
+
+\begin{equation}
+	\widehat{V}^N_u(t) > \gamma_N
+	\quad \text{or} \quad
+	\widehat{V}^G_u(t) > \gamma_G.
+\end{equation}
+
+The DQL policy, rather than Algorithm~\ref{alg:connection_rebalancing}, decides
+whether the current observation calls for $a^{\mathrm{reb}N}$, $a^{\mathrm{reb}G}$, or another
+action. If it selects $a^{\mathrm{reb}N}$, the executor moves one eligible subscription
+from the connection with largest $N_{u,c}(t)$ to the connection with smallest
+$N_{u,c}(t)$. If it selects $a^{\mathrm{reb}G}$, the executor chooses the subscription
+whose reassociation from a high-backlog connection to a low-backlog connection
+produces the largest predicted decrease in $V^G_u(t)$. The corresponding
+threshold is then applied as a deterministic deployment guard. At most one
+bounded reassociation is executed in a control interval. This limits repeated
+back-and-forth moves and links the next reward to a clear action.
+
+\begin{algorithm}[htbp]
+	\small
+	\caption{Guarded Executor for DQL-Selected Connection-Level Rebalancing}
+	\label{alg:connection_rebalancing}
+	\SetAlgoLined
+	\SetKwInOut{Input}{Input}
+	\SetKwInOut{Output}{Output}
+	\Input{Selected template $a_u(t)\in\{a^{\mathrm{reb}N},a^{\mathrm{reb}G}\}$; connections $\mathcal{C}_u(t)$; subscription counts $N_{u,c}$; connection backlogs $G_{u,c}$; thresholds $\gamma_N,\gamma_G$}
+	\Output{Updated assignment, or the unchanged assignment when the selected template is inadmissible}
+	Compute $\widehat{V}^N_u(t)$ and $\widehat{V}^G_u(t)$\;
+	\eIf{$a_u(t)=a^{\mathrm{reb}N}$}{
+		\If{$\widehat{V}^N_u(t)\leq\gamma_N$}{
+			\Return unchanged assignment \tcp*[r]{Guarded no-op}
+		}
+		$c_h \leftarrow \arg\max_{c\in\mathcal{C}_u(t)}N_{u,c}(t)$\;
+		$c_l \leftarrow \arg\min_{c\in\mathcal{C}_u(t)}N_{u,c}(t)$\;
+		Select an eligible movable subscription $k$ from $c_h$ using a stable tie-break\;
+	}{
+		\If{$\widehat{V}^G_u(t)\leq\gamma_G$}{
+			\Return unchanged assignment \tcp*[r]{Guarded no-op}
+		}
+		$c_h \leftarrow \arg\max_{c\in\mathcal{C}_u(t)}G_{u,c}(t)$\;
+		$c_l \leftarrow \arg\min_{c\in\mathcal{C}_u(t)}G_{u,c}(t)$\;
+		Select eligible $k$ on $c_h$ maximizing the predicted decrease in $V^G_u(t)$\;
+	}
+	\If{$c_h=c_l$ or no eligible $k$ exists}{
+		\Return unchanged assignment \tcp*[r]{Guarded no-op}
+	}
+	Reassociate $k$ from $c_h$ to $c_l$ using the guarded executor\;
+	Update $N_{u,c_h},N_{u,c_l},G_{u,c_h},G_{u,c_l}$\;
+	\Return updated assignment\;
+\end{algorithm}
+
+Algorithm~\ref{alg:connection_rebalancing} carries out the selected action;
+it is not a second policy. In particular, it never compares
+$\widehat{V}^N_u(t)$ with $\widehat{V}^G_u(t)$ to decide which objective will
+dominate. These normalized quantities can have different observed
+distributions even though both are bounded. The selected DQL template is the
+stored action, while the reward and next observation reflect the executor
+outcome, including a guarded no-op. The learned value therefore accounts for whether an action can be executed,
+without introducing a second rebalancing policy.
+
+
+\subsection{DQL-Based Rebalancing and Placement Algorithm}
+This section presents the client-driven DQL controller under the observability
+constraints described above. Each client keeps a statistics cache with two sources.
+Active connections report their current pod's tuple every $\Delta=10$ seconds.
+An authenticated, statistics-only probe provides the other source. The load
+balancer assigns its endpoint when the socket is established. The
+client retains that socket and candidate-pod identity until promotion, expiry,
+or recycling while periodically obtaining the tuple in (\mainref{eq:pod_stats}). The controller then
+uses the observation vector in (\mainref{eq:dql_observation}) to select one of the
+action templates in (\mainref{eq:dql_actions}).
+
+\begin{figure*}[!htbp]
+\centering
+\begin{subfigure}{\textwidth}
+\centering
+\begin{tikzpicture}[
+ font=\small,
+ module/.style={draw,rounded corners=2pt,align=center,text width=34mm,minimum height=13mm,inner sep=3pt},
+ arrow/.style={-Latex,thick}]
+ \node[module,fill=blue!6] (measure) at (0,0) {Active sockets + probe\\Queues + ACK counters};
+ \node[module,fill=gray!8] (obs) at (4.6,0) {Observation builder\\21 normalized features};
+ \node[module,fill=blue!6] (online) at (9.2,0) {Online network\\$Q_\theta(o,a)$};
+ \node[module,fill=green!7] (policy) at (9.2,-2.3) {Masked selector\\$\epsilon$-greedy; frozen $\epsilon=0$};
+ \node[module,fill=orange!10] (guard) at (4.6,-2.3) {Recheck guards\\Freshness, capacity,\\cooldown, handoff};
+ \node[module,fill=green!7] (execute) at (0,-2.3) {Bounded executor\\Selected action\\or guarded stay};
+ \draw[arrow] (measure) -- (obs);
+ \draw[arrow] (obs) -- (online);
+ \draw[arrow] (online) -- node[right]{six Q-values} (policy);
+ \draw[arrow] (policy) -- (guard);
+ \draw[arrow] (guard) -- (execute);
+\end{tikzpicture}
+\caption{Runtime decision path. The target network is not on this path.}
+\end{subfigure}
+
+\medskip
+\begin{subfigure}{\textwidth}
+\centering
+\begin{tikzpicture}[
+ font=\small,
+ module/.style={draw,rounded corners=2pt,align=center,text width=34mm,minimum height=15mm,inner sep=3pt},
+ arrow/.style={-Latex,thick}, learn/.style={-Latex,thick,dashed}]
+ \node[module,fill=gray!8] (replay) at (0,0) {Replay sample\\Applied action, reward,\\next state + mask};
+ \node[module,fill=orange!10] (target) at (4.6,0) {Target calculation\\$y=r+\gamma\max Q_{\theta^-}(o',a')$};
+ \node[module,fill=blue!6] (update) at (9.2,0) {Online update\\Minimize $(y-Q_\theta(o,a))^2$};
+ \node[module,fill=orange!10] (copy) at (4.6,-2.2) {Target synchronization\\$\theta^-\leftarrow\theta$\\every 250 updates};
+ \draw[arrow] (replay) -- (target);
+ \draw[arrow] (target) -- (update);
+ \draw[learn] (update.south) |- (copy.east);
+ \draw[learn] (copy.north) -- (target.south);
+\end{tikzpicture}
+\caption{Training path for the evaluated v3 learner. Frozen evaluation disables updates.}
+\end{subfigure}
+\caption{DQL selection and learning are separate from the shared guarded
+executor. Solid arrows show runtime or training data flow; dashed arrows copy
+parameters to the target network. Only the online network ranks live actions.
+The target network stabilizes the next-state value used during training.}
+\Description{Two readable panels. The runtime path goes from telemetry through
+a 21-feature observation and online Q-network to masked selection, guard
+rechecks, and execution. The training path goes from replay to target
+calculation and online loss minimization, with a separate periodic target copy.}
+\label{fig:dql_message_flow}
+\end{figure*}
+
+\begin{figure*}[!htbp]
+\centering
+\begin{tikzpicture}[
+ font=\small,
+ module/.style={draw,rounded corners=2pt,align=center,text width=31mm,minimum height=18mm,inner sep=3pt},
+ arrow/.style={-Latex,thick}]
+ \node[module,fill=gray!8] (input) at (0,0) {Observation\\$o\in\mathbb{R}^{21}$\\Fixed feature order};
+ \node[module,fill=blue!6] (hidden) at (4.3,0) {Dense hidden layer\\32 ReLU units\\$h=\max(0,W_1o+b_1)$};
+ \node[module,fill=green!7] (output) at (8.6,0) {Linear output\\Six action values\\$\mathbf{q}=W_2h+b_2$};
+ \draw[arrow] (input) -- (hidden);
+ \draw[arrow] (hidden) -- (output);
+ \node[align=center,font=\small] at (4.3,-1.65)
+ {$W_1:32\times21,\quad b_1:32,\quad W_2:6\times32,\quad b_2:6$};
+\end{tikzpicture}
+\caption{The evaluated Q-network: 21 input features, one fully connected
+32-unit ReLU layer, and six linear outputs. Each arrow denotes a dense matrix
+operation, not a sparse connection between individual neurons. There are no
+separate learned feature encoders. The online and target networks have this
+same architecture and different parameter-update roles.}
+\Description{Three separated modules show the actual dense 21--32--6 network.
+The input feeds one ReLU hidden layer, which feeds six linear Q-values.
+Weight and bias dimensions appear below the modules.}
+\label{fig:dql_q_network_tree}
+\end{figure*}
+
+In Figure~\ref{fig:dql_q_network_tree}, $o$ abbreviates $o_u(t)$ and
+$\theta=(W_1,b_1,W_2,b_2)$. There are $902$ trainable scalar parameters in
+each network. The output order is
+$(a^{\mathrm{stay}},a^{\mathrm{reb}N},a^{\mathrm{reb}G},
+a^{\mathrm{scale}+},a^{\mathrm{scale}-},a^{\mathrm{mig}})$.
+Grouping features by meaning in (\mainref{eq:dql_observation}) does not introduce
+additional neural layers. Table~\ref{tab:dql-configuration} gives the
+evaluated v3 configuration; Appendix~\ref{app:feature-order} gives the exact
+input order and normalization.
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Configuration of the v3 DQL policy used in the reported holdout,
+scale-out simulator, and October live trial. Later learner variants are
+reported separately in Appendix~\ref{app:action-diagnostics}.}
+\Description{A reproducibility table of network dimensions, training settings,
+reward weights, exploration, and frozen evaluation settings.}
+\label{tab:dql-configuration}
+\begin{tabular}{p{0.38\textwidth}p{0.54\textwidth}}
+\toprule
+Setting & Value\\
+\midrule
+Network; optimizer & Dense 21--32--6; ReLU hidden, linear output; mini-batch gradient descent\\
+Discount; learning rate & $\gamma=0.99$; $\alpha=0.001$\\
+Replay; batch; target copy & Uniform replay, capacity 5,000; batch 16; copy every 250 updates\\
+Bootstrap; loss & Target-network maximum over admitted actions; squared TD error\\
+Training budget & 10,000 transitions per candidate; 9,985 updates after batch warm-up\\
+Training exploration & $\epsilon_0=1$, multiplier $\exp(\log(0.05)/10{,}000)$; floor 0.05\\
+Reward weights $(\lambda_1,\ldots,\lambda_7)$ & $(0.20,0.15,0.20,0.15,0.10,0.05,0.15)$\\
+Pressure weights $(\omega_X,\omega_B,\omega_H,\omega_R)$ & $(0.30,0.25,0.20,0.25)$\\
+Imbalance weights & $\eta_N=\eta_G=0.5$\\
+Frozen evaluation & $\epsilon=0$; no model or replay updates; checkpoint hash retained\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Reward-Based Learning}
+
+For every observed pod $i\in\mathcal{O}_u(t)$, the client computes pod pressure
+$P_i(t)$ from (\mainref{eq:pod_pressure}). This pressure explicitly penalizes both
+pod subscription count and pod cumulative backlog. The subscription-count term
+captures the observed reliability degradation of pods with excessive
+subscription-management load, while the backlog term captures queue
+accumulation. The threshold $H_i$ is used only as a capacity-normalized pressure
+term; it is not interpreted as the actual client-side drain rate.
+
+After action execution, the client computes reward $R_u(t)$ using
+(\mainref{eq:deployable_reward}). This reward includes local backlog, backlog
+growth, local connection imbalance, migration cost, connection cost, pod
+pressure, and effective client-side throughput. Hence the learned policy is
+trained using information that the client can actually observe at runtime.
+
+\subsubsection{Exploration, Hysteresis, and Migration}
+
+Let $\mathcal{A}^{\mathrm{adm}}_u(t)\subseteq\mathcal{A}$ contain only the templates
+that pass the current freshness, capacity, cooldown, and handoff guards. The
+DQL policy uses epsilon-greedy exploration over this masked set:
+\begin{equation}
+	a_u(t)=
+	\begin{cases}
+		\text{Uniform}(\mathcal{A}^{\mathrm{adm}}_u(t)), & \text{w.p. } \epsilon,\\
+		\arg\max_{a\in\mathcal{A}^{\mathrm{adm}}_u(t)} Q_\theta(o_u(t),a), & \text{w.p. } 1-\epsilon.
+	\end{cases}
+\end{equation}
+The exploration probability decreases during training. Frozen validation and
+deployment policies use $\epsilon=0$. This prevents unreviewed exploratory
+changes during evaluation. Online exploration would require a separate
+safety study. Migration is
+executed only when the selected action is $a^{\mathrm{mig}}$ and the retained probe
+candidate improves the estimated value by a hysteresis threshold:
+\begin{equation}
+	Q_\theta(o_u(t),a^{\mathrm{mig}}) >
+	Q_\theta(o_u(t),a^{\mathrm{stay}})+\delta.
+\end{equation}
+This threshold prevents oscillatory migrations caused by small or stale
+statistical differences. It does not choose the probe endpoint: the Kubernetes
+load balancer already fixed that endpoint when the probe socket was opened.
+Passing this value test is necessary but not sufficient. The executor also
+checks telemetry freshness, target capacity, source--target separation, cooldown,
+and the absence of a conflicting handoff. As a result, most probes
+can remain telemetry-only and may expire or be recycled without carrying a
+subscription.
+
+\begin{algorithm}[!htbp]
+	\small
+	\caption{DQL-Based Client-Side Persistent Transport Rebalancing}
+	\label{alg:dql_rebalancing}
+	\SetAlgoLined
+	\SetKwInOut{Input}{Input}
+	\SetKwInOut{Output}{Output}
+	\Input{Replay buffer $\mathcal{D}$; online network $Q_\theta$; target network $Q_{\theta^-}$\\
+	Observed pod set $\mathcal{O}_u(t)$ and its cached tuples $y_i(t)$; retained authenticated probe and endpoint $i^{\mathrm{probe}}_u(t)$\\
+	Exploration probability $\epsilon$; discount factor $\gamma$; migration threshold $\delta$; target $\Theta_N$; hard cap $C_{\max}$}
+	\Output{Adaptive rebalancing, scaling, and migration decisions}
+	$t\leftarrow0$; use the active delivery pool and one authenticated probe\;
+	Load the declared checkpoint; initialize networks/replay only for new training\;
+	\While{client is active}{
+		Update the pod cache from active and retained-probe telemetry\;
+		Measure per-subscription backlogs, connection loads, throughput, and acknowledgements\;
+		Construct observation $o_u(t)$ using (\mainref{eq:dql_observation})\;
+		Construct the masked admissible set $\mathcal{A}^{\mathrm{adm}}_u(t)$ from freshness, capacity, cooldown, and handoff guards\;
+		$a_u(t) \leftarrow \epsilon\text{-greedy}(Q_\theta,o_u(t),\mathcal{A}^{\mathrm{adm}}_u(t))$\;
+		\eIf{$a_u(t)\in\{a^{\mathrm{reb}N},a^{\mathrm{reb}G}\}$}{
+			Instantiate the selected template using Algorithm~\ref{alg:connection_rebalancing}\;
+		}{
+			\eIf{$a_u(t)=a^{\mathrm{mig}}$}{
+				\eIf{probe and handoff guards pass, including the hysteresis test}{
+					Promote the same retained probe and execute the receipt-gated handoff in Section~\mainref{sec:probe_handoff}\;
+					Open a new statistics-only probe through the load balancer after handoff\;
+				}{
+					Record a guarded no-op; preserve source ownership and probe role\;
+				}
+			}{
+				\eIf{$a_u(t)=a^{\mathrm{scale}+}$}{
+					\eIf{capacity and subscription-demand guards still pass}{
+						Open one connection; apply receipt-gated $a^{\mathrm{reb}N}$ moves until $\max_{c\in\mathcal{C}_u(t)}N_{u,c}(t)\leq\Theta_N$ or no move exists\;
+						Record move count and target-restored status\;
+					}{
+						Record a guarded no-op\;
+					}
+				}{
+					\eIf{$a_u(t)=a^{\mathrm{scale}-}$}{
+						Close one safe idle connection after rechecking its guard\;
+					}{
+						Preserve the current topology for $a^{\mathrm{stay}}$\;
+					}
+				}
+			}
+		}
+		Observe reward $R_u(t)$ from (\mainref{eq:deployable_reward}) and next observation $o_u(t+1)$\;
+		Log the applied action, reward, next observation, and guard outcome\;
+		\If{training is enabled and the transition is valid}{
+			Store the applied-action transition and next-state mask in $\mathcal{D}$\;
+			Update from a mini-batch using (\mainref{eq:dql_loss}); synchronize the target when due\;
+		}
+		Wait $\Delta$; $t\leftarrow t+1$\;
+	}
+	\Return policy and recorded action outcomes\;
+\end{algorithm}
+
+\begin{align}
+	\text{computeReward}(i,u,t)=R_u(t) =
+	&-\lambda_1\widehat{B}_u
+	-\lambda_2\widehat{\mathrm{Grow}}_u \nonumber\\
+	&-\lambda_3 P_i
+	-\lambda_4 V_u \nonumber\\
+	&-\lambda_5 M_u
+	-\lambda_6\widehat{C}_u
+	+\lambda_7\widehat{T}_u
+	\label{eq:reward_function}
+\end{align}
+The epsilon-greedy rule is therefore used as the exploration mechanism inside
+DQL, not as the main learning model. Unlike a stateless bandit controller, DQL
+can learn delayed effects. Scale-up with subscription restoration has an
+immediate connection and reassociation cost but may later reduce backlog growth.
+Migration may have an immediate penalty but later avoid an unreliable pod with
+too many subscriptions. A rebalancing move may help only after queues have had
+time to drain.
+
+
+
+\subsection{Hierarchical Optimization Structure}
+
+The resulting control structure has two complementary levels:
+
+\begin{enumerate}
+	
+	\item \textbf{Server-Level Optimization:}
+	The DQL controller selects migration only when the observed pod statistics
+	and local client state suggest that moving to a candidate pod is likely to
+	improve long-term reward after migration cost.
+	
+	\item \textbf{Connection-Level Optimization:}
+	The same policy decides when to rebalance subscriptions, increase or
+	decrease connection parallelism, or leave the current assignment unchanged.
+	
+\end{enumerate}
+
+This hierarchical design enables simultaneous optimization of:
+
+\begin{itemize}
+	\item Inter-server load distribution
+	\item Intra-client parallelism
+	\item Subscription fairness
+	\item Backlog reduction
+\end{itemize}
+
+The learned component does not create arbitrary subscription assignments.
+It chooses bounded action templates that the client can execute and check
+against deployment guards.
+

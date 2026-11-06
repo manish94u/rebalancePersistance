@@ -1,0 +1,243 @@
+\section{Policy Selection and Guarded Rebalancing}
+The framework places a policy selector above three concrete runtime mechanisms:
+pod migration, client-side connection scaling, and subscription redistribution
+across active connections. These mechanisms solve different parts of the same
+load-distribution problem. Migration changes where a connection terminates,
+scaling changes how much parallelism the client maintains, and rebalancing
+changes how subscriptions use that parallelism. Keeping the mechanisms
+separate makes each action deployable, while the selected policy decides which
+action is appropriate at a given control epoch.
+
+The separation between reward and feasibility is deliberate. Safe-RL research
+distinguishes performance optimization from constraint satisfaction
+\cite{Gu2024SafeRL}; a migration penalty alone cannot enforce ownership or
+readiness. Krasowski et al. distinguish action masking, replacement, and
+projection as intervention mechanisms \cite{Krasowski2023ProvablySafe}.
+Our masks and execution-time checks restrict the deployable actions, but do
+not confer the formal safety guarantees of a verified environment model.
+
+\subsection{Greedy and Learned Policy Roles}
+Both policy families use the client-visible measurements and deterministic
+execution checks defined above. In the scale-out study, the guarded-greedy
+selector requests $a^{\mathrm{mig}}$ whenever that action is admissible and
+otherwise stays. Its guard assesses projected source and target pressure
+after moving the selected subscription group, so a lightly subscribed but
+heavily backlogged candidate need not be accepted. The source-selection and
+pressure checks are shared with DQL; they are not learned from DQL's outcomes.
+
+The mixed-workload study uses a different deterministic comparator, labelled
+\emph{Heuristic}: it applies threshold rules for subscription-count and backlog
+imbalance as well as migration. The independent \emph{Scripted} timing controls
+use pressure-unaware schedules and are sensitivity controls, not substitutes
+for the stronger guarded-greedy comparison. Table~\ref{tab:policy-roles}
+keeps these identities distinct.
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Policy roles and the comparison each supports. Greedy and DQL share
+the rebalancing mechanism; the studies retain their original policy labels.}
+\Description{Five policy rows distinguish pressure-aware greedy migration,
+the multidimensional heuristic, DQL, random scripted schedules, and unchanged placement.}
+\label{tab:policy-roles}
+\begin{tabular}{p{0.19\textwidth}p{0.39\textwidth}p{0.32\textwidth}}
+\toprule
+Policy & Decision rule & Evidence role\\
+\midrule
+Guarded-greedy & Promote an admissible pressure-improving probe & Strong non-learning scale-out control\\
+Heuristic & Threshold rules over count, backlog, and placement & Non-learning multi-objective comparator\\
+Frozen DQL & Masked maximum learned action value; no evaluation updates & Learned multi-objective selector\\
+Scripted schedules & Fixed or jittered timing; random source and target & Pressure-unaware sensitivity controls\\
+Static / scale-out only & Retain established connection assignment & No-rebalancing reference\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The shared contribution is probe-guided actuation, not the invention of either
+greedy search or Q-learning. The experiments compare policy choices without
+feeding DQL's holdout decisions back into the scripted rules. Learning traces
+can inform separate development work, but automatic DQL-to-script tuning is
+not part of the evaluated system.
+\subsection{DQL State, Action, and Value Function}
+
+The client-side controller is modeled as a partially observable sequential
+decision problem. At each control epoch, client $u$ constructs an observation
+vector
+\begin{equation}
+	o_u(t)=
+	\left[
+	o^B_u(t),o^N_u(t),o^G_u(t),o^C_u(t),o^P_u(t),o^D_u(t)
+	\right],
+	\label{eq:dql_observation}
+\end{equation}
+where $o^B_u(t)$ contains normalized local backlog and backlog growth.
+The branch $o^N_u(t)$ describes subscription-count imbalance using terms such as
+$N_{u,c}(t)$ and $V^N_u(t)$. The branch $o^G_u(t)$ describes backlog imbalance
+using terms such as $G_{u,c}(t)$ and $V^G_u(t)$.
+The branch $o^C_u(t)$ contains connection count and effective throughput.
+The branch $o^P_u(t)$ contains pressure, subscription count, and cumulative
+backlog for the current and probe pods. Finally, $o^D_u(t)$ contains cooldown
+and statistics-staleness features. For current-pod features, $c^\star$ denotes
+the connection being evaluated. All quantities are normalized before they
+enter the Q-network.
+
+The DQL action space is defined using bounded action templates rather than all
+possible subscription assignments, which keeps the decision problem tractable:
+\begin{equation}
+	\mathcal{A}=
+	\{a^{\mathrm{stay}},a^{\mathrm{reb}N},a^{\mathrm{reb}G},a^{\mathrm{scale}+},a^{\mathrm{scale}-},a^{\mathrm{mig}}\}.
+	\label{eq:dql_actions}
+\end{equation}
+Here $a^{\mathrm{stay}}$ makes no change. The action $a^{\mathrm{reb}N}$ moves one subscription
+from the connection with the most subscriptions to the one with the fewest.
+The action $a^{\mathrm{reb}G}$ moves the subscription with the largest predicted decrease
+in backlog variance. The action $a^{\mathrm{scale}+}$ opens one new connection and,
+when allowed, makes bounded subscription moves toward the target $\Theta_N$.
+The action $a^{\mathrm{scale}-}$ closes a subscription-free connection only if the
+remaining connections meet the required capacity and observed backlog is zero.
+The action $a^{\mathrm{mig}}$ requests promotion of the retained probe. It transfers the
+evaluated connection or bounded subscription group only if the admissibility
+and hysteresis conditions pass. The DQL network selects
+the action template; it does not choose an arbitrary Pod or directly change a
+subscription assignment. The deterministic executor computes the concrete
+source connection, target connection, and subscription using the load-aware
+rules in Algorithms~\suppref{alg:adaptive_parallel_scaling} and
+\suppref{alg:connection_rebalancing}, and may reject an inapplicable template as a
+guarded no-op.
+Here $\Theta_N$ is the configured maximum desired subscription count per
+connection, not the network parameter vector $\theta$.
+The evaluated legacy checkpoint uses a compatible action profile; both
+scaling actions are disabled in the loaded cluster trial. The later
+cap-restoring scale-up contract is distinct. Table~\suppref{tab:action-contract-map}
+retains these version boundaries and their evaluation scope.
+DQL uses two action-value networks with the same architecture but different
+roles. The online network $Q_\theta(o,a)$ is the trainable network used for
+current action evaluation and epsilon-greedy action selection. The target
+network $Q_{\theta^-}(o,a)$ is a delayed copy of the online network. It is not
+used for selecting the live action and is not updated by every gradient step;
+it is used only to compute a stable Bellman target for the next observation.
+For a transition
+$\xi_t=(o_u(t),a_u(t),R_u(t),o_u(t+1))$ sampled from replay buffer
+$\mathcal{D}$, the target is
+\begin{equation}
+	y_t =
+	R_u(t) + \gamma
+	\max_{a'\in\mathcal{A}^{\mathrm{adm}}_u(t+1)}Q_{\theta^-}(o_u(t+1),a'),
+	\label{eq:dql_target}
+\end{equation}
+where $\gamma\in[0,1)$ is the discount factor and $\theta^-$ denotes the target
+network parameters. The set $\mathcal{A}^{\mathrm{adm}}_u(t+1)\subseteq\mathcal{A}$
+contains the actions admitted by the next observation's execution guards;
+an infeasible action cannot supply the bootstrap value. The equation applies
+to non-terminal transitions. At a true terminal state, $y_t=R_u(t)$.
+An interrupted observation window is not assigned an artificial terminal
+reward. The online network parameters $\theta$ are trained by
+minimizing
+\begin{equation}
+	\mathcal{L}(\theta)=
+	\mathbb{E}_{\xi_t\sim\mathcal{D}}
+	\left[
+	\left(y_t-Q_\theta(o_u(t),a_u(t))\right)^2
+	\right].
+	\label{eq:dql_loss}
+\end{equation}
+Every $K_{\mathrm{sync}}$ training updates, the target network is synchronized by copying the
+online parameters, $\theta^- \leftarrow \theta$. This separation prevents the
+same rapidly changing network from defining both the prediction
+$Q_\theta(o_u(t),a_u(t))$ and the target $y_t$. The parameters $\theta$ and
+$\theta^-$ contain all network weights and biases; $\Theta_N$ is instead a
+subscription-count threshold. The learning rate $\alpha$ controls the update
+$\theta\leftarrow\theta-\alpha\nabla_\theta\mathcal{L}(\theta)$ and is
+distinct from the imbalance weights $\eta_N,\eta_G$.
+This formulation makes rebalancing a sequential control problem: a migration,
+new connection, or subscription move can reduce future backlog but may incur
+immediate migration or connection cost.
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Configuration of the v3 DQL policy used in the reported holdout,
+scale-out simulator, and October live trial. Later learner variants are
+reported separately in Appendix~\suppref{app:action-diagnostics}.}
+\Description{A reproducibility table of network dimensions, training settings,
+reward weights, exploration, and frozen evaluation settings.}
+\label{tab:dql-configuration}
+\begin{tabular}{p{0.38\textwidth}p{0.54\textwidth}}
+\toprule
+Setting & Value\\
+\midrule
+Network; optimizer & Dense 21--32--6; ReLU hidden, linear output; mini-batch gradient descent\\
+Discount; learning rate & $\gamma=0.99$; $\alpha=0.001$\\
+Replay; batch; target copy & Uniform replay, capacity 5,000; batch 16; copy every 250 updates\\
+Bootstrap; loss & Target-network maximum over admitted actions; squared TD error\\
+Training budget & 10,000 transitions per candidate; 9,985 updates after batch warm-up\\
+Training exploration & $\epsilon_0=1$, multiplier $\exp(\log(0.05)/10{,}000)$; floor 0.05\\
+Reward weights $(\lambda_1,\ldots,\lambda_7)$ & $(0.20,0.15,0.20,0.15,0.10,0.05,0.15)$\\
+Pressure weights $(\omega_X,\omega_B,\omega_H,\omega_R)$ & $(0.30,0.25,0.20,0.25)$\\
+Imbalance weights & $\eta_N=\eta_G=0.5$\\
+Frozen evaluation & $\epsilon=0$; no model or replay updates; checkpoint hash retained\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Shared Control Loop}
+Algorithm~\ref{alg:compact-control} summarizes the policy-independent runtime.
+The full sizing and rebalancing executors and the DQL training loop are
+retained in Section~\suppref{app:runtime-details}.
+
+\begin{algorithm}[!htbp]
+\small
+\caption{Probe-Guided Selection and Guarded Execution}
+\label{alg:compact-control}
+\SetKwInOut{Input}{Input}
+\Input{Active connections, retained probe, declared policy and action profile}
+\While{client is active}{
+ Read active/probe telemetry and client queue/ACK counters\;
+ Construct observation and freshness, capacity, cooldown and handoff masks\;
+ Select an admitted action using the declared greedy or DQL policy\;
+ Recheck guards before applying the selected action\;
+ \eIf{migration is selected and admitted}{
+  Prepare standby bindings on the same probe; await receipts\;
+  Quiesce the source; wait for fresh zero-in-flight telemetry\;
+  Activate target bindings; detach source bindings; retire the source socket\;
+  Retain unselected sessions and replenish the empty probe\;
+ }{
+  Execute the admitted bounded rebalancing/scaling action, or stay\;
+ }
+ Record the applied action, observed reward and guard outcome\;
+ Update learning state only in a declared training run with a valid transition\;
+}
+\end{algorithm}
+\subsubsection{Exploration, Hysteresis, and Migration}
+
+Let $\mathcal{A}^{\mathrm{adm}}_u(t)\subseteq\mathcal{A}$ contain only the templates
+that pass the current freshness, capacity, cooldown, and handoff guards. The
+DQL policy uses epsilon-greedy exploration over this masked set:
+\begin{equation}
+	a_u(t)=
+	\begin{cases}
+		\text{Uniform}(\mathcal{A}^{\mathrm{adm}}_u(t)), & \text{w.p. } \epsilon,\\
+		\arg\max_{a\in\mathcal{A}^{\mathrm{adm}}_u(t)} Q_\theta(o_u(t),a), & \text{w.p. } 1-\epsilon.
+	\end{cases}
+\end{equation}
+The exploration probability decreases during training. Frozen validation and
+deployment policies use $\epsilon=0$. This prevents unreviewed exploratory
+changes during evaluation. Online exploration would require a separate
+safety study. Migration is
+executed only when the selected action is $a^{\mathrm{mig}}$ and the retained probe
+candidate improves the estimated value by a hysteresis threshold:
+\begin{equation}
+	Q_\theta(o_u(t),a^{\mathrm{mig}}) >
+	Q_\theta(o_u(t),a^{\mathrm{stay}})+\delta.
+\end{equation}
+This threshold prevents oscillatory migrations caused by small or stale
+statistical differences. It does not choose the probe endpoint: the Kubernetes
+load balancer already fixed that endpoint when the probe socket was opened.
+Passing this value test is necessary but not sufficient. The executor also
+checks telemetry freshness, target capacity, source--target separation, cooldown,
+and the absence of a conflicting handoff. As a result, most probes
+can remain telemetry-only and may expire or be recycled without carrying a
+subscription.
+
+The exact network input order, normalization constants, and deterministic
+comparator thresholds are retained in Section~\suppref{app:feature-order} of the
+Online Supplementary Material. Checkpoint persistence and full execution
+details are in Section~\suppref{app:runtime-details}.

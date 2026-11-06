@@ -1,0 +1,384 @@
+\Needspace{16\baselineskip}
+\section{Notation Reference}
+\label{app:notation}
+The tables collect the detailed definitions used in the model and experimental endpoints.
+
+\Needspace{12\baselineskip}
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{5pt}
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.29\linewidth}|>{\raggedright\arraybackslash}p{\dimexpr0.71\linewidth-4\tabcolsep-3\arrayrulewidth\relax}|}
+\caption{Summary of Notations: System Sets and Pod Pressure}\label{tab:notation}\\
+\hline
+\textbf{Symbol} & \textbf{Description} \\ \hline
+\endfirsthead
+\caption[]{Summary of Notations: System Sets and Pod Pressure (continued)}\\
+\hline
+\textbf{Symbol} & \textbf{Description} \\ \hline
+\endhead
+\multicolumn{2}{r}{\footnotesize Continued on next page}\\
+\endfoot
+\endlastfoot
+\multicolumn{2}{|c|}{\textbf{Server-Level Placement Variables}} \\ \hline
+		
+		$\mathcal{S}=\{1,\ldots,n\}$, $\mathcal{U}=\{1,\ldots,m\}$
+		& Sets of Pod indices and client indices; $n$ and $m$ are their counts \\ \hline
+
+		$t$, $T$, $\Delta$
+		& Decision-epoch index, last epoch, and seconds per epoch; adjacent epochs are $t$ and $t+1$ \\ \hline
+
+		$\mathcal{K}_u(t)$, $\mathcal{C}_u(t)$
+		& Client $u$'s subscription set and active delivery-connection set \\ \hline
+
+		$\mathcal{K}_{u,c}(t)$, $z_{u,k,c}(t)$
+		& Subscriptions assigned to connection $c$ and the binary indicator of that assignment \\ \hline
+
+		$Q_{u,k}(t)$, $b_{u,k}(t)$
+		& Subscription queue and its backlog count, $b_{u,k}(t)=|Q_{u,k}(t)|$ \\ \hline
+
+		$i_{u,c}(t)$, $\mathcal{O}_u(t)$
+		& Pod index reached by connection $c$ and set of Pod indices observed by client $u$ \\ \hline
+
+		$p_i$, $y_i(t)$
+		& Pod name and reported tuple $(p_i,X_i(t),B_i(t),H_i)$; $y_i(t)$ is not the scalar Bellman target $y_t$ \\ \hline
+
+		$\mathcal{R}_i(t)$
+		& Set of server-side subscription queues currently served by pod $i$ \\ \hline
+
+		$\tilde{b}_{i,r}(t)$
+		& Backlog of server-side subscription queue $r\in\mathcal{R}_i(t)$ \\ \hline
+
+		$X_i(t)$
+		& Pod-level subscription count for pod $i$ \\ \hline
+
+		$B_i(t)$
+		& Cumulative backlog over all subscription queues served by pod $i$ \\ \hline
+
+		$H_i$
+		& Configured maximum processing threshold for Pod $i$ in events/s, used as a normalization signal \\ \hline
+
+		$X_{\mathrm{safe}}$
+		& Subscription-count level after which pod reliability risk begins to increase \\ \hline
+
+		$X_{\mathrm{hard}}$
+		& Hard subscription-count reference used to normalize severe subscription pressure, with $X_{\mathrm{hard}}>X_{\mathrm{safe}}$ \\ \hline
+
+		$B_{\mathrm{ref}}$
+		& Reference backlog used to normalize pod backlog pressure \\ \hline
+
+		$P^X_i(t)$
+		& Normalized pod subscription-count pressure \\ \hline
+
+		$P^B_i(t)$
+		& Normalized pod cumulative-backlog pressure \\ \hline
+
+		$P^H_i(t)$
+		& Backlog pressure normalized by $H_i\Delta+\varepsilon_0$, then clipped at one \\ \hline
+
+		$\varepsilon_0$, $[x]_+$
+		& Positive denominator offset in messages and positive part $\max\{x,0\}$; distinct from exploration probability $\epsilon$ \\ \hline
+
+		$P^R_i(t)$
+		& Nonlinear pod reliability-risk pressure caused by excessive subscription count \\ \hline
+
+		$P_i(t)$
+		& Weighted pod pressure score used in the deployable reward \\ \hline
+
+		$\omega_X,\omega_B,\omega_H,\omega_R$
+		& Nonnegative weights for subscription-count, backlog, threshold-relative backlog, and reliability-risk pressure terms \\ \hline
+\end{longtable}
+\endgroup
+
+\Needspace{12\baselineskip}
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{5pt}
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.29\linewidth}|>{\raggedright\arraybackslash}p{\dimexpr0.71\linewidth-4\tabcolsep-3\arrayrulewidth\relax}|}
+\caption{Summary of Notations: DQL Observation and Reward Symbols}\label{tab:notation_dql}\\
+\hline
+\textbf{Symbol} & \textbf{Description} \\ \hline
+\endfirsthead
+\caption[]{Summary of Notations: DQL Observation and Reward Symbols (continued)}\\
+\hline
+\textbf{Symbol} & \textbf{Description} \\ \hline
+\endhead
+\multicolumn{2}{r}{\footnotesize Continued on next page}\\
+\endfoot
+\endlastfoot
+$J_T$
+		& Offline finite-horizon system evaluation cost over epochs $0,\ldots,T$ \\ \hline
+
+		$\Phi_X(t)$
+		& Pod subscription-count variance across the cluster at time $t$ \\ \hline
+
+		$M(t)$
+		& Total number of migration or reconnect operations during epoch $t$ \\ \hline
+
+		$\Lambda_B,\Lambda_X,\Lambda_C,\Lambda_M$
+		& Nonnegative weights in the offline evaluation objective for backlog, pod balance, connection balance, and migration churn \\ \hline
+		
+		$T_u(t)$ 
+		& Effective client-side throughput from delivered, processed, and acknowledged messages \\ \hline
+		
+		$R_u(t)$ 
+		& Deployable reward observed by client $u$ at time $t$ \\ \hline
+		
+		$Q_\theta(o,a)$ 
+		& Online DQL action-value network used for action selection and gradient updates \\ \hline
+
+		$Q_{\theta^-}(o,a)$
+		& Target DQL action-value network used only to compute Bellman targets \\ \hline
+
+		$\theta,\theta^-$
+		& Online-network parameters and delayed target-network parameters \\ \hline
+
+		$\mathcal{D}$, $\xi_t$
+		& Replay buffer and transition $(o_u(t),a_u(t),R_u(t),o_u(t+1))$ \\ \hline
+
+		$y_t$, $\mathcal{L}(\theta)$
+		& Scalar Bellman target and mean squared temporal-difference loss \\ \hline
+
+		$\alpha$, $K_{\mathrm{sync}}$
+		& Online-network learning rate and target-copy interval in training updates \\ \hline
+		
+		$\gamma$ 
+		& DQL discount factor \\ \hline
+		
+		$\epsilon$ 
+		& Exploration probability in the DQL epsilon-greedy action policy \\ \hline
+		
+		$\delta$ 
+		& Required Q-value improvement of migration over stay; distinct from variance thresholds $\gamma_N,\gamma_G$ \\ \hline
+		
+		$\lambda_1,\ldots,\lambda_7$ 
+		& Weight coefficients used in the deployable reward function \\ \hline
+		
+		$o_u(t)$ 
+		& Client observation vector used by the DQL policy \\ \hline
+
+		$o^B_u(t)$
+		& Backlog observation branch containing normalized local backlog and backlog growth features \\ \hline
+
+		$o^N_u(t)$
+		& Subscription-count observation branch containing normalized $N_{u,c}(t)$ and $V^N_u(t)$ features \\ \hline
+
+		$o^G_u(t)$
+		& Backlog-load imbalance observation branch containing normalized $G_{u,c}(t)$ and $V^G_u(t)$ features \\ \hline
+
+		$o^C_u(t),o^P_u(t),o^D_u(t)$
+		& Connection-count/throughput, pod-pressure, and decision-state observation branches \\ \hline
+		
+		$\mathcal{A}$ 
+		& Set of bounded DQL action templates \\ \hline
+
+		$\mathcal{A}^{\mathrm{adm}}_u(t)$
+		& Subset of action templates admitted by client $u$'s guards at time $t$, used for action selection and next-state Bellman maximization \\ \hline
+
+		$i^{\mathrm{probe}}_u(t)$
+		& Pod endpoint bound to client $u$'s currently retained, load-balancer-assigned probe socket \\ \hline
+
+		$a_u(t)$, $a'$
+		& Selected action at epoch $t$ and candidate next-epoch action in Bellman maximization \\ \hline
+\end{longtable}
+\endgroup
+
+\Needspace{12\baselineskip}
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{5pt}
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.29\linewidth}|>{\raggedright\arraybackslash}p{\dimexpr0.71\linewidth-4\tabcolsep-3\arrayrulewidth\relax}|}
+\caption{Summary of Notations: Connection Scaling and Local Counters}\label{tab:notation_connection}\\
+\hline
+\textbf{Symbol} & \textbf{Description} \\ \hline
+\endfirsthead
+\caption[]{Summary of Notations: Connection Scaling and Local Counters (continued)}\\
+\hline
+\textbf{Symbol} & \textbf{Description} \\ \hline
+\endhead
+\multicolumn{2}{r}{\footnotesize Continued on next page}\\
+\endfoot
+\endlastfoot
+\multicolumn{2}{|c|}{\textbf{Connection Scaling Variables}} \\ \hline
+		
+		$C(t)$ 
+		& Number of active persistent delivery connections for client $u$ at time $t$, $C(t)=|\mathcal{C}_u(t)|$ \\ \hline
+		
+		$C_{\max}$ 
+		& Maximum allowable client connections \\ \hline
+		
+		$N_{\mathrm{sub}}(t)$ 
+		& Total number of active subscriptions maintained by client $u$ at time $t$, $N_{\mathrm{sub}}(t)=|\mathcal{K}_u(t)|$ \\ \hline
+		
+		$\Theta_N$ 
+		& Maximum desired subscription count per connection used by the scaling rule \\ \hline
+		
+		$\beta$ 
+		& Backlog threshold per subscription \\ \hline
+		
+		$b_{u,k}(t)$
+		& Client-observed backlog of subscription queue $k$ for client $u$ \\ \hline
+		
+		$C_{\mathrm{sub}}(t)$ 
+		& Required connections based on total subscription count \\ \hline
+		
+		$C_k(t)$ 
+		& Client connection-count requirement triggered by subscription $k$'s backlog; not multiple owners for that queue \\ \hline
+
+		$C_{\mathrm{back}}(t)$, $C^\star(t)$
+		& Maximum backlog-based requirement and desired connection count after combining scaling requirements \\ \hline
+
+		$c^{\mathrm{place}}$, $c^\star$
+		& Connection chosen for new-subscription placement and connection evaluated for migration \\ \hline
+
+		$\widehat{N}_{u,c}(t)$, $\widehat{G}_{u,c}(t)$
+		& Normalized subscription-count and backlog loads used by the placement score \\ \hline
+
+		$B_u(t)$, $\mathrm{Grow}_u(t)$
+		& Sum of client $u$'s subscription backlogs and its positive increase since the previous epoch \\ \hline
+
+		$T^{\mathrm{del}}_u(t)$, $T^{\mathrm{proc}}_u(t)$, $T^{\mathrm{ack}}_u(t)$
+		& Delivered, processed, and acknowledged message rates in events/s; their minimum is $T_u(t)$ \\ \hline
+
+		$\widehat{B}_u(t)$, $\widehat{\mathrm{Grow}}_u(t)$, $\widehat{T}_u(t)$
+		& Normalized backlog, backlog growth, and throughput under the experiment's stated scaling convention \\ \hline
+
+		$M_u(t)$, $\widehat{C}_u(t)$
+		& Migration indicator or normalized count, and active connection fraction $C(t)/C_{\max}$ \\ \hline
+\end{longtable}
+\endgroup
+
+\Needspace{12\baselineskip}
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{5pt}
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.29\linewidth}|>{\raggedright\arraybackslash}p{\dimexpr0.71\linewidth-4\tabcolsep-3\arrayrulewidth\relax}|}
+\caption{Summary of Notations: Connection Rebalancing Symbols}\label{tab:notation_rebalancing}\\
+\hline
+\textbf{Symbol} & \textbf{Description} \\ \hline
+\endfirsthead
+\caption[]{Summary of Notations: Connection Rebalancing Symbols (continued)}\\
+\hline
+\textbf{Symbol} & \textbf{Description} \\ \hline
+\endhead
+\multicolumn{2}{r}{\footnotesize Continued on next page}\\
+\endfoot
+\endlastfoot
+\multicolumn{2}{|c|}{\textbf{Connection-Level Rebalancing Variables}} \\ \hline
+		
+		$N_{u,c}(t)$
+		& Number of subscriptions of client $u$ assigned to connection $c$ at time $t$ \\ \hline
+
+			$G_{u,c}(t)$
+			& Cumulative backlog load on connection $c$, computed from the subscription queues assigned to that connection \\ \hline
+
+			$c_h,c_l$
+			& Source high-load connection and target low-load connection used in a rebalancing move \\ \hline
+
+			$V^N_u(t)$
+			& Connection-level subscription-count variance across client $u$'s active persistent connections \\ \hline
+
+			$\bar{N}_u(t)$, $\bar{G}_u(t)$
+			& Mean subscription count and mean cumulative backlog across client $u$'s active connections \\ \hline
+
+			$V^G_u(t)$
+			& Connection-level backlog-load variance across client $u$'s active persistent connections \\ \hline
+
+			$\widehat{V}^N_u(t),\widehat{V}^G_u(t)$
+			& Normalized subscription-count and backlog-load variance terms used in the local imbalance score \\ \hline
+
+			$V^N_{\mathrm{ref}},V^G_{\mathrm{ref}}$
+			& Positive variance references used to normalize $V^N_u(t)$ and $V^G_u(t)$ \\ \hline
+
+			$\sigma^{N}_{\mathrm{tol}}$
+			& Tolerable standard deviation of subscription counts across a client's active connections \\ \hline
+
+			$\sigma^{G}_{\mathrm{tol}}$
+			& Tolerable standard deviation of cumulative backlog load across a client's active connections \\ \hline
+
+			$\Delta_N$
+			& Operator-chosen tolerable spread between a heavy and a light connection in subscription count \\ \hline
+
+			$\Delta_G$
+			& Operator-chosen tolerable spread between a heavy and a light connection in cumulative backlog messages \\ \hline
+
+			$\widehat{r}^{\mathrm{ack}}_{u}$
+			& Conservative client-observed ACK or message-processing rate for client $u$ \\ \hline
+
+			$\tau_G$
+			& Acceptable additional drain-time skew used to derive a latency-driven backlog spread \\ \hline
+
+			$\rho_N$
+			& Fraction of $\Theta_N$ used to set the default subscription-count imbalance tolerance \\ \hline
+
+			$\rho_G$
+			& Fraction of $\beta\Theta_N$ used to set the default backlog-load imbalance tolerance \\ \hline
+
+			$V_u(t)$
+			& Weighted local connection-imbalance score for client $u$ \\ \hline
+
+			$\eta_N,\eta_G$
+			& Nonnegative weights for subscription-count imbalance and backlog-load imbalance, with $\eta_N+\eta_G=1$ \\ \hline
+			
+			$\gamma_N,\gamma_G$ 
+			& Thresholds triggering subscription-count and backlog-based connection rebalancing \\ \hline
+\end{longtable}
+\endgroup
+\Needspace{12\baselineskip}
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{5pt}
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.29\linewidth}|>{\raggedright\arraybackslash}p{\dimexpr0.71\linewidth-4\tabcolsep-3\arrayrulewidth\relax}|}
+\caption{Summary of Notations: Handoff and Experimental Endpoints}\label{tab:notation_handoff_metrics}\\
+\hline
+\textbf{Symbol} & \textbf{Description} \\ \hline
+\endfirsthead
+\caption[]{Summary of Notations: Handoff and Experimental Endpoints (continued)}\\
+\hline
+\textbf{Symbol} & \textbf{Description} \\ \hline
+\endhead
+\multicolumn{2}{r}{\footnotesize Continued on next page}\\
+\endfoot
+\endlastfoot
+$\mathcal{K}_{\mathrm{move}}$, $s_b$, $s_f$
+		& Selected subscription set, barrier timestamp after source quiescence, and source telemetry-frame timestamp \\ \hline
+		$I_{c_h,k}(s_f)$, $\operatorname{state}_{c_h,k}(s_f)$
+		& Source-reported in-flight count and delivery state for subscription $k$ at frame time $s_f$ \\ \hline
+		$c_p$, $i_h$, $i_l$
+		& Probe socket and Pod indices reached by $c_h$ and $c_l$ in the architecture figure \\ \hline
+		$\ell_k^{\mathrm{act}}$, $t_k^{\mathrm{send}}$, $t_k^{\mathrm{ready}}$
+		& Activation latency and submission/receipt timestamps in seconds; $\ell_k^{\mathrm{act}}=t_k^{\mathrm{ready}}-t_k^{\mathrm{send}}$ \\ \hline
+		$A^{\mathrm{act}}(s)$
+		& Number of receipt-confirmed activations by elapsed time $s$ in seconds \\ \hline
+		$t_c^{\mathrm{open}}$, $t_c^{\mathrm{exp}}$, $T_{\mathrm{TTL}}$, $J_c$
+		& Connection opening and nominal expiry timestamps, TTL in seconds, and integer jitter in minutes \\ \hline
+		$d_c$, $h_c$, $r_c$
+		& Disconnect, replacement-CONNECTED, and full binding-restoration timestamps in seconds \\ \hline
+		$T_c^{\mathrm{conn}}$, $T_c^{\mathrm{restore}}$
+		& Transport reconnect and full restoration durations, measured from $d_c$ \\ \hline
+		$T_u^{\mathrm{handoff}}$, $T_u^{\mathrm{drain}}$
+		& Measured total handoff and source-drain durations for client $u$ in seconds \\ \hline
+		$\mathcal{C}_0$, $I_c(s)$, $F(s)$
+		& Initial trial connection pool, unrestored-connection indicator, and affected fraction at elapsed time $s$ \\ \hline
+		$D_{\mathrm{obs}}$, $A_{\mathrm{conf}}$
+		& Recorded delivery attempts and attempts with confirmed ACK receipts \\ \hline
+		$B(t)$, $\mathrm{AUC}_B$
+		& Total backlog in the evaluated population and its normalized trapezoidal area over $T$ intervals \\ \hline
+		$Y_{\pi,j,v}$, $d_v$, $D_{j,v}$
+		& Episode mean for policy $\pi$, episode $j$, metric $v$; benefit direction; and signed paired difference \\ \hline
+		$\mathrm{RB}_v$, $p_H$, $d_z$
+		& Relative benefit in percent, Holm-adjusted $p$-value, and paired standardized mean difference \\ \hline
+		$J$, $R^{\mathrm{train}}_\ell$
+		& Number of logged training transitions and the reward recorded for transition $\ell$ \\ \hline
+		$M^{\mathrm{ep}}$, $n_{\mathrm{ep}}$
+		& Migration count in one episode and number of sampled episodes, distinct from client count $m$ and Pod count $n$ \\ \hline
+		$W_1,b_1,W_2,b_2$, $h(o)$
+		& Weights and biases of the 21--32--6 Q-network, and its single ReLU hidden representation \\ \hline
+		$\mathbf{q}_\theta(o)$
+		& Vector of online Q-values, one per action in $\mathcal{A}$, with $o=o_u(t)$ \\ \hline
+\end{longtable}
+\endgroup

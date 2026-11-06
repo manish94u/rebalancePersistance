@@ -1,0 +1,160 @@
+{
+  "schema": "oaes-dql-study-protocol/v1",
+  "study_id": "oaes-dql-v6-cap-restoring-scale-up-factorial",
+  "preregistered_at_utc": "2026-09-13T13:07:58Z",
+  "status": "locked-before-development",
+  "study_kind": "development-only-factorial",
+  "venue_target": "ACM Transactions on Autonomous and Adaptive Systems",
+  "parent_action_preflight": "oaes-dql-v6-scale-up-cap-restoration",
+  "parent_action_preflight_protocol_sha256": "29a2a100e8d6078ef9883b3299b823bff668911197941049fa3e93120f9ce15c",
+  "parent_action_preflight_evidence_index_sha256": "90fb7f24a0b33c1356d9bda151893a8a3423ec51a88059b3fa1153d1be5f21a6",
+  "action_contract_version": "oaes-dql-actions/v2-cap-restoring-scale-up",
+  "evidence_boundary": {
+    "purpose": "Repeat the numerical-stability factorial after correcting the scale+ action contract, without changing the reward or learner hyperparameters.",
+    "holdout": "This study has no holdout seed bank and cannot generate a publication performance comparison.",
+    "next_stage": "A learner arm may be frozen for a separately registered holdout only if at least four of five candidates pass every action, reward-alignment, and safety gate."
+  },
+  "method_revision": {
+    "reason": "The V5 audit found that open-only scale+ reduced its named metric but lowered scalar reward. The locked preflight showed that cap-restoring scale+ improves both quantities.",
+    "changed": [
+      "scale+ opens exactly one connection and restores the configured subscription target through bounded rebN reassociation before the next DQL choice",
+      "the rebalancing target is explicitly distinct from and no greater than the transport hard limit",
+      "scripted scenario adequacy requires both target-metric improvement and scalar-reward improvement",
+      "scale+ is admissible only when subscription density requires another active connection"
+    ],
+    "unchanged": [
+      "21-feature observation schema",
+      "one-hidden-layer network with 32 hidden units and six action heads",
+      "seven reward terms and all reward weights",
+      "discount 0.99 and learning rate 0.001",
+      "replay capacity 5000 and batch size 16",
+      "action-stratified replay",
+      "target synchronization every 250 updates",
+      "100-step training episodes",
+      "seven performance scenarios and four safety scenarios",
+      "500-step validation episodes",
+      "80 percent per-action episode-coverage threshold"
+    ]
+  },
+  "learner_arms": [
+    {
+      "arm_id": "A-target-max-squared",
+      "bootstrap_strategy": "target-max",
+      "td_loss": "squared",
+      "huber_delta": 1.0
+    },
+    {
+      "arm_id": "B-double-squared",
+      "bootstrap_strategy": "double-dql",
+      "td_loss": "squared",
+      "huber_delta": 1.0
+    },
+    {
+      "arm_id": "C-target-max-huber",
+      "bootstrap_strategy": "target-max",
+      "td_loss": "huber",
+      "huber_delta": 1.0
+    },
+    {
+      "arm_id": "D-double-huber",
+      "bootstrap_strategy": "double-dql",
+      "td_loss": "huber",
+      "huber_delta": 1.0
+    }
+  ],
+  "candidate_seeds": [19001, 19009, 19031, 19051, 19069],
+  "training_transitions_per_candidate": 20000,
+  "training_episode_steps": 100,
+  "validation_seeds": [20011, 20021, 20047, 20063, 20089, 20101, 20117, 20129, 20143, 20161],
+  "holdout_seed_bank": "none",
+  "holdout_seeds": [],
+  "evaluation_episode_steps": 500,
+  "training_analysis_set": "performance",
+  "performance_scenarios": [
+    "deployment_connection_count_skew",
+    "deployment_tiered_backlog",
+    "deployment_client_slowdown",
+    "deployment_pod_pressure_skew",
+    "deployment_scale_up_pressure",
+    "deployment_scale_down_idle",
+    "deployment_distribution_shift"
+  ],
+  "safety_scenarios": [
+    "failure_stale_active_telemetry",
+    "failure_unavailable_probe",
+    "failure_stale_probe_telemetry",
+    "failure_probe_miss"
+  ],
+  "action_contracts": {
+    "rebN": {
+      "scenario": "deployment_connection_count_skew",
+      "metric": "mean_connection_subscription_variance",
+      "preferred_direction": "lower",
+      "reward_direction": "higher"
+    },
+    "rebG": {
+      "scenario": "deployment_tiered_backlog",
+      "metric": "mean_connection_backlog_variance",
+      "preferred_direction": "lower",
+      "reward_direction": "higher"
+    },
+    "scale+": {
+      "scenario": "deployment_scale_up_pressure",
+      "metric": "mean_max_connection_subscriptions",
+      "preferred_direction": "lower",
+      "reward_direction": "higher",
+      "executor": "open one connection and restore the configured subscription target"
+    },
+    "scale-": {
+      "scenario": "deployment_scale_down_idle",
+      "metric": "mean_connection_cost",
+      "preferred_direction": "lower",
+      "reward_direction": "higher"
+    },
+    "migrate": {
+      "scenario": "deployment_pod_pressure_skew",
+      "metric": "mean_pod_pressure",
+      "preferred_direction": "lower",
+      "reward_direction": "higher"
+    }
+  },
+  "scenario_adequacy": {
+    "require_action_admissible": true,
+    "require_action_selected": true,
+    "require_target_metric_improvement": true,
+    "require_mean_scalar_reward_improvement": true,
+    "difference_definition": "scripted action minus static on paired development traces"
+  },
+  "candidate_eligibility": {
+    "minimum_action_episode_coverage": 0.8,
+    "require_all_action_contracts": true,
+    "require_all_safety_contracts": true,
+    "require_zero_selected_forbidden_actions": true
+  },
+  "arm_qualification": {
+    "minimum_eligible_candidates": 4,
+    "candidate_count": 5,
+    "rule": "At least four of five independently initialized candidates must pass every intended-action coverage gate and every safety contract."
+  },
+  "arm_selection": {
+    "primary_rank": "number of eligible candidates, descending",
+    "secondary_rank": "median validation reward over all five candidates, descending",
+    "cross_loss_bellman_ranking": "prohibited because squared and Huber losses have unlike numerical scales",
+    "tie_rule": "An exact tie after primary and secondary ranking remains unresolved.",
+    "failure_rule": "If no arm qualifies, do not consume a holdout and retain all arms as negative development evidence."
+  },
+  "candidate_selection": "Within each arm, select the highest mean validation reward among gate-eligible candidates. If none is eligible, retain the highest-reward candidate for diagnosis only.",
+  "holdout_policies": [],
+  "primary_endpoint": {
+    "metric": "eligible candidate count",
+    "preferred_direction": "higher",
+    "success_rule": "At least four of five candidates in one arm pass every action-coverage and safety gate."
+  },
+  "secondary_endpoints": [
+    "median validation reward",
+    "per-action episode coverage",
+    "training action counts",
+    "within-loss Bellman loss diagnostics"
+  ],
+  "claim_boundary": "This factorial is development evidence only. It cannot support a baseline-performance claim or replace exclusive Mumbai cluster validation."
+}

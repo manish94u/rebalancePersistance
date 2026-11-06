@@ -1,0 +1,33 @@
+# Local environments and generated experiment output are not publication data.
+.vnv/
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+/results/
+/simulator/output/
+**/tmp/
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.xdv
+# Do not version credentials or private cloud evidence.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.oci/
+.kube/
+kubeconfig*
+private/
+raw-cluster-logs/
+*.sqlite
+*.sqlite3
+*.db
