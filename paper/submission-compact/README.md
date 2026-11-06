@@ -29,6 +29,9 @@ summaries, added related-work/evaluation context, and compact control-loop algor
 `editorial-bridges.tex`. Original detailed algorithms remain in the supplement.
 The [reference-restoration record](../../docs/REFERENCE_RESTORATION.md) maps each
 added citation to its role. Existing research passages and results are preserved.
+The main paper's reviewer-artifact paragraph also links the public GitHub
+repository and lists its contents. This availability-only addition leaves the
+43-reference count and all scientific claims unchanged.
 
 The main paper retains the shared greedy/DQL framing, retained-probe architecture,
 receipt-gated protocol, core mathematical definitions, 20,000-subscription

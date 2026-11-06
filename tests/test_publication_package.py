@@ -14,6 +14,12 @@ spec.loader.exec_module(checker)
 
 
 class PublicationPackageTests(unittest.TestCase):
+    def test_manuscript_links_the_public_research_repository(self):
+        compact = ROOT / "paper/submission-compact"
+        link = r"\url{https://github.com/manish94u/rebalancePersistance}"
+        self.assertIn(link, (compact / "sections/main-holdout.tex").read_text())
+        self.assertIn(link, (compact / "editorial-bridges.tex").read_text())
+
     def test_main_paper_has_43_explicitly_cited_references(self):
         compact = ROOT / "paper/submission-compact"
         text = (compact / "Main_Manuscript.tex").read_text()

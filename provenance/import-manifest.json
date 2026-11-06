@@ -383,9 +383,9 @@
     {
       "path": "paper/submission-compact/Main_Manuscript.pdf",
       "source_sha256": "484a053ecc6cee54bf157033062c77582cfc7aa327e6c7ba1430c595b7fc07f7",
-      "previous_packaged_sha256": "4af2bc04b8e5f0b411d3b2128fc259808d8145109f79822aea47849fc4a36cad",
-      "packaged_sha256": "76a09a3278651cc055706119738710b0d5208e6566c639316033649a29c13ea0",
-      "change_reason": "Restore 18 existing references to relevant main-paper context for 43 cited works; refresh the two PDFs, extraction records, and documentation. Original results, equations, figures, evidence, and reference source unchanged."
+      "previous_packaged_sha256": "76a09a3278651cc055706119738710b0d5208e6566c639316033649a29c13ea0",
+      "packaged_sha256": "ea816326702770fdd16f4239f19fa41eae9377c8a122b45735acb77d689aa0a4",
+      "change_reason": "Add the public GitHub repository URL and artifact contents to the main manuscript availability paragraph; refresh PDFs and related build/documentation records. Original scientific text, results, 43 main-paper references, and private-code boundary preserved."
     },
     {
       "path": "paper/submission-compact/Main_Manuscript.tex",
@@ -397,9 +397,9 @@
     {
       "path": "paper/submission-compact/Online_Appendix.pdf",
       "source_sha256": "d145539236911824c5f7645f40dce0ac9ce2941f3a72deba10fe031c83fd5b73",
-      "previous_packaged_sha256": "63a3ad7fe9a2f18e0385579775c5c4a3ac4bdd913ec8b5ea25fc3753c8b0a8b9",
-      "packaged_sha256": "f0619eac198eeced6c7f6ae214ad70026e025fca20378b069cbabc659fa4345a",
-      "change_reason": "Restore 18 existing references to relevant main-paper context for 43 cited works; refresh the two PDFs, extraction records, and documentation. Original results, equations, figures, evidence, and reference source unchanged."
+      "previous_packaged_sha256": "f0619eac198eeced6c7f6ae214ad70026e025fca20378b069cbabc659fa4345a",
+      "packaged_sha256": "68c664bf21eaf6f6cb83265d1c38a3ebed858d2aaf61bb817cc8f792ee446ea5",
+      "change_reason": "Add the public GitHub repository URL and artifact contents to the main manuscript availability paragraph; refresh PDFs and related build/documentation records. Original scientific text, results, 43 main-paper references, and private-code boundary preserved."
     },
     {
       "path": "paper/submission-compact/Online_Appendix.tex",
@@ -415,9 +415,9 @@
     {
       "path": "paper/submission-compact/README.md",
       "source_sha256": "365cdaafd724cc7bd56ddebd79e7c426d6fea83a13e48c0a0afe3496622a1d9d",
-      "previous_packaged_sha256": "3614f742462c319a0559eb70602298ab0f7136017312dc398ac5e4f924d8c782",
-      "packaged_sha256": "1625381ae684da45859a168201b005b4ac586e35fed885e929a571d71992b3b9",
-      "change_reason": "Restore 18 existing references to relevant main-paper context for 43 cited works; refresh the two PDFs, extraction records, and documentation. Original results, equations, figures, evidence, and reference source unchanged."
+      "previous_packaged_sha256": "1625381ae684da45859a168201b005b4ac586e35fed885e929a571d71992b3b9",
+      "packaged_sha256": "1de3d695a915bcea3615923f1b503d2edeed02dae92341d94080d2c1f4e9c7f1",
+      "change_reason": "Add the public GitHub repository URL and artifact contents to the main manuscript availability paragraph; refresh PDFs and related build/documentation records. Original scientific text, results, 43 main-paper references, and private-code boundary preserved."
     },
     {
       "path": "paper/submission-compact/System-Architecture.jpg",
@@ -426,9 +426,9 @@
     {
       "path": "paper/submission-compact/assemble_submission.py",
       "source_sha256": "2132b7544834e564bceb206f3efe4cea6fa021ffb25453a666d011efa3bed9e7",
-      "previous_packaged_sha256": "361993aa8279298588cceb4f88f37db423fee833b16f309c55f7015607ae4f28",
-      "packaged_sha256": "6715873fa45160cf0a06cf8372ebf779b1ac47c95b310b5b80ba1e6bc9c49b2a",
-      "change_reason": "Restore 18 existing references to relevant main-paper context for 43 cited works; refresh the two PDFs, extraction records, and documentation. Original results, equations, figures, evidence, and reference source unchanged."
+      "previous_packaged_sha256": "6715873fa45160cf0a06cf8372ebf779b1ac47c95b310b5b80ba1e6bc9c49b2a",
+      "packaged_sha256": "2c1d0785b0b50b45bf78d792495aab29f4adab38b865bc8f3459991c97c7c3ad",
+      "change_reason": "Add the public GitHub repository URL and artifact contents to the main manuscript availability paragraph; refresh PDFs and related build/documentation records. Original scientific text, results, 43 main-paper references, and private-code boundary preserved."
     },
     {
       "path": "paper/submission-compact/build_submission.py",
@@ -439,9 +439,9 @@
     {
       "path": "paper/submission-compact/editorial-bridges.tex",
       "source_sha256": "8cfbb0b36cb9e46560e6bd95744a70f267311ee1de0233cb23735af9ea1f3ed7",
-      "previous_packaged_sha256": "8cfbb0b36cb9e46560e6bd95744a70f267311ee1de0233cb23735af9ea1f3ed7",
-      "packaged_sha256": "ceb8bc7fe2f7f5eb629a995b6566dfb61d816fe8b5f07dff3e03f51bd07bbbeb",
-      "change_reason": "Restore 18 existing references to relevant main-paper context for 43 cited works; refresh the two PDFs, extraction records, and documentation. Original results, equations, figures, evidence, and reference source unchanged."
+      "previous_packaged_sha256": "ceb8bc7fe2f7f5eb629a995b6566dfb61d816fe8b5f07dff3e03f51bd07bbbeb",
+      "packaged_sha256": "951cae2dafde757dc547682c3d0981586aa5a1818cca19211107fb9b7e46259f",
+      "change_reason": "Add the public GitHub repository URL and artifact contents to the main manuscript availability paragraph; refresh PDFs and related build/documentation records. Original scientific text, results, 43 main-paper references, and private-code boundary preserved."
     },
     {
       "path": "paper/submission-compact/evidence/persistent-scaleout-recovery-complete/persistent_scaleout_backlog_recovery.pdf",
@@ -562,7 +562,10 @@
     },
     {
       "path": "paper/submission-compact/sections/main-holdout.tex",
-      "source_sha256": "ebf1a218716d6390b69e96936617156631a3f140d90c80eb19a0dcb0797f27a4"
+      "source_sha256": "ebf1a218716d6390b69e96936617156631a3f140d90c80eb19a0dcb0797f27a4",
+      "previous_packaged_sha256": "ebf1a218716d6390b69e96936617156631a3f140d90c80eb19a0dcb0797f27a4",
+      "packaged_sha256": "cf1751d934584d776a4041057755baa8fe2b0942ccd221d54b916e9453f0869e",
+      "change_reason": "Add the public GitHub repository URL and artifact contents to the main manuscript availability paragraph; refresh PDFs and related build/documentation records. Original scientific text, results, 43 main-paper references, and private-code boundary preserved."
     },
     {
       "path": "paper/submission-compact/sections/main-introduction.tex",
